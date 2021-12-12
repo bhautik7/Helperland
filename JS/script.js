@@ -21,3 +21,27 @@ jQuery('.dropdown-menu li a').click(function() {
     var _this_img = jQuery(this).attr('data-img');
     jQuery(this).closest('.btn-group').find(' .dropdown-toggle img').attr('src', _this_img);
 })
+
+
+// for FAQ page start
+
+$(document).ready(function() {
+    $("#accordionExample2").css({ "display": "none" })
+    $("#accordionExample").css({ "display": "block" })
+
+    $("#labelCustomer").click(function() {
+        $(this).css({ "background-color": "#1d7a8c", "color": "white" });
+        $("#labelServiceProvider").css({ "background-color": "#f6f6f6", "color": "#666666" });
+        $("#accordionExample2").css({ "display": "none" });
+        $("#accordionExample").css({ "display": "block" });
+    })
+
+    $("#labelServiceProvider").click(function() {
+        $(this).css({ "background-color": "#1d7a8c", "color": "white", "cursor": "pointer" });
+        $("#labelCustomer").css({ "background-color": "#f6f6f6", "color": "#666666", "cursor": "pointer" });
+        $("#accordionExample").css({ "display": "none" })
+        $("#accordionExample2").css({ "display": "block" })
+    })
+})
+
+// for FAQ page end

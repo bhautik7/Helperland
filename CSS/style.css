@@ -345,6 +345,130 @@ input::-webkit-input-placeholder {
     margin: 0 390px 0 10px;
 }
 
+
+/* FAQ PAGE */
+
+.faqNav {
+    background-color: rgba(82, 82, 82, 0.9);
+}
+
+.faqNavLogo {
+    height: 54px;
+    width: 73px;
+}
+
+.FAQTitle {
+    font-size: 36px;
+    color: #4F4F4F;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.star-design::after {
+    position: relative;
+    bottom: 12px;
+    left: 5px;
+    content: " ";
+    display: block;
+    border-bottom: 2px solid #dddddd;
+    width: 70px;
+}
+
+.star-design::before {
+    position: relative;
+    bottom: 12px;
+    right: 5px;
+    content: " ";
+    display: block;
+    border-bottom: 2px solid #dddddd;
+    width: 70px;
+}
+
+#FAQPara {
+    max-width: 498px;
+    color: #646464;
+    font-size: 18px;
+    margin: auto;
+}
+
+.labl {
+    display: block;
+    max-width: 472px;
+    font-size: 24px;
+    padding: 0px !important;
+}
+
+.labelCustomer {
+    background-color: #1d7a8c;
+    color: white;
+    cursor: pointer;
+}
+
+.labelServiceProvider {
+    background-color: #f6f6f6;
+    color: #666666;
+    cursor: pointer;
+}
+
+#FAQSections {
+    border-bottom: 5px solid #1d7a8c;
+}
+
+.faq-item {
+    border: none !important;
+}
+
+.faq-question {
+    color: #646464 !important;
+    font-weight: bold !important;
+    background-color: white !important;
+    border: none !important;
+}
+
+.faq-question-text {
+    padding: 0 10px !important;
+    border: none !important;
+}
+
+.faq-content {
+    color: #646464;
+    padding: 0 50px !important;
+    border: none !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none !important;
+}
+
+.accordion-button::before {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: auto;
+    content: "";
+    background-image: url("../images/right-arrow.png");
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.accordion-button:not(.collapsed)::before {
+    background-image: url("../images/right-arrow.png");
+    transform: rotate(90deg);
+}
+
+.accordion-button:not(.collapsed)::after,
+.accordion-button::after {
+    background-image: none !important;
+}
+
+
+/* media query */
+
 @media (max-width: 992px) {
     .navbar-collapse {
         background-color: rgb(41, 41, 41);
