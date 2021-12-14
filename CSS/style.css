@@ -593,6 +593,15 @@ input::-webkit-input-placeholder {
 }
 
 
+/* price page ended*/
+
+.aboutPara {
+    color: #646464;
+    letter-spacing: 0px;
+    opacity: 1;
+}
+
+
 /* media query */
 
 @media (max-width: 992px) {
