@@ -348,7 +348,7 @@ input::-webkit-input-placeholder {
 
 /* FAQ PAGE */
 
-.faqNav {
+.smlNav {
     background-color: rgba(82, 82, 82, 0.9);
 }
 
@@ -464,6 +464,132 @@ input::-webkit-input-placeholder {
 .accordion-button:not(.collapsed)::after,
 .accordion-button::after {
     background-image: none !important;
+}
+
+
+/* FAQ page :end */
+
+
+/* price page started */
+
+.priceCard {
+    border: 1px solid #b0c9ce;
+}
+
+.priceCard h2 {
+    background-color: #1d7a8c;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 12px 0 13px 0;
+}
+
+.priceCard h3 {
+    color: #646464;
+    font-size: 48px;
+}
+
+.priceCard h3 span {
+    font-size: 30px;
+}
+
+.priceCard ul {
+    list-style-type: none;
+    text-align: left;
+    padding: 15px 0 0 150px;
+}
+
+.priceCard ul li {
+    padding: 6px 0;
+}
+
+.p-16 {
+    color: #646464;
+}
+
+.p-bold-18 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d7a8c;
+}
+
+.pageTitle {
+    font-size: 36px;
+    font-weight: 500;
+    color: #4f4f4f;
+}
+
+.hrLine {
+    margin-left: 210px;
+    margin-right: 210px;
+}
+
+#extraServices div>div {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    border: 1px solid #B0C9CE;
+}
+
+#extraServices div img {
+    position: relative;
+    top: 27px;
+}
+
+#extraServices div img#oven {
+    top: 35px;
+}
+
+#cleaningPart {
+    padding: 30px 0;
+}
+
+#cleaningPart div div {
+    padding: 0px;
+}
+
+#cleaningPart ul {
+    list-style-type: none;
+    padding: 0px;
+    height: 225px;
+}
+
+#cleaningPart ul li {
+    padding: 6px 0;
+}
+
+#cleaningPart h3 {
+    color: #4F4F4F;
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+#FAQWhyHelperland>div#first h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #646464;
+    text-align: right;
+}
+
+#FAQWhyHelperland>div#first p {
+    font-size: 14px;
+    color: #646464;
+    text-align: right !important;
+}
+
+#FAQWhyHelperland>div#second h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #646464;
+    text-align: left;
+}
+
+#FAQWhyHelperland>div#second p {
+    font-size: 14px;
+    color: #646464;
+    text-align: left;
+    max-width: 285px;
 }
 
 

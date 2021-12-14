@@ -44,4 +44,12 @@ $(document).ready(function() {
     })
 })
 
+
 // for FAQ page end
+
+// price page start
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
+// price page end
