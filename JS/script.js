@@ -1,10 +1,11 @@
 $(document).ready(function() {
     var scroll_start = 0;
-    var startchange = $('#site-header');
-    var offset = startchange.offset();
+    var offSet = 0;
+    var startchange = $('#header');
+    offSet = startchange.offset();
     $(document).scroll(function() {
         scroll_start = $(this).scrollTop();
-        if (scroll_start > offset.top) {
+        if (scroll_start > offSet.top) {
             $('#nav').css({ "background-color": "rgba(82, 82, 82, 0.9)" });
             $('#navlogo').css({ "height": "54px", "width": "73px" })
         } else {
@@ -17,6 +18,7 @@ $(document).ready(function() {
         $("#policy").addClass("d-none");
     });
 });
+
 jQuery('.dropdown-menu li a').click(function() {
     var _this_img = jQuery(this).attr('data-img');
     jQuery(this).closest('.btn-group').find(' .dropdown-toggle img').attr('src', _this_img);
@@ -53,3 +55,6 @@ function scrollToTop() {
 }
 
 // price page end
+
+
+// service provider page
