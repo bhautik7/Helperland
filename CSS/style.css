@@ -723,6 +723,194 @@ input::-webkit-input-placeholder {
 /* service provider page end */
 
 
+/* upcoming page start */
+
+.bell-icon {
+    width: 72px;
+    border-left: 2px solid #E1E1E1;
+    border-right: 2px solid #E1E1E1;
+}
+
+.welcome {
+    padding: 43px 0px;
+    background-color: #F9F9F9;
+    border: 1px solid #E1E1E1;
+}
+
+.wlc_txt {
+    font-size: 30px;
+}
+
+#admin-panel {
+    padding: 30px 0px;
+}
+
+#admin-panel .container-fluid {
+    margin: auto;
+    overflow: hidden;
+}
+
+.tab {
+    max-width: 262px;
+    min-width: 212px;
+    min-height: 712px;
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #1D7A8C;
+    width: 30%;
+    height: 300px;
+}
+
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: #FFFFFF;
+    padding: 17px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+}
+
+.tab .tablinks {
+    height: 55px;
+}
+
+.tab hr {
+    margin: 0px;
+    color: #FFFFFF;
+}
+
+.tab button:hover {
+    background-color: #146371;
+}
+
+.tab button.active {
+    background-color: #146371;
+}
+
+.tabcontent {
+    float: left;
+    padding: 0px 0px 0px 31px;
+    width: 70%;
+    min-height: 300px;
+    /*overflow-x: auto;
+    overflow-y: auto;*/
+}
+
+.table {
+    border: 1px solid #E1E1E1;
+    min-width: 700px;
+}
+
+.table thead {
+    background-color: #F9F9F9;
+    height: 49px;
+}
+
+.table thead tr th p {
+    margin: 5px 0px;
+    font-weight: bold;
+}
+
+.table tbody tr th p {
+    margin: 0px;
+}
+
+.table tbody tr td p {
+    margin: 0px;
+    line-height: 1.5;
+}
+
+.table>:not(:last-child)>:last-child>* {
+    border-bottom-color: #E1E1E1;
+}
+
+#table_cancel_btn {
+    background-color: #FF6B6B;
+    border-radius: 17px
+}
+
+#table_rateSP_btn {
+    background-color: #6DA9B5;
+    border-radius: 17px;
+}
+
+#status_completed {
+    background-color: #67B644;
+    font-size: 13px;
+    color: white;
+    height: 24px;
+    width: 80px;
+    padding: 2px 5px;
+    /* margin-bottom: 13px; */
+}
+
+#status_cancelled {
+    background-color: #FF6B6B;
+    font-size: 13px;
+    color: white;
+    height: 24px;
+    width: 80px;
+    padding: 2px 5px;
+}
+
+#cap {
+    margin-left: -50px;
+    margin-top: 10px;
+}
+
+#cap_img {
+    border-radius: 50%;
+    border: 1px solid #AAAAAA;
+    padding: 10px 5px;
+    vertical-align: middle;
+}
+
+#cap-side {
+    margin-top: -40px;
+}
+
+.ajust {
+    display: flex;
+    justify-content: space-between;
+    margin-left: -12px;
+}
+
+.export_btn {
+    color: white;
+    background-color: #146371;
+    border-radius: 50px;
+    height: 34px;
+    width: 80px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+
+/* upcoming page end */
+
+
+/* service history page start */
+
+.serviceHeader {
+    font-size: 22px;
+    color: #646464;
+}
+
+.payment {
+    color: #1D7A8C;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* service history page end */
+
+
 /* media query */
 
 @media screen and (max-width: 560px) {
@@ -769,5 +957,58 @@ input::-webkit-input-placeholder {
         background-color: rgb(41, 41, 41);
         text-align: left !important;
         padding-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #policy {
+        height: 100px;
+        bottom: 0;
+    }
+    #policy p {
+        margin: 0;
+    }
+    #sectionourBlog img {
+        width: 202px;
+        height: 168px;
+    }
+    #homepage-footer {
+        flex-direction: column;
+    }
+    #footer-list {
+        flex-direction: column;
+        text-align: center;
+        /* flex: 0 0 100%; */
+    }
+    #chatSymbol {
+        display: none;
+    }
+    #newsletterEmail {
+        flex-direction: column !important;
+        align-items: center;
+    }
+    #newsletterEmail>div>button {
+        margin-top: 10px;
+    }
+    .priceCard ul {
+        padding-left: 50px;
+    }
+    #FAQWhyHelperland>div#second h3 {
+        text-align: center;
+    }
+    #FAQWhyHelperland>div#second p {
+        text-align: center;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+    #FAQWhyHelperland>div#first h3 {
+        text-align: center;
+    }
+    #FAQWhyHelperland>div#first p {
+        text-align: center !important;
+        margin: auto !important;
+        /* padding-bottom: 20px; */
+        max-width: 285px;
+        padding: 0 0 20px 0 !important;
     }
 }
