@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Service Request</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <!-- javascirpt -->
+
+
+    <!-- bootstrap 5 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jquery 3.6.0 -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="JS/script.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark fixed-top navbar-expand-lg" id="navUser">
+        <div class="container-fluid">
+            <a class="navbar-brand me-auto" href="#">
+                <h1>helperland</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=" navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav d-flex align-items-lg-center justify-content-lg-end justify-content-sm--t" id="navw">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">
+                            <div class="admin-icon d-flex justify-content-center align-items-center">
+                                <img src="images/admin-user.png" alt="admin-user">
+                                <p>James Smith</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">
+                            <div class="shutdown-icon d-flex justify-content-center">
+                                <img src="images/logout.png" alt="notifications">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="Sidebar" id="sidebar">
+            <ul class="navul">
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <span class="menu-title">Service Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Role Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Coupon Code Management</span>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Coupon Codes</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Usage History</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Escalation Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Service Requests</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Service Providers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">User Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title"> Finance Module</span>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">All Transactions</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Generate Payment</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Customer Invoices</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Zip Code Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Rating Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Inquiry Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Newsletter Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Content Management</span>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Blog</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">FAQs</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ui-basic">
+                        <span class="menu-title">Role Management</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tabcontent" id="UserManagement">
+            <div class="tab-head d-flex align-items-center justify-content-between">
+                <div>
+                    <h3>Service Requests</h3>
+                </div>
+
+            </div>
+
+            <div class="user-details">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-1 form-input">
+                            <input type="text" class="form-control" id="service_id" placeholder="Service ID" style="height: 46px;" />
+                        </div>
+                        <div class="col-2 form-input">
+                            <select class="form-select" aria-label="Subject">
+                                <option selected>Customer</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                             </select>
+                        </div>
+                        <div class="col-2 form-input">
+                            <select class="form-select" aria-label="Subject">
+                                <option selected>Service Provider</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-1 form-input">
+                            <select class="form-select" aria-label="Subject">
+                                <option selected>Status</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-2 form-input">
+                            <input type="text" class="form-control from-date" placeholder="Form Date" style="height: 46px;" />
+                        </div>
+                        <div class="col-2 form-input">
+                            <input type="text" class="form-control from-date" placeholder="To Date" style="height: 46px;" />
+                        </div>
+
+                        <div class="col-1 form-input">
+                            <button type="button" class="btn btn-outline-light search-btn">Search</button>
+                        </div>
+                        <div class="col-1 form-input">
+                            <button type="button" class="btn btn-outline-light clear-btn">Clear</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="tab-table">
+                <div class=" table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <p>Service ID <img src="images/sort.png"></p>
+                                </th>
+                                <th scope="col">
+                                    <p>Service Date <img src="images/sort.png"></p>
+                                </th>
+                                <th scope="col">
+                                    <p>coustomer details <img src="images/sort.png"></p>
+                                </th>
+                                <th scope="col">
+                                    <p>Service Provider <img src="images/sort.png"></p>
+                                </th>
+                                <th scope="col">
+                                    <p>Status <img src="images/sort.png"></p>
+                                </th>
+                                <th scope="col">
+                                    <p>Actions <img src="images/sort.png"></p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light new-btn">New</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light new-btn">New</button>
+                                </td>
+
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light pending-btn">Pending</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light pending-btn">Pending</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light complete_btn">Completed</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light complete_btn">Completed</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light cancell_btn">Cancelled</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light pending-btn">Pending</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light new-btn">New</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row" class="align-middle">
+                                    <p>323436</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p><img src="images/calendar2.png" style="margin-bottom: 7px"> <b>09/04/2018</b><br>
+                                        <img src="images/layer-14.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>David Bough<br>
+                                        <img src="images/layer-15.png" style="vertical-align: text-bottom;"> Musterstrabe 5,12345 Bonn</p>
+
+                                </td>
+                                <td class="align-middle">
+                                    <div id="cap">
+                                        <img src="./images/cap.png" alt="" id="cap_img">
+                                    </div>
+                                    <div id="cap-side">
+                                        <p>Lyum Watson<br>
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star1.png">
+                                            <img src="images/star2.png"> 4
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-light pending-btn">Pending</button>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <button type="button" onclick="myFunction()" class="btn dropbtn">
+                                            <img class="drop_button" src="./images/group-38.png" alt=""> 
+                                         </button>
+                                    </div>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <a href="#">Active</a>
+                                        <a href="#">Deactive</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                </div>
+            </div>
+
+        </div>
+</body>
+
+</html>
