@@ -638,6 +638,7 @@ input::-webkit-input-placeholder {
 
 #banner .register-form {
     max-width: 430px;
+    min-height: 580px;
     background-color: #ffffff;
     margin: 50px auto 44px;
     padding: 19px 35px;
