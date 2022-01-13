@@ -298,6 +298,12 @@ input::-webkit-input-placeholder {
     right: 50px;
 }
 
+#chat {
+    position: fixed;
+    bottom: 150px;
+    right: 50px;
+}
+
 #homepage-footer {
     background-color: #111111;
     padding: 25px 0 5px;
