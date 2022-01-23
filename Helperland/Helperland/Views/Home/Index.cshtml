@@ -1,0 +1,353 @@
+﻿
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Home Page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+
+     <script src="~/js/site.js"></script>
+</head>
+
+
+<body>
+    <section id="header">
+        <section id="site-header">
+            <nav class="navbar navbar-dark fixed-top navbar-expand-lg" id="nav">
+                <div class="container-fluid">
+                    <a class="navbar-brand me-auto" href="#">
+                        <img id="navlogo" src="~/images/logo-large.png" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=" navbar-toggler-icon"></span>
+                </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav d-flex align-items-lg-center justify-content-lg-end justify-content-sm-start" id="nav-right">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">
+                                    <button type="button" class="btn btn-outline-light">Book a Cleaner</button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Prices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Our Guarantee</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">
+                                    <button type="button" class="btn btn-outline-light">Login</button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">
+                                    <button type="button" class="btn btn-outline-light">Become a Helper</button>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="flag" src="https://cdn-icons-png.flaticon.com/128/206/206626.png" alt="flag">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end bg-dark text-light" aria-labelledby="defaultDropdown">
+                                    <li>
+                                        <a class="dropdown-item" data-img="https://cdn-icons-png.flaticon.com/128/206/206626.png" href="#"><img src="https://cdn-icons-png.flaticon.com/128/206/206626.png" alt="flag"> USA</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" data-img="https://cdn-icons-png.flaticon.com/128/555/555417.png" href="#"><img src="https://cdn-icons-png.flaticon.com/128/555/555417.png" alt="flag"> Canada</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="banner-list">
+                <h1 class="banner_list_heading">Lorem ipsum text</h1>
+                <ul class="d-flex flex-column" style="list-style-type: none;">
+                    <li><img src="~/images/ic-check.png">&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                    <li><img src="~/images/ic-check.png">&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                    <li><img src="~/images/ic-check.png">&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                </ul>
+            </div>
+
+            <div class="text-center">
+                <button id="book_cleaner_button" class="btn btn-lg btn-outline-light">Let's Book a Cleaner</button>
+            </div>
+
+            <div class="d-flex justify-content-around container w-75" id="process_steps">
+                <div class="text-center">
+                    <img class="mb-4" src="~/images/step-1.png" width="52" height="55" alt="">
+                    <p>Enter your postcode</p>
+                </div>
+                <img class="mt-3" src="~/images/step-arrow-1.png" width="85" height="23" alt="">
+                <div class="text-center">
+                    <img class="mb-4" src="~/images/step-2.png" width="57" height="60" alt="">
+                    <p>Select your plan</p>
+                </div>
+                <img class="mt-4" src="~/images/step-arrow-1-copy.png" width="85" height="23" alt="">
+                <div class="text-center">
+                    <img class="mb-4" src="~/images/step-3.png" width="54" height="54" alt="">
+                    <p>Pay securely online</p>
+                </div>
+                <img class="mt-3" src="~/images/step-arrow-1.png" width="85" height="23" alt="">
+                <div class="text-center">
+                    <img class="mb-4" src="~/images/step-4.png" width="62" height="63" alt="">
+                    <p>Enjoy amazing service</p>
+                </div>
+
+            </div>
+
+            <div class="text-center py-md-5">
+                <a href="#sectionTwo"><img src="~/images/group-18_5.png" width="40" height="40" alt=""></a>
+            </div>
+
+        </section>
+    </section>
+   
+    <!-- why Helperland part -->
+
+    <section id="sectionTwo">
+        <h2 class="text-center py-5" id="sectionTwoHeading">Why Helperland</h2>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm d-flex align-items-center flex-column mb-3">
+                    <div class="card cardStyle">
+                        <img class="card-img-top" src="~/images/group-21.png">
+                        <div class="card-body cardBodyStyle">
+                            <h3 class="card-title py-4 sectionTwoSubHeading">Experience & Vetted Professionals</h3>
+                            <p class="sectionTwoText card-text">dominate the industry in scale and scope with an adaptable, extensive network that consistently delivers exceptional results.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm d-flex align-items-center flex-column mb-3">
+                    <div class="card cardStyle">
+                        <img class="card-img-top" src="~/images/group-23.png">
+                        <div class="card-body cardBodyStyle">
+                            <h3 class="card-title sectionTwoSubHeading py-4">Secure Online Payment</h3>
+                            <p class="card-text sectionTwoText">Payment is processed securely online. Customers pay safely online and manage the booking.</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm d-flex align-items-center flex-column mb-3">
+                    <div class="card cardStyle">
+                        <img class="card-img-top" src="~/images/group-24.png">
+                        <div class="card-body cardBodyStyle">
+                            <h3 class="card-title sectionTwoSubHeading py-4">Dedicated Customer Service</h3>
+                            <p class="sectionTwoText card-text">to our customers and are guided in all we do by their needs. The team is always happy to support you and offer all the information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="sectionourBlog">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm mx-auto">
+                    <h2 id="sectionThreeHeading">Lorem ipsum dolor sit amet,<br> consectetur</h2>
+                    <p id="sectionThreeText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi sapien, suscipit ut accumsan vitae, pulvinar ac libero. <br /> <br /> Aliquam erat volutpat. Nullam quis ex odio. Nam bibendum cursus purus, vel efficitur urna finibus
+                        vitae. Nullam finibus aliquet pharetra. Morbi in sem dolor. Integer pretium hendrerit ante quis vehicula. <br /> <br /> Mauris consequat ornare enim, sed lobortis quam ultrices sed.</p>
+                </div>
+                <div class="col-sm text-center" id="sectionThreeImg">
+                    <img src="~/images/group-36.png" alt="">
+                </div>
+            </div>
+            <h2 class="text-center py-5" id="BlogHeading">Our Blog</h2>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card mx-auto blogCardStyle">
+                        <img src="~/images/group-28.png">
+                        <div class="card-body">
+                            <h3 class="card-title blogTitle">Lorem ipsum dolor sit amet</h3>
+                            <p class="blogDate">January 28, 2019</p>
+                            <p class="card-text blogText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet.</p>
+                            <a href="#" class="readPost">Read the Post &nbsp; <img src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card mx-auto blogCardStyle">
+                        <img src="~/images/group-29.png">
+                        <div class="card-body">
+                            <h3 class="card-title blogTitle">Lorem ipsum dolor sit amet</h3>
+                            <p class="blogDate">January 28, 2019</p>
+                            <p class="card-text blogText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet.</p>
+                            <a href="#" class="readPost">Read the Post &nbsp; <img src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card mx-auto blogCardStyle">
+                        <img src="~/images/group-30.png">
+                        <div class="card-body">
+                            <h3 class="card-title blogTitle">Lorem ipsum dolor sit amet</h3>
+                            <p class="blogDate">January 28, 2019</p>
+                            <p class="card-text blogText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet.</p>
+                            <a href="#" class="readPost">Read the Post &nbsp; <img src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Customer" class="pb-5">
+        <h2 class="text-center py-5 customerTitle">What Our Customers Say</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4" style="padding: 0 22px 10px 22px;">
+                    <div class="card mx-auto customerCard">
+                        <img src="~/images/message.png" class="msgImage" width="33" height="36">
+                        <div class="customerCardBody">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <img src="~/images/group-31.png">
+                                </div>
+                                <div class="d-flex flex-column col-sm-9 my-auto text-align-left">
+                                    <h3 class="m-0 customerName">Lary Watson</h3>
+                                    <p class="customerCity m-0">Manchester</p>
+                                </div>
+                            </div>
+                            <p class="cardText customerText pt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet consequat. Praesent nec malesuada nibh. <br /> <br /> Nullam et metus congue, auctor augue sit amet, consectetur tortor.</p>
+                            <a href="#" class="readPost">Read More &nbsp; <img
+                                    src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4" style="padding: 0 22px 10px 22px;">
+                    <div class="card mx-auto customerCard">
+                        <img src="~/images/message.png" class="msgImage" width="33" height="36">
+                        <div class="customerCardBody">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <img src="~/images/group-32.png">
+                                </div>
+                                <div class="d-flex flex-column col-sm-9 my-auto text-align-left">
+                                    <h3 class="m-0 customerName">John Smith</h3>
+                                    <p class="m-0 customerCity">Manchester</p>
+                                </div>
+                            </div>
+                            <p class="cardText customerText pt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet consequat. Praesent nec malesuada nibh. <br /> <br /> Nullam et metus congue, auctor augue sit amet, consectetur tortor.</p>
+                            <a href="#" class="readPost">Read More &nbsp; <img
+                                    src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-sm-12 col-lg-4" style="padding: 0 22px 10px 22px;">
+                    <div class="card mx-auto customerCard">
+                        <img src="~/images/message.png" class="msgImage" width="33" height="36">
+                        <div class="customerCardBody">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <img src="~/images/group-32.png">
+                                </div>
+                                <div class="d-flex flex-column col-sm-9 my-auto text-align-left">
+                                    <h3 class="m-0 customerName">John Smith</h3>
+                                    <p class="m-0 customerCity">Manchester</p>
+                                </div>
+                            </div>
+                            <p class="cardText customerText pt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar aliquet consequat. Praesent nec malesuada nibh. <br /> <br /> Nullam et metus congue, auctor augue sit amet, consectetur tortor.</p>
+                            <a href="#" class="readPost">Read More &nbsp; <img src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>
+              @*  <div class="col-sm-12 col-lg-4" style="padding: 0 22px 10px 22px;">
+                    <div class="card mx-auto customerCard">
+                        <img src="~/images/message.png" class="msgImage" width="33" height="36">
+                        <div class="customerCardBody">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <img src="~/images/group-33.png">
+                                </div>
+                                <div class="d-flex flex-column col-sm-9 my-auto text-align-left">
+                                    <h3 class="m-0 customerName">Lars Johnson</h3>
+                                    <p class="m-0 customerCity ">Manchester</p>
+                                </div>
+                            </div>
+                            <p class="cardText customerText pt-4">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Sed
+                                fermentum metus pulvinar aliquet consequat. Praesent nec malesuada nibh. <br /> <br />
+                                Nullam et metus congue, auctor augue sit amet, consectetur tortor.</p>
+                            <a href="# " class="readPost">Read More &nbsp; <img
+                                    src="~/images/shape-2-copy-3.png"></a>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+          <div class="container" onclick="scrollToTop()">
+              <div class="m-0 gotoTop">
+                <img src="~/images/forma-1.png" width="19 " height="10 " alt=" ">
+              </div>
+            </div>
+
+        <div class="pb-5 ">
+        <h4 id="newsletter " class="text-center pt-5 pb-2 text-uppercase ">Get our newsletter</h4>
+        <form class="form-inline ">
+            <div class="form-group d-flex justify-content-center " id="newsletter-email ">
+                <div style="margin-right: 10px ">
+                    <input type="email" class="form-control " id="inputEmail " placeholder="YOUR EMAIL ">
+                </div>
+                <div>
+                    <button id="emailSubmitButton" class="btn " type="submit">Submit</button>
+                </div>
+                <div id="chatSymbol ">
+                    <a href="# ">
+                        <img width="63 " height="63 " src="~/images/layer-598.png" width="19" height="10" alt=" ">
+                    </a>
+                </div>
+            </div>
+        </form>
+        </div>
+        </div>
+    </section>
+
+
+    <footer id="homepage-footer ">
+        <div class="d-flex flex-md-row justify-content-around align-items-center ">
+            <img src="~/images/footer-logo.png" alt=" " width="120 " height="92 ">
+            <ul class="d-flex text-uppercase " id="footer-list ">
+                <li>home</li>
+                <li>about</li>
+                <li>testimonials</li>
+                <li>faqs</li>
+                <li>insurance policy</li>
+                <li>impressum</li>
+            </ul>
+            <div class="px-4 d-flex " id="footerSocialMediaSymbol ">
+                <div>
+                    <img src="~/images/ic-facebook.png" width="9 " height="18 " alt=" ">
+                </div>
+                <div>
+                    <img src="~/images/ic-instagram.png" width="20 " height="20 " alt=" ">
+                </div>
+            </div>
+
+        </div>
+
+    </footer>
+    <div class="d-flex justify-content-end align-items-md-center w-100 " id="policy ">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat nunc libero, ac malesuada ligula aliquam
+            ac. <span style="color: #6EABEF; ">Privacy Policy</span> </p>
+        <button id="policy-button " class="btn ">OK!</button>
+    </div>
+</body>
+
+</html>
