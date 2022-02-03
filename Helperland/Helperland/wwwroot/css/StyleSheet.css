@@ -11,9 +11,7 @@
     background-size: cover;
 }
 
-
 /* for dropdown flag */
-
 .flag {
     width: 30px;
 }
@@ -88,7 +86,7 @@
     opacity: 0.8;
 }
 
-#book-cleaner-button:hover {
+#book_cleaner_button:hover {
     background-color: rgba(0, 96, 114, 1);
     color: #ffffff !important;
 }
@@ -318,11 +316,17 @@ input::-webkit-input-placeholder {
     color: #f1f1f1;
     font-size: 14px;
     padding: 0px 40px;
+   
 }
 
     #footer-list li {
         padding: 0 10px;
     }
+
+        #footer-list li a {
+            text-decoration: none;
+            color: #f1f1f1;
+        }
 
 #footerSocialMediaSymbol div {
     padding: 0 10px;
@@ -1198,6 +1202,31 @@ form {
     margin: auto;
 }
 
+
+/*login and forgot model started*/
+#LoginModal .modal-dialog {
+    width: 320px !important;
+}
+
+#LoginModal #LoginModalLabel {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    color: #4F4F4F;
+}
+
+#LoginModal .LoginModalBtn {
+    width: 100%;
+    background: #1d7a8c;
+    color: white;
+    border-radius: 50px;
+}
+
+/*login and forgot model ended*/
+
+
+
+
 @media (max-width: 992px) {
     .navbar-collapse {
         background-color: rgb(41, 41, 41);
@@ -1229,6 +1258,7 @@ form {
         flex-direction: column;
         text-align: center;
         /* flex: 0 0 100%; */
+        
     }
 
     #chatSymbol {

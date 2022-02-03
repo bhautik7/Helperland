@@ -1,0 +1,76 @@
+﻿.AccountTitle {
+    font-size: 36px;
+    color: #4F4F4F;
+    font-weight: 500;
+    opacity: 1;
+}
+/* Form */
+.form {
+    width: 38%;
+    margin: 30px auto;
+}
+
+.inputPadding {
+    padding-bottom: 15px;
+}
+
+.form-control, .input-group-text {
+    height: 46px;
+}
+
+.msg {
+    height: 146px !important;
+}
+
+.form-check {
+    margin: 15px 0;
+}
+
+.form-check-label {
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: #4f4f4f;
+}
+
+    .form-check-label a,
+    .submit a {
+        text-decoration: none;
+        color: #1fb6ff;
+        cursor: pointer;
+    }
+
+.submit button {
+    background-color: #1d7a8c;
+    color: white;
+    border: none;
+    width: 163px;
+    height: 46px;
+    margin: 20px;
+    font-size: 20px;
+    border-radius: 46px;
+    font-weight: bold;
+}
+
+.FooterMargin{
+    margin-top:460px;
+}
+
+@media screen and (max-width: 1200px) {
+    .form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .form {
+        width: 90%;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+}
