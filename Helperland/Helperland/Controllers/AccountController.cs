@@ -1,9 +1,14 @@
 ﻿using Helperland.Enums;
 using Helperland.Models;
 using Helperland.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Helperland.Controllers
@@ -21,30 +26,88 @@ namespace Helperland.Controllers
             return View();
         }
         [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            //based on type of  user remainining
+            if (ModelState.IsValid)
+            {
+                // note : real time we save password with encryption into the database
+                // so to check that viewModel.Password also need to encrypt with same algorithm 
+                // and then that encrypted password value need compare with database password value
+                User user = _helperlandContext.User.Where(_ => _.Email.ToLower() == model.Email.ToLower() && _.Password == model.Password).FirstOrDefault();
+
+                if(user != null)
+                {
+                    _helperlandContext.SaveChanges();
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name,user.Email),
+                        new Claim("FirstName",user.FirstName)
+                    };
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties() { IsPersistent = model.IsPersistant };
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    //ModelState.AddModelError("InvalidCredentials", "Either username or password is not correct");
+                    TempData["msg"] = "<script>alert('InvalidCredentials, Either username or password is not correct')</script>";
+                    return RedirectToAction("index", "home");
+                }
+            }
+            return View(model);
+        }
+        public IActionResult Logout()
+        {
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (login != null)
+            {
+                TempData["msg"] = "<script>alert('successfully logout')</script>";
+            }
+            return RedirectToAction("index","home");
+        }
+
+        public bool isEmailExit(String email)
+        {
+            var IsCheck = _helperlandContext.User.Where(_ => _.Email == email).FirstOrDefault();
+            return IsCheck != null;
+  
+        }
+        
+        [HttpPost]
         public IActionResult UserRegistration(UserRegistrationViewModel model)
         {
 
             if (ModelState.IsValid)
             {
-                User user = new User
+                //User userEmail=_helperlandContext.User.Where(u => u.Email == model.Email).FirstOrDefault();
+                if (isEmailExit(model.Email))
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    Password = model.Password,
-                    Mobile = model.MobileNumber,
-                    UserTypeId = (int)UserTypeEnum.Customer,
-                    CreatedDate = DateTime.Now,
-                    IsApproved = true,
-                    ModifiedDate = DateTime.Now
-                };
+                    TempData["ErrorMessage"] = "Email already exists,please choose another email!!";
+                }
+                else
+                {
+                    User user = new User
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Password = model.Password,
+                        Mobile = model.MobileNumber,
+                        UserTypeId = (int)UserTypeEnum.Customer,
+                        CreatedDate = DateTime.Now,
+                        IsApproved = true,
+                        ModifiedDate = DateTime.Now
+                    };
+                    _helperlandContext.User.Add(user);
+                    _helperlandContext.SaveChanges();
 
-                _helperlandContext.User.Add(user);
-                _helperlandContext.SaveChanges();
+                    TempData["SuccessMessage"] = "Register Successfully.";
 
-                TempData["SuccessMessage"] = "Register Successfully.";
-
-                return RedirectToAction();
+                    return RedirectToAction();
+                }
             }
 
             return View(model);
@@ -54,26 +117,35 @@ namespace Helperland.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User
+                //User userEmail = _helperlandContext.User.Where(u => u.Email == model.Email).FirstOrDefault();
+                if (isEmailExit(model.Email))
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    Password = model.Password,
-                    Mobile = model.MobileNumber,
-                    UserTypeId = (int)UserTypeEnum.ServiceProvider,
-                    CreatedDate = DateTime.Now,
-                    IsApproved = false,
-                    ModifiedDate = DateTime.Now
-                };
+                    TempData["ErrorMessage"] = "Email already exists,please choose another email!!";
+                }
+                else
+                {
+                    User user = new User
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Password = model.Password,
+                        Mobile = model.MobileNumber,
+                        UserTypeId = (int)UserTypeEnum.ServiceProvider,
+                        CreatedDate = DateTime.Now,
+                        IsApproved = false,
+                        ModifiedDate = DateTime.Now
+                    };
 
-                _helperlandContext.User.Add(user);
-                _helperlandContext.SaveChanges();
+                    _helperlandContext.User.Add(user);
+                    _helperlandContext.SaveChanges();
 
-                TempData["SuccessMessage"] = "Register Successfully. You can login after admin can approved your request.";
+                    TempData["SuccessMessage"] = "Register Successfully. You can login after admin can approved your request.";
 
-                return RedirectToAction("BecomeAPro");
+                    return RedirectToAction("BecomeAPro");
+                }
             }
+              
 
             return View("BecomeAPro", model);
         }
@@ -82,12 +154,5 @@ namespace Helperland.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            User user = await _helperlandContext.User.FirstOrDefaultAsync(l => l.Email == model.Email && l.Password == model.Password);
-            //var user = await (from tempUser in _helperlandContext.Users.where tempUser.Email == model.Email select tempUser).FirstOrDefault();
-            //return RedirectToAction(;
-            return RedirectToAction("Index", "Home");
-        }
     }
-}
+    }

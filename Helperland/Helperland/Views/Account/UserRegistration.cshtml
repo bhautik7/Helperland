@@ -10,7 +10,13 @@
     <section id="FormSection">
         <div class="col-md-12 m-0 @( TempData["SuccessMessage"] == null ? "d-none" : "")">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      @TempData["SuccessMessage"]
+                      <p class="text-center mt-3">@TempData["SuccessMessage"]</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
+              </div>
+              <div class="col-md-12 m-0 @( TempData["ErrorMessage"] == null ? "d-none" : "")">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                     <p class="text-center mt-3">@TempData["ErrorMessage"]</p> 
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                      </div>
               </div>

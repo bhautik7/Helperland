@@ -1,4 +1,10 @@
 ﻿@model LoginViewModel
+
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpHttpContextAccessor;
+
+@Html.Raw(TempData["msg"])
 <!DOCTYPE html>
 
 <html>
@@ -7,12 +13,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>@ViewBag.Title | Helperland</title>
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-     <link rel="stylesheet" href="~/css/site.css" />
-     <script src="~/js~/js/home.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+
+      <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+      <script src="~/js~/js/home.js"></script>
+      @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <!-- Model For Login -->
+   
+    <header class="sectionHeader">
+        <nav class="navbar">
+            <a class="navbar-brand" href=""><img src="./images/nav-logo.png" alt=""></a>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-btn">Book a Cleaner</a></li>
+                <li><a asp-controller="Home" asp-action="Price">Prices</a></li>
+                <li><a href="#">Our Gaurantee</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                @if (_httpHttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <li><a class="nav-btn" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    <li><a class="nav-btn" asp-controller="Account" asp-action="BecomeAPro">Become a Helper</a></li>
+                }
+                else
+                {
+                     <li><a href="" class="nav-btn" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        data-bs-dismiss="modal">Login</a></li>
+                     <li><a class="nav-btn" asp-controller="Account" asp-action="BecomeAPro">Become a Helper</a></li>         
+                }
+               
+                <li class="li-dropdown">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="~/images/flag1.png" alt="">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"><img src="~/images/flag1.png" alt="">
+                                English</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="menu-bar">
+                <i class="fa fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+     <!-- Model For Login -->
 
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
         aria-hidden="true">
@@ -78,37 +127,6 @@
         </div>
     </div>
     <!-- End Model -->
-    <header class="sectionHeader">
-        <nav class="navbar">
-            <a class="navbar-brand" href=""><img src="./images/nav-logo.png" alt=""></a>
-            <ul class="nav-list">
-                <li><a href="#" class="nav-btn">Book a Cleaner</a></li>
-                <li><a asp-controller="Home" asp-action="Price">Prices</a></li>
-                <li><a href="#">Our Gaurantee</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
-                <li><a href="" class="nav-btn" data-bs-toggle="modal" data-bs-target="#loginModal"
-                        data-bs-dismiss="modal">Login</a></li>
-                <li><a class="nav-btn" asp-controller="Account" asp-action="BecomeAPro">Become a Helper</a></li>
-                <li class="li-dropdown">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-expanded="false">
-                            <img src="~/images/flag1.png" alt="">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#"><img src="~/images/flag1.png" alt="">
-                                English</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="menu-bar">
-                <i class="fa fa-bars"></i>
-            </div>
-        </nav>
-    </header>
-
      <div>
         @RenderBody()
     </div>
