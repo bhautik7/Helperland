@@ -1,0 +1,203 @@
+﻿@model CombinedViewModel
+
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpHttpContextAccessor;
+
+@Html.Raw(TempData["msg"])
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>@ViewBag.Title | Helperland</title>
+    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+      <script src="~/js/home.js"></script>
+      @RenderSection("Scripts", required: false)
+</head>
+<body>
+   
+    <header class="sectionHeader">
+        <nav class="navbar">
+            <a class="navbar-brand" href=""><img src="./images/nav-logo.png" alt=""></a>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-btn">Book a Cleaner</a></li>
+                <li><a asp-controller="Home" asp-action="Price">Prices</a></li>
+                <li><a href="#">Our Gaurantee</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                @if (_httpHttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <li><a class="nav-btn" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    <li><a class="nav-btn" asp-controller="Account" asp-action="BecomeAPro">Become a Helper</a></li>
+                }
+                else
+                {
+                     <li><a href="" class="nav-btn" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        data-bs-dismiss="modal">Login</a></li>
+                     <li><a class="nav-btn" asp-controller="Account" asp-action="BecomeAPro">Become a Helper</a></li>         
+                }
+               
+                <li class="li-dropdown">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="~/images/flag1.png" alt="">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"><img src="~/images/flag1.png" alt="">
+                                English</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="menu-bar">
+                <i class="fa fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+     <!-- Model For Login -->
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title" id="staticBackdropLabel">Login to your account</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="modal-body">
+                    <form asp-controller="Account" asp-action="Login">
+                        <div class="mb-3 form-group icon-textbox">
+                            <input asp-for="LoginModel.Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                            <img alt="email" src="~/images/user1.png">
+                             <span asp-validation-for="LoginModel.Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 form-group icon-textbox">
+                            <input asp-for="LoginModel.Password" type="password" class="form-control" id="exampleFormControlInput2"
+                                placeholder="Password">
+                            <img alt="Password" src="~/images/lock.png">
+                             <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-check">
+                            <input  asp-for="LoginModel.RememberMe" class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Remember Me
+                            </label>
+                        </div>
+                        <button class="submit-button mb-3" type="submit">Login</button>
+                        <div class="text-center mb-2"><a href="#" data-bs-toggle="modal"
+                                data-bs-target="#ForgotPasswordModal" data-bs-dismiss="modal">Forgot Password</a></div>
+                        <div class="text-center">Don't have an account? <a asp-controller="Account" asp-action="UserRegistration">Create an
+                                account</a></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model -->
+
+    <!-- Model For Forgot Password -->
+    <div class="modal fade" id="ForgotPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="staticBackdropLabel">Forgot Password</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Account" asp-action="ResetLink" method="post">
+                        <div class="mb-3 form-group icon-textbox">
+                            <input asp-for="LoginModel.Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                            <img alt="email" src="~/images/user1.png">
+                            <span asp-validation-for="LoginModel.Email"></span>
+                        </div>
+
+                        <button class="submit-button mb-3" type="submit">Send</button>
+                        <div class="text-center mb-2"><a href="#" data-bs-toggle="modal"
+                                data-bs-target="#loginModal" data-bs-dismiss="modal">Login now</a></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model -->
+     <div>
+        @RenderBody()
+    </div>
+    <footer class="footer">
+        <div id="section-newsseltter">
+
+            <div class="scroll-icon">
+                <a href="#main">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10">
+                        <path
+                            fill-rule="evenodd"
+                            fill="#F4F5F8"
+                            d="M19.802 8.855c.132.129.197.29.197.466a.633.633 0 0 1-.197.466c-.262.653-.689.653-.951 0l-8.365-8.195L2.12 9.787c-.262.653-.689.653-.951 0a.65.65 0 0 1 0-.932L10.1.195c.172.425.599.425.861 0l8.841 8.66z"
+                        />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="newstitle">
+                <p>get our newsselter</p>
+            </div>
+            <div class="newsform">
+                <div class="input-field">
+                    <input type="text" placeholder="Your Email">
+                </div>
+                <div><button>Submit</button></div>
+            </div>
+
+            <div class="message-icon">
+                <img src="./images/msgbox.png" alt="">
+            </div>
+        </div>
+
+        <div id="section-footer">
+            <div class="f-main row">
+                <div class="footer-logo col-xl-2">
+                    <img src="./images/white-logo-transparent-background.png"
+                        srcset="./images/white-logo-transparent-background.png" class="footer1-logo ">
+                </div>
+                <div class="footer-nav col-xl-8">
+                    <ul>
+                        <li><a href="Homepage.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="#">TESTIMONIALS</a></li>
+                        <li><a href="FAQ.html">FAQS</a></li>
+                        <li><a href="#">INSURANCE</a></li>
+                        <li><a href="contact.html">POLICY</a></li>
+                        <li><a href="#">IMPRESSUM</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social col-xl-2">
+                    <img src="./images/facebook.png" alt="">
+                    <img src="./images/insta.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="section-cookie">
+            <div class="footer-cookie">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat nunc libero, ac malesuada ligula
+                    aliquam ac. <a href="#">Privacy Policy</a> <button class="okbtn">Ok!</button></p>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script src="~/lib/jquery~/lib/jquery/dist/jquery.js"></script>
+     <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+   <script src="~/js/home.js" asp-append-version="true"></script>
+   @RenderSection("Scripts", required: false)
+</body>
+</html>

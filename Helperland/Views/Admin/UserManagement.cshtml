@@ -1,0 +1,337 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "User Management";
+}
+
+
+
+  <div class="data-table">
+            <table id="user-management">
+                <thead>
+                    <tr>
+                        <th>User Name <img class="sort-img" alt=""></th>
+                        <th>User Type</th>
+                        <th>Role</th>
+                        <th>Postal Code <img class="sort-img" alt=""></th>
+                        <th>City</th>
+                        <th>Radius <img class="sort-img" alt=""></th>
+                        <th>User Status <img class="sort-img" alt=""></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lyum watson</td>
+                        <td>Call Center</td>
+                        <td>Inquiry Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Service provider</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td>10 km</td>
+                        <td><label class=" lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Inquiry Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Customer</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Content Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Customer</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn dangerLabel">Inactive</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Service provider</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td>20 km</td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Finance Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Customer</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Customer</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                    
+                    <tr>
+                        <td>Lyum watson</td>
+                        <td>Call Center</td>
+                        <td>Inquiry Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Service provider</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td>10 km</td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Inquiry Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Customer</td>
+                        <td></td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td></td>
+                        <td><label class="lbl-btn successLabel">Active</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/group-38.png" alt="" class="position-relative">
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                    <li><a class="dropdown-item" href="#">Service History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+

@@ -1,0 +1,294 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomePageLayout.cshtml";
+}
+    <div class="main" id="main">
+ 
+        <section id="section-banner">
+            <div class="banner-content">
+                <div class="banner-heading">
+                    <h1>Lorem ipsum text</h1>
+                </div>
+                <ul class="banner-list">
+                    <li><i class="fa fa-check"></i> Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                    <li><i class="fa fa-check"></i> Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                    <li><i class="fa fa-check"></i> Lorem ipsum dolor sit amet, consectetur adipiscing</li>
+                </ul>
+            </div>
+            <div class="btn-lets">
+                <div>
+                    <a asp-action="BookService" asp-controller="Home"><button class="btn btn-outline-light text-light" >Let’s Book a Cleaner</button></a>
+                </div>
+            </div>
+            <div class="all-steps">
+                <div class="step">
+                    <div class="step-img">
+                        <img src="./images/step1.png" alt="">
+                    </div>
+                    <div class="step-text">
+                        Enter Your Postcode
+                    </div>
+                    <div class="step-arrow">
+                        <img src="./images/step-down-arrow.png" alt="">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-img">
+                        <img src="./images/step2.png" alt="">
+                    </div>
+                    <div class="step-text">
+                        Select your plan
+                    </div>
+                    <div class="step-arrow">
+                        <img src="./images/step-up-arrow.png" alt="">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-img">
+                        <img src="./images/step3.png" alt="">
+                    </div>
+                    <div class="step-text">
+                        Pay securely online
+                    </div>
+                    <div class="step-arrow">
+                        <img src="./images/step-down-arrow.png" alt="">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-img">
+                        <img src="./images/step1.png" alt="">
+                    </div>
+                    <div class="step-text">
+                        Enjoy Amazing Service
+                    </div>
+                </div>
+            </div>
+            <div class="btn-down">
+                <div class="circle">
+                    <a href="#section-whyHelperland"> <img src="./images/shape-1.png" alt=""></a>
+                   
+                </div>
+            </div>
+        </section>
+
+        <section id="section-whyHelperland">
+
+            <div class="head">
+                <h2 class="whyHelperlandTitle">Why Helperland</h2>
+            </div>
+            <div class="Helperland-helpers">
+                <div class="helper">
+                    <div class="helper-image"><img class="image-rounded" src="./images/helper1.png" alt=""></div>
+                    <div class="helper-title">
+                        <h3>Experience & Vetted Professionals</h3>
+                    </div>
+                    <div class="helper-content">
+                        <p>dominate the industry in scale and scope with an adaptable, extensive network that
+                            consistently delivers exceptional results.</p>
+                    </div>
+                </div>
+                <div class="helper">
+                    <div class="helper-image"><img src="./images/helper2.png" alt=""></div>
+                    <div class="helper-title">
+                        <h3>Secure Online Payment</h3>
+                    </div>
+                    <div class="helper-content">
+                        <p>Payment is processed securely online. Customers pay safely online and
+                            manage the booking.</p>
+                    </div>
+                </div>
+                <div class="helper">
+                    <div class="helper-image"><img src="./images/helper3.png" alt=""></div>
+                    <div class="helper-title">
+                        <h3>Dedicated Customer
+                            Service</h3>
+                    </div>
+                    <div class="helper-content">
+                        <p>to our customers and are guided in all we do by their needs. The team is always happy
+                            to
+                            support you and offer all the information.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-blog">
+            <div class="sub-sectionBlog">
+                <div class="sectionBlogcol1">
+                    <div class="title">
+                        <h2 class="heading">Lorem ipsum dolor sit amet,
+                            consectetur</h2>
+                    </div>
+                    <div class="content">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi sapien, suscipit ut
+                            accumsan
+                            vitae, pulvinar ac libero.<br><br>
+
+                            Aliquam erat volutpat. Nullam quis ex odio. Nam bibendum cursus purus, vel efficitur
+                            urna
+                            finibus<br>
+                            vitae. Nullam finibus aliquet pharetra. Morbi in sem dolor. Integer pretium hendrerit
+                            ante
+                            quis
+                            vehicula.<br><br>
+
+                            Mauris consequat ornare enim, sed lobortis quam ultrices sed.
+                        </p>
+                    </div>
+                </div>
+                <div class="sectionBlogcol2 helper4">
+                    <img src="./images/helper4.png" alt="">
+                </div>
+            </div>
+            <div class="sub-blog">
+                <div class="blog-title text-center">
+                    <h2>Our Blog</h2>
+                </div>
+                <div class="Helperland-helpers">
+                    <div class="blog card">
+                        <img class="card-img-top" src="./images/blog1.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Lorem ipsum dolor sit amet<br><span class="card-date">January 28,
+                                    2019</span></h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum
+                                metus pulvinar aliquet.</p>
+
+                            <div class="moreHelp">Read The Post 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                                    <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog card">
+                        <img class="card-img-top" src="./images/blog2.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Lorem ipsum dolor sit amet<br><span class="card-date">January 28,
+                                    2019</span></h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum
+                                metus pulvinar aliquet.</p>
+
+                            <div class="moreHelp">Read The Post 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                                    <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog card">
+                        <img class="card-img-top" src="./images/blog3.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Lorem ipsum dolor sit amet<br><span class="card-date">January 28,
+                                    2019</span></h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum
+                                metus pulvinar aliquet.</p>
+
+                            <div class="moreHelp">Read The Post 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                                    <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-customer">
+            <div class="customer-heading">
+                <h2>What Our Customers Say</h2>
+            </div>
+            <div class="customer-says">
+                <div class="customer-say">
+                    <div class="customer-about">
+                        <div class="customer-profile">
+                            <img src="./images/profile1.png" alt="">
+                        </div>
+                        <div class="customer-name">
+                            <div>
+                                <h3 class="name">Lary Waston</h3>
+                            </div>
+                            <div>
+                                <p class="city">Manchester</p>
+                            </div>
+                        </div>
+                        <div class="customer-msg">
+                            <img src="./images/message.png" alt="">
+                        </div>
+                    </div>
+                    <div class="customer-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar
+                            aliquet consequat. Praesent nec malesuada nibh.<br><br>
+
+                            Nullam et metus congue, auctor augue sit amet, consectetur tortor. </p>
+                    </div>
+                    <div class="customer-more">
+                        Read More <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                            <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="customer-say">
+                    <div class="customer-about">
+                        <div class="customer-profile">
+                            <img src="./images/profile2.png" alt="">
+                        </div>
+                        <div class="customer-name">
+                            <div>
+                                <h3 class="name">John Smith</h3>
+                            </div>
+                            <div>
+                                <p class="city">Manchester</p>
+                            </div>
+                        </div>
+                        <div class="customer-msg">
+                            <img src="./images/message.png" alt="">
+                        </div>
+                    </div>
+                    <div class="customer-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar
+                            aliquet consequat. Praesent nec malesuada nibh.<br><br>
+
+                            Nullam et metus congue, auctor augue sit amet, consectetur tortor. </p>
+                    </div>
+                    <div class="customer-more">
+                        Read More <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                            <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="customer-say">
+                    <div class="customer-about">
+                        <div class="customer-profile">
+                            <img src="./images/profile3.png" alt="">
+                        </div>
+                        <div class="customer-name">
+                            <div>
+                                <h3 class="name">Lars Johnson</h3>
+                            </div>
+                            <div>
+                                <p class="city">Manchester</p>
+                            </div>
+                        </div>
+                        <div class="customer-msg">
+                            <img src="./images/message.png" alt="">
+                        </div>
+                    </div>
+                    <div class="customer-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum metus pulvinar
+                            aliquet consequat. Praesent nec malesuada nibh.<br><br>
+
+                            Nullam et metus congue, auctor augue sit amet, consectetur tortor. </p>
+                    </div>
+                    <div class="customer-more">
+                        Read More <svg xmlns="http://www.w3.org/2000/svg" width="29" height="9">
+                            <path fill-rule="evenodd" fill="#4F4F4F" d="M.1 3.708h21.392C20.456 2.246 19.94 1.292 19.887.6c2.357 1.634 5.421 2.8 9.213 3.897-3.792 1.051-6.721 2.334-9.213 4.803.573-1.708.589-2.562 1.637-4.117H.1V3.708z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+    </div>

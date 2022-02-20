@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.main-content #upcoming_service_table tr td:nth-child(4),
+.main-content #upcoming_service_table tr td:nth-child(5) {
+    text-align: center;
+}
+
+.main-content #upcoming_service_table tr td:nth-child(3) img {
+    margin-bottom: 5px;
+}
+
+.main-content #upcoming_service_table tbody tr td .cancel-btn {
+    font-size: 16px;
+    color: white;
+    background-color: #ff6b6b;
+    border-radius: 45px;
+    border: 0px;
+    padding: 8px 16px;
+}
+
+.main-content #upcoming_service_table tbody tr td .cancel-btn:hover {
+    background-color: #cf2525;
+}
+
+#tbl-service-history tbody tr td:nth-child(2) {
+    min-width: 200px !important;
+}
