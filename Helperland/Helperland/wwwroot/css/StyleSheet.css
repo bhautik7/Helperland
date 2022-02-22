@@ -1008,15 +1008,19 @@ input::-webkit-input-placeholder {
         margin-bottom: 20px;
     }
 
-form {
+/*form {
     height: 56px;
-}
+}*/
 
-.form-control::placeholder,
+.user-details.form-control::placeholder,
 .form-select {
     font-size: 16px;
     color: #A0A0A0;
-    width: 84px;
+    width: 84px
+
+
+
+
     height: 46px;
 }
 

@@ -64,3 +64,10 @@ F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\
 F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Account\UserRegistration.cshtml.g.cs
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Account\BecomeAPro.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\UserManagement.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Customer\ServiceHistory.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\UpcomingService.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayout.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\BookService.cshtml.g.cs

@@ -2,26 +2,28 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-$(document).ready(function () {
-    var scroll_start = 0;
-    var offSet = 0;
-    var startchange = $('#header');
-    offSet = startchange.offset();
-    $(document).scroll(function () {
-        scroll_start = $(this).scrollTop();
-        if (scroll_start > offSet.top) {
-            $('#nav').css({ "background-color": "rgba(82, 82, 82, 0.9)" });
-            $('#navlogo').css({ "height": "54px", "width": "73px" })
-        } else {
-            $('#nav').css('background-color', 'transparent');
-            $('#navlogo').css({ "height": "130px", "width": "175px" });
-        }
-    });
 
-    $("#policy-button").click(function () {
-        $("#policy").addClass("d-none");
-    });
-});
+//var offSet = 0;
+//$(document).ready(function () {
+//    var scroll_start = 0;
+    
+//    var startchange = $('#header');
+//    offSet = startchange.offset();
+//    $(document).scroll(function () {
+//        scroll_start = $(this).scrollTop();
+//        if (scroll_start > offSet.top) {
+//            $('#nav').css({ "background-color": "rgba(82, 82, 82, 0.9)" });
+//            $('#navlogo').css({ "height": "54px", "width": "73px" })
+//        } else {
+//            $('#nav').css('background-color', 'transparent');
+//            $('#navlogo').css({ "height": "130px", "width": "175px" });
+//        }
+//    });
+
+//    $("#policy-button").click(function () {
+//        $("#policy").addClass("d-none");
+//    });
+//});
 
 jQuery('.dropdown-menu li a').click(function () {
     var _this_img = jQuery(this).attr('data-img');

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ContactUsViewModel
+
+@{
     ViewData["Title"]="Contact Page";
   Layout = "~/Views/Shared/_PublicPageLayout.cshtml";
 }
@@ -34,17 +36,19 @@
 
     <section class="mt-5 text-center">
         <h2 class="pt-4 pb-2 contactHeading">Get in touch with us</h2>
-
-        <form class="contact-form">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form class="contact-form" asp-controller="Home" asp-action="Contactus" method="post" enctype="multipart/form-data">
             <div class="row mb-3">
                 <div class="col-sm-6">
                     <div class="form-group untouch">
-                        <input class="form-control" maxlength="25" name="FirstName" type="text" placeholder="First Name">
+                        <input asp-for="FirstName" type="text" class="form-control"  placeholder="First Name">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input class="form-control" maxlength="25" name="LastName" type="text" placeholder="Last Name">
+                        <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -53,21 +57,23 @@
                     <div class="form-group">
                         <div class="input-group untouch">
                             <span class="country-code">+49</span>
-                            <input class="form-control" name="no" maxlength="20" type="text" placeholder="Mobie Number">
+                            <input asp-for=" MobileNumber" type="text" class="form-control" placeholder="Mobie Number">
                         </div>
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input class="form-control" name="Email" maxlength="100" type="text" placeholder="Email Address">
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Email Address">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <select class="form-control" name="sub-type">
+                        <select asp-for="Subject" class="form-control">
                     <option value="1">
                       Subject</option><option value="2">
                       Subject 2</option>
@@ -78,13 +84,19 @@
             <div class="row mb-4">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <textarea class="form-control" formcontrolname="Message" rows="5" placeholder="Message"></textarea>
+                        <textarea asp-for=" Message " class="form-control" placeholder="Message"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-
+            <div class="col-12">
+                <label class="lblAttachment">Attachment</label>
+                <label for="inputAttachment" class="lblUpload">Upload</label>
+                <input asp-for="File" type="file" id="inputAttachment" hidden />
+                <label id="lblAttachmentName"></label>
+            </div>
             <div class="col-sm-12 text-center">
-                <button class="btn-submit btn-lg" data-dismiss="msg" type="submit" disabled="">Submit</button>
+                <button class="btn-submit btn-lg" data-dismiss="msg" type="submit">Submit</button>
             </div>
 
         </form>

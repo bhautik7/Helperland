@@ -1,4 +1,4 @@
-﻿@model LoginViewModel
+﻿@model CombinedViewModel
 
 
 @using Microsoft.AspNetCore.Http
@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-      <script src="~/js~/js/home.js"></script>
+      <script src="~/js/home.js"></script>
       @RenderSection("Scripts", required: false)
 </head>
 <body>
@@ -75,18 +76,18 @@
                 <div class="modal-body">
                     <form asp-controller="Account" asp-action="Login">
                         <div class="mb-3 form-group icon-textbox">
-                            <input asp-for="Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                            <input asp-for="LoginModel.Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
                             <img alt="email" src="~/images/user1.png">
-                             <span asp-validation-for="Email" class="text-danger"></span>
+                             <span asp-validation-for="LoginModel.Email" class="text-danger"></span>
                         </div>
                         <div class="mb-3 form-group icon-textbox">
-                            <input asp-for="Password" type="password" class="form-control" id="exampleFormControlInput2"
+                            <input asp-for="LoginModel.Password" type="password" class="form-control" id="exampleFormControlInput2"
                                 placeholder="Password">
                             <img alt="Password" src="~/images/lock.png">
-                             <span asp-validation-for="Password" class="text-danger"></span>
+                             <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
                         </div>
                         <div class="form-check">
-                            <input  asp-for="RememberMe " class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <input  asp-for="LoginModel.RememberMe" class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label" for="flexCheckChecked">
                                 Remember Me
                             </label>
@@ -112,13 +113,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form asp-controller="Account" asp-action="ResetLink" method="post">
                         <div class="mb-3 form-group icon-textbox">
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                            <input asp-for="LoginModel.Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
                             <img alt="email" src="~/images/user1.png">
+                            <span asp-validation-for="LoginModel.Email"></span>
                         </div>
 
-                        <button class="submit-button mb-3" type="submit">Login</button>
+                        <button class="submit-button mb-3" type="submit">Send</button>
                         <div class="text-center mb-2"><a href="#" data-bs-toggle="modal"
                                 data-bs-target="#loginModal" data-bs-dismiss="modal">Login now</a></div>
                     </form>

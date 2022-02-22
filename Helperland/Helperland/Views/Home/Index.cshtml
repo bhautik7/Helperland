@@ -2,7 +2,6 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_HomePageLayout.cshtml";
 }
-
     <div class="main" id="main">
  
         <section id="section-banner">
@@ -18,7 +17,7 @@
             </div>
             <div class="btn-lets">
                 <div>
-                    <button class="btn btn-outline-light text-light">Let’s Book a Cleaner</button>
+                    <a asp-action="BookService" asp-controller="Home"><button class="btn btn-outline-light text-light" >Let’s Book a Cleaner</button></a>
                 </div>
             </div>
             <div class="all-steps">

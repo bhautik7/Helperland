@@ -1,5 +1,7 @@
 ﻿@model UserRegistrationViewModel
 
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpHttpContextAccessor;
 @{
     ViewData["Title"] = "Become A Helper";
     Layout = "~/Views/Shared/_BecomeAHelperLayout.cshtml";
@@ -9,7 +11,7 @@
         <div id="service-provider-header">
             <nav class="navbar navbar-dark fixed-top navbar-expand-lg" id="nav">
                 <div class="container-fluid">
-                    <a class="navbar-brand me-auto" href="#">
+                    <a class="navbar-brand me-auto" asp-controller="Home" asp-action="Index">
                         <img id="navlogo" src="~/images/logo-large.png" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,16 +36,35 @@
                             <li class="nav-item">
                                 <a class="nav-link"  asp-controller="Home" asp-action="Contact">Contact us</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
-                                    <button type="button" class="btn btn-outline-light">Login</button>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">
-                                    <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="BecomeAPro" >Become a Helper</button>
-                                </a>
-                            </li>
+                             @if (_httpHttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="#">
+                                                <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="Logout" >Logout</button>
+                                            </a>
+                                        </li>
+                                       
+                                       <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="#">
+                                            <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="BecomeAPro" >Become a Helper</button>
+                                        </a>
+                                     </li>
+                                    }
+                                  else
+                                    {
+                                        <li class="nav-item">
+                                             <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                                    <button type="button" class="btn btn-outline-light">Login</button>
+                                              </a>
+                                              </li>
+                           
+                                         <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="#">
+                                                <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="BecomeAPro" >Become a Helper</button>
+                                            </a>
+                                        </li>
+                                    }
+                         
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img class="flag" src="https://cdn-icons-png.flaticon.com/128/206/206626.png" alt="flag">
@@ -55,7 +76,7 @@
                                     <li>
                                         <a class="dropdown-item" data-img="https://cdn-icons-png.flaticon.com/128/555/555417.png" href="#"><img src="https://cdn-icons-png.flaticon.com/128/555/555417.png" alt="flag"> Canada</a>
                                     </li>
-
+                                    
                                 </ul>
                             </li>
                             </li>
@@ -118,10 +139,10 @@
                         </div>
                     </form>
                 </div>
-                <div class="text-center py-md-3">
+               @* <div class="text-center py-md-3">
                     <a href="#how_it_works"><img src="~/images/group-18_5.png" width="40" height="40" alt=""></a>
-                </div>
-            </div>
+                </div>*@ 
+           </div>
         </div>
         
     </section>

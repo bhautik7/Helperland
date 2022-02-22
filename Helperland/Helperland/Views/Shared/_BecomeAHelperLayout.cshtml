@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model CombinedViewModel
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -121,7 +122,7 @@
     </section>*@
         <!-- Model For Login -->
 
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -129,19 +130,22 @@
                     <h4 class="modal-title" id="staticBackdropLabel">Login to your account</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form asp-controller="Account" asp-action="Login">
                         <div class="mb-3 form-group icon-textbox">
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                            <input asp-for="LoginModel.Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
                             <img alt="email" src="~/images/user1.png">
+                             <span asp-validation-for="LoginModel.Email" class="text-danger"></span>
                         </div>
                         <div class="mb-3 form-group icon-textbox">
-                            <input type="password" class="form-control" id="exampleFormControlInput2"
+                            <input asp-for="LoginModel.Password" type="password" class="form-control" id="exampleFormControlInput2"
                                 placeholder="Password">
                             <img alt="Password" src="~/images/lock.png">
+                             <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <input  asp-for="LoginModel.RememberMe" class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label" for="flexCheckChecked">
                                 Remember Me
                             </label>
@@ -173,7 +177,7 @@
                             <img alt="email" src="~/images/user1.png">
                         </div>
 
-                        <button class="submit-button mb-3" type="submit">Login</button>
+                        <button class="submit-button mb-3" type="submit">Send</button>
                         <div class="text-center mb-2"><a href="#" data-bs-toggle="modal"
                                 data-bs-target="#loginModal" data-bs-dismiss="modal">Login now</a></div>
                     </form>

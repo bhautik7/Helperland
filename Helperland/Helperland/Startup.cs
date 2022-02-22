@@ -1,4 +1,6 @@
 using Helperland.Models;
+using Helperland.Repository;
+using Helperland.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +37,16 @@ namespace Helperland
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             services.AddHttpContextAccessor();
+
+            services.AddScoped<EmailService>();
+            services.AddScoped<Contact_Us>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserAddressRepository, UserAddressRepository>();
+            services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
+            services.AddScoped<IServiceRequestAddressRepository, ServiceRequestAddressRepository>();
+            services.AddScoped<IServiceRequestExtraRepository, ServiceRequestExtraRepository>();
+
+            services.AddDataProtection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +69,8 @@ namespace Helperland
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {
