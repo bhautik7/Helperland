@@ -87,7 +87,12 @@ namespace Helperland.Controllers
             List<UserAddress> userAddresseList = _userAddressRepository.GetUserAddress(userId);
             return View("BookServiceCustomerAddressList", userAddresseList);
         }
-
+        [HttpPost]
+        public JsonResult GetCitiesByPostalCode(string postalCode)
+        {
+            List<City> cities = _userAddressRepository.GetCitiesByPostalCode(postalCode);
+            return Json(cities);
+        }
         [HttpPost]
         public JsonResult BookCustomerServiceRequest([FromBody] ServiceRequestViewModel model)
         {
@@ -96,7 +101,7 @@ namespace Helperland.Controllers
                 UserId = model.UserId,
                 ServiceId = 0,
                 ServiceStartDate = Convert.ToDateTime(model.ServiceStartDate.ToString().Trim() + " " + model.ServiceStartTime.ToString().Trim()),
-                ZipCode = model.ZipCode.ToString().Trim(),
+                ZipCode = model.PostalCode.ToString().Trim(),
                 ServiceHourlyRate = model.ServiceHourlyRate,
                 ServiceHours = model.ServiceHours,
                 ExtraHours = model.ExtraHours,

@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-
 namespace Helperland.ViewModels
 {
     public class ServiceRequestViewModel
@@ -11,12 +10,12 @@ namespace Helperland.ViewModels
         public int UserId { get; set; }
 
         [JsonPropertyName("postalCode")]
-        public string ZipCode { get; set; }
+        public string PostalCode { get; set; }
 
-        [JsonPropertyName("serviceDate")]
+        [JsonPropertyName("serviceStartDate")]
         public string ServiceStartDate { get; set; }
 
-        [JsonPropertyName("serviceTime")]
+        [JsonPropertyName("serviceStartTime")]
         public string ServiceStartTime { get; set; }
 
         [JsonPropertyName("serviceHourlyRate")]

@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     $('#service_history_table').DataTable({
         paging: true,
         "pagingType": "full_numbers",
@@ -35,3 +36,4 @@
         "order": []
     });
 });
+

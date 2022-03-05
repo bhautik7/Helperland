@@ -10,6 +10,21 @@ html {
     scroll-behavior: smooth;
 }
 
+.btn-reschedule {
+    color:white;
+    font-size: 16px;
+    border-radius: 22px;
+    padding: 10px 22px;
+    background-color: rgb(5, 115, 119);
+}
+
+.btn-cancel {
+    color: white;
+    font-size: 16px;
+    border-radius: 22px;
+    padding: 10px 22px;
+}
+
 .navbar {
     transition: all 0.3s ease;
 }
@@ -214,27 +229,26 @@ html {
         background-color: #1d7a8c;
     }
 
-        .side-bar .side-bar-menu .side-menu-link {
+        .side-bar .side-bar-menu .nav-item {
             min-width: 262px;
             font-size: 18px;
             line-height: 55px;
             border-bottom: 1px solid #fff;
             list-style: none;
-            padding-left: 15px;
         }
 
-            .side-bar .side-bar-menu .side-menu-link:hover {
-                background-color: #146371;
-            }
+        .side-bar .side-bar-menu .nav-link:hover {
+            background-color: #146371;
+        }
 
-            .side-bar .side-bar-menu .side-menu-link.active {
-                background-color: #146371;
-            }
+        .side-bar .side-bar-menu .nav-link.active {
+            background-color: #146371;
+        }
 
-            .side-bar .side-bar-menu .side-menu-link a {
-                color: #fff;
-                text-decoration: none;
-            }
+        .side-bar .side-bar-menu .nav-link {
+            color: #fff;
+            text-decoration: none;
+        }
 
 .main-content {
     width: 845px;
@@ -242,6 +256,12 @@ html {
 }
 
 /* Side Bar END */
+
+.table-width{
+    width:845px;
+}
+
+
 
 .main-body .main-content .title {
     font-size: 22px;
@@ -321,10 +341,7 @@ html {
     padding: 0px 20px;
 }
 
-
-
-
-/* datatable start */
+/*datatable start*/
 
 .main-content table.dataTable thead .sorting .sort-img {
     content: url(../images/sort.png);
@@ -366,10 +383,21 @@ html {
     }
 
     .main-content table tbody tr td {
+        position: relative;
         font-size: 16px;
         color: #646464;
-        line-height: 26px;
     }
+
+        .main-content table tbody tr td .clickableBox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: #646464 !important;
+            padding: 3px;
+        }
 
         .main-content table tbody tr td span {
             font-weight: bold;
@@ -378,6 +406,11 @@ html {
     .main-content table tr {
         vertical-align: middle;
     }
+
+
+.dataTables_wrapper .dataTables_processing {
+    background: none !important;
+}
 
 .dataTables_wrapper .dataTables_info {
     margin-left: 15px;
@@ -456,4 +489,105 @@ html {
         border-color: #8bc7d3;
     }
 
-/* DataTable End */
+.dataTables_wrapper .dataTables_length select {
+    height: auto !important;
+}
+
+
+/*My Account Page Start*/
+
+.my-account {
+    width: 100%;
+}
+
+    .my-account .nav-link {
+        font-weight: 700;
+        background-color: #fff;
+        color: #646464;
+        border-bottom: 4px solid #e1e1e1;
+        border-radius: 0px !important;
+    }
+
+    .my-account .nav-pills .nav-link.active,
+    .my-account .nav-pills .nav-link:hover {
+        background-color: #fff;
+        color: #1d7a8c;
+        border-bottom: 4px solid #1d7a8c !important;
+        border-radius: 0px !important;
+    }
+
+    .my-account .small-select-tag {
+        padding: 10px 23px 10px 6px !important;
+        background-position: right 6px center !important;
+    }
+
+
+    .my-account .tab-icon {
+        margin: auto;
+        height: 26px;
+        width: 24px;
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-position: 0 0;
+    }
+
+    .my-account .my-detail-tabIcon {
+        background-image: url(../images/my-account-details.png);
+    }
+
+    .my-account .my-addresses-tabIcon {
+        background-image: url(../images/my-account-address.png);
+    }
+
+    .my-account .my-change-password-tabIcon {
+        background-image: url(../images/my-account-password.png);
+    }
+
+    .my-account .nav-link.active .my-detail-tabIcon {
+        background-image: url(../images/my-account-details.png);
+        background-position: 0 -26px;
+    }
+
+    .my-account .nav-link.active .my-addresses-tabIcon {
+        background-image: url(../images/my-account-address.png);
+        background-position: 0 -26px;
+    }
+
+    .my-account .nav-link.active .my-change-password-tabIcon {
+        background-image: url(../images/my-account-password.png);
+        background-position: 0 -26px;
+    }
+
+#my-addresses table thead {
+    color: #646464;
+    background: #f3f3f3;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+#my-addresses table th,
+#my-addresses table td {
+    padding-left: 15px;
+}
+
+#my-addresses tbody {
+    border-top: 0px !important;
+}
+
+#my-addresses .actionIcon {
+    color: transparent;
+    border-radius: 25px;
+}
+
+    #my-addresses .actionIcon.editIcon {
+        padding: 10px 5px 10px 10px;
+    }
+
+    #my-addresses .actionIcon.deleteIcon {
+        padding: 10px 9px;
+    }
+
+    #my-addresses .actionIcon:hover {
+        background-color: #f3f3f3;
+    }
+
+/*My Account Page End*/

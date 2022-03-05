@@ -1,0 +1,441 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- Service-history List -->
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="title">Current Service Requests</h2>
+    <a class="export-btn text-decoration-none" asp-action="BookService" asp-controller="Home">Add New Service Request</a>
+</div>
+<div class="div-table">
+    <table class="table" id="tblCurrentServiceRequest">
+        <thead>
+            <tr>
+                <td>Service Id <img class="sort-img" alt=""></td>
+                <td>Service Details <img class="sort-img" alt=""> </td>
+                <td>Service Provider <img class="sort-img" alt=""> </td>
+                <td>Payment <img class="sort-img" alt=""></td>
+                <td>Action</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<!-- Service Detail Modal -->
+<div class="modal" id="ServiceDetailModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3">Service Details</h3>
+                <span class="text service-date"><label id="lblServiceRequestDateTime"></label></span><br>
+                <span class="text"><b>Duration:</b> <label id="lblDuration"></label> Hrs</span>
+                <hr />
+                <span class="text"><b>Service Id:</b> <label id="lblServiceRequestId"></label></span><br>
+                <span class="text"><b>Extras:</b> <label id="lblExtraServices" class="d-inline"></label></span><br>
+                <span class="text"><b>Net Amount :</b> <label id="lblTotalAmount" class="primary fs-20 ms-3"></label></span>
+                <hr />
+                <span class="text"><b>Service Address:</b> <label id="lblServiceAddress"></label></span><br>
+                <span class="text"><b>Phone:</b> <label id="lblPhone"></label></span><br>
+                <span class="text"><b>Email:</b> <label id="lblEmail"></label></span>
+                <hr />
+                <span class="text"><b>Comments:</b> <label id="lblComments"></label></span>
+                <span class="text"><label id="lblHasPet"></label></span>
+                <hr />
+                <div class="button-group">
+                    <button id="btnModalRescheduleServiceRequest" class="btn rounded-pill btn-reschedule"><img src="~/images/reschedule-icon-small.png" /> <span>Reschedule</span> </button>
+                    <button id="btnModalCancelServiceRequest" class="btn rounded-pill btn-danger btn-cancel ms-2"><img src="~/images/close-icon-small.png" /> <span>Cancel</span> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reschedule Service request Modal -->
+<div class="modal" id="RescheduleServiceRequestModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">Reschedule Service Request</h3>
+                <div id="divRescheduleServiceRequestErrorMessage"></div>
+                <div class="row">
+                    <div class="col-md-12">Select New Date a Time</div>
+                    <div class="col-md-6 col-sm-12 pe-2 ps-2 pt-2">
+                        <input id="RescheduleServiceDate" type="date" class="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12 pe-2 ps-2 pt-2">
+                        <select class="form-select" id="RescheduleServiceTime">
+                            @for (double i = 8; i <= 18; i = i + 0.5)
+                            {
+                                string[] number = i.ToString().Split(".");
+                                <option value="@i"> @number[0]:@(number.Length == 2? "30" : "00") </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <button class="btn rounded-pill button-primary w-100" onclick="UpdateRescheduleServiceRequest()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hiddenServiceRequestIdModal" />
+
+<!-- Cancel Service request Modal -->
+<div class="modal" id="CancelServiceRequestModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">Cancel Service Request</h3>
+                <div class="row">
+                    <div class="col-md-12">Why you want to cancel the service request?</div>
+                    <div class="col-md-12 pe-2 ps-2 pt-2">
+                        <textarea id="txtCancelServiceRequest" class="form-control" rows="3"></textarea>
+                        <span id="txtCancelServiceRequestErrorMessage" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <button class="btn rounded-pill button-primary w-100" onclick="CancelServiceRequestModel()">Cancel Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tblCurrentServiceRequest').on('draw.dt', function () { //every time ajax call, this code execute
+                $(".spRating").rating({
+                    min: 0,
+                    max: 5,
+                    step: 0.1,
+                    size: "xs",
+                    stars: "5",
+                    showClear: false,
+                    readonly: true,
+                    starCaptions: function (val) {
+                        return val;
+                    },
+                    starCaptionClasses: function () {
+                        return "fs-16";
+                    },
+                });
+            });
+
+            $('#tblCurrentServiceRequest').DataTable({
+                paging: true,
+                pagingType: "full_numbers",
+                processing: true,
+                serverSide: true,
+                filter: true,
+                // bFilter: false,
+                ordering: true,
+                searching: false,
+                ajax: {
+                    url: "/Customer/GetCurrentServiceRequestList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data'
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+
+                columnDefs: [
+                    { "orderable": false, "targets": 4 }
+                ],
+                columns: [
+                    {
+                        name: 'ServiceRequestId',
+                        render: function (data, type, row) {
+                            return "<a class='align-items-center clickableBox d-flex justify-content-center' onclick='OpenServiceDetailModel(" + row.serviceRequestId + ")'>" +
+                                row.serviceRequestId + "</a>";
+                        }
+                    },
+                    {
+                        name: 'ServiceDateTime',
+                        render: function (data, type, row) {
+                            return "<a class='clickableBox' onclick='OpenServiceDetailModel(" + row.serviceRequestId + ")'>" +
+                                "<img src='../images/calendar2.png'' class='me-1' alt='calenderIcon'><span> " +
+                                ServiceStartDate(row.serviceStartDate) + "</span ><br> " +
+                                "<img src='../images/layer-14.png' class='me-1' alt='clockIcon'>" +
+                                ServiceTime(row.serviceStartDate, 0) + " - " +
+                                ServiceTime(row.serviceStartDate, row.serviceHours) + "</a>";
+                        }
+                    },
+                    {
+                        name: 'ServiceProvider',
+                        render: function (data, type, row) {
+                            
+                            if (row.user == null) {
+                                return "";
+                            }
+                            else {
+                                var totalRating = 0;
+                                var spRating = 0;
+                                var count = 0;
+                                
+                                row.ratings.forEach(function (element) {
+                                    totalRating = totalRating + element.ratings;
+                                    count = count + 1;
+                                });
+
+
+                                if (count == 0) {
+                                    return "<div><img src='~/images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                        "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " + "Not Rated";
+                                }
+
+                                spRating = (totalRating / count);
+
+                                var spRatingRounded = Math.round(spRating * 10) / 10;
+
+                                return "<div><img src='~/images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                    "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " +
+                                    "<input id='sprating_" + row.user.userId + "_" + row.serviceRequestId + "' class='spRating' value='" + spRatingRounded + "' type='text' title='' hidden>";
+                            }
+                        }
+                    },
+                    {
+                        name: 'TotalCost',
+                        render: function (data, type, row) {
+                            return "<span class='money'>" + row.totalCost + "$</span>";
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                            return "<button class='btn rounded-pill btn-reschedule p-2 fs-14' onclick='OpenRescheduleServiceRequestModel(" + row.serviceRequestId + ", false)'>Reschedule</button>" +
+                                "<button class='btn rounded-pill btn-danger btn-cancel p-2 ms-1 fs-14' onclick='OpenCancelServiceRequestModel(" + row.serviceRequestId + ", false)'>Cancel</button>";
+                        }
+                    },
+                ],
+                info: true,
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]]
+            });
+
+        
+        });
+
+        function ServiceStartDate(inputDate) {
+            const date = new Date(inputDate);
+            return AppendZero(date.getDate().toString()) + "/" + AppendZero((date.getMonth() + 1).toString()) + "/" + date.getFullYear().toString();
+        }
+
+        function ServiceTime(inputDate, totalHour) {
+            const date = new Date(inputDate);
+            date.setMinutes(date.getMinutes() + (totalHour * 60));
+            return AppendZero(date.getHours().toString()) + ":" + AppendZero(date.getMinutes().toString());
+        }
+
+        function OpenServiceDetailModel(serviceRequestId) {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/GetServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+                    console.log(resp.data);
+                    $('#preloader').addClass("d-none");
+
+                    $("#lblServiceRequestDateTime").html("<b>" + ServiceStartDate(resp.data.serviceStartDate) + "</b> " +
+                        "<b>" + ServiceTime(resp.data.serviceStartDate, 0) + "-" +
+                        ServiceTime(resp.data.serviceStartDate, resp.data.serviceHours) + "</b>");
+                    $("#lblDuration").text(resp.data.serviceHours);
+                    $("#lblServiceRequestId").text(resp.data.serviceRequestId);
+                    $("#lblExtraServices").text(resp.extraServiceRequest);
+                    $("#lblTotalAmount").html("<b>" + resp.data.totalCost + " $</b>");
+
+                    var serviceAddress = resp.data.serviceRequestAddress[0];
+
+                    $("#lblServiceAddress").text(serviceAddress.addressLine1 + serviceAddress.addressLine2 + ", " + serviceAddress.postalCode + serviceAddress.city)
+                    $("#lblPhone").text(serviceAddress.mobile);   // User Or ServiceAddress
+                    $("#lblEmail").text(resp.data.user.email);
+
+                    $("#lblComments").text(resp.data.comments);
+
+                    if (resp.data.hasPets == false) {
+                        $("#lblHasPet").html("<img src='../images/not-included.png'/> I don't have pets at home");
+                    }
+                    else {
+                        $("#lblHasPet").html("<img src='../images/included.png'/> I have pets at home");
+                    }
+
+                    $('#btnModalRescheduleServiceRequest').attr('onClick', 'OpenRescheduleServiceRequestModel(' + serviceRequestId + ', true);');
+                    $('#btnModalCancelServiceRequest').attr('onClick', 'OpenCancelServiceRequestModel(' + serviceRequestId + ', true);');
+
+                    $('#ServiceDetailModel').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#ServiceDetailModel').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function OpenRescheduleServiceRequestModel(serviceRequestId, closeServiceDetailModel) {
+
+            if (closeServiceDetailModel == true) {
+                $('#ServiceDetailModel').modal('hide');
+            }
+
+            $("#hiddenServiceRequestIdModal").val(serviceRequestId);
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/GetServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+                    
+                    $('#preloader').addClass("d-none");
+
+                    var date = new Date(resp.data.serviceStartDate);
+                    var servicedate = date.getFullYear().toString() + "-" + AppendZero((date.getMonth() + 1).toString()) + "-" + AppendZero(date.getDate().toString());
+
+                    var currentDate = new Date();
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    var inputTagMinDate = currentDate.getFullYear().toString() + "-" + AppendZero((currentDate.getMonth() + 1).toString()) + "-" + AppendZero(currentDate.getDate().toString());
+
+                    $("#RescheduleServiceDate").val(servicedate);
+                    $('#RescheduleServiceDate').attr("min", inputTagMinDate);
+
+                    var serviceRequestHour = date.getHours();
+                    var serviceRequestMinute = date.getMinutes();
+
+                    serviceRequestHour = serviceRequestHour + (serviceRequestMinute / 60);
+                    serviceRequestHour = Math.round(serviceRequestHour * 10) / 10;
+                    
+                    $("#RescheduleServiceTime").val(serviceRequestHour);
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+            $('#RescheduleServiceRequestModel').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#RescheduleServiceRequestModel').modal('show');
+        }
+
+        function UpdateRescheduleServiceRequest() {
+
+            var serviceRequest = {};
+
+            serviceRequest.serviceRequestId = $("#hiddenServiceRequestIdModal").val();
+            serviceRequest.serviceStartDate = $("#RescheduleServiceDate").val();
+            serviceRequest.serviceStartTime = $("#RescheduleServiceTime option:selected").text();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/UpdateRescheduleServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(serviceRequest),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        $('#RescheduleServiceRequestModel').modal('hide');
+                        $('#tblCurrentServiceRequest').DataTable().ajax.reload();
+                    }
+                    else if (resp.status == "Error") {
+                        BootstrapAlert("divRescheduleServiceRequestErrorMessage", resp.errorMessage, "danger");
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function OpenCancelServiceRequestModel(serviceRequestId, closeServiceDetailModel) {
+
+            if (closeServiceDetailModel == true) {
+                $('#ServiceDetailModel').modal('hide');
+            }
+
+            $("#hiddenServiceRequestIdModal").val(serviceRequestId);
+
+            $('#CancelServiceRequestModel').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#CancelServiceRequestModel').modal('show');
+        }
+
+        function CancelServiceRequestModel() {
+
+            if ($("#txtCancelServiceRequest").val().trim() == "") {
+                $("#txtCancelServiceRequestErrorMessage").html("Please Enter reason for cancel Service.");
+                return;
+            }
+            else {
+                $("#txtCancelServiceRequestErrorMessage").html("");
+            }
+
+            var serviceRequest = {};
+
+            serviceRequest.serviceRequestId = $("#hiddenServiceRequestIdModal").val();
+            serviceRequest.comments = $("#txtCancelServiceRequest").val();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/CancelServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(serviceRequest),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        $('#CancelServiceRequestModel').modal('hide');
+                        $('#tblCurrentServiceRequest').DataTable().ajax.reload();
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+        //appent 0 to single digit number for month and date
+        function AppendZero(input) {
+            if (input.length == 1) {
+                return '0' + input;
+            }
+            return input;
+        }
+
+    </script>
+}

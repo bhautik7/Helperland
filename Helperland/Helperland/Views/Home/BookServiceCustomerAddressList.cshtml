@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<UserAddress>
+
+@{
+    Layout = null;
+}
+
+@if (Model.Any())
+{
+    @foreach (UserAddress userAddress in Model)
+    {
+        <li class="address">
+            <label for="@userAddress.AddressId">
+                <input class="form-check-input address-radioBtn" type="radio" id="@userAddress.AddressId" name="UserAddressListYourDetailTab" />
+                <span>
+                    <b>Address :</b> @userAddress.AddressLine1 @userAddress.AddressLine2, @userAddress.City @userAddress.PostalCode <br />
+                    <b>Phone number :</b> @userAddress.Mobile
+                </span>
+            </label>
+        </li>
+    }
+    <input type="hidden" id="isUserAddressListAvailable" value="true" />
+}
+else
+{
+    <li class="address p-3">No address Found. Please Add New Address.</li>
+    <input type="hidden" id="isUserAddressListAvailable" value="false" />
+}
+

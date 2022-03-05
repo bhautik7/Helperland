@@ -1,0 +1,660 @@
+﻿
+@{
+    ViewData["Title"] = "MyAccount";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="my-account">
+    <ul class="nav nav-pills mb-3 nav-fill" id="CustomerMySettingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="my-detail-tab" data-bs-toggle="pill" data-bs-target="#my-detail" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                <span class="tab-icon my-detail-tabIcon d-block d-sm-none"></span>
+                <span class="d-none d-sm-block">My Details</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="my-addresses-tab" data-bs-toggle="pill" data-bs-target="#my-addresses" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+                <span class="tab-icon my-addresses-tabIcon d-block d-sm-none"></span>
+                <span class="d-none d-sm-block">My Addresses</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="change-password-tab" data-bs-toggle="pill" data-bs-target="#change-password" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+                <span class="tab-icon my-change-password-tabIcon d-block d-sm-none"></span>
+                <span class="d-none d-sm-block">Change Password</span>
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="my-detail" role="tabpanel" aria-labelledby="my-detail-tab">
+            <div id="divMyDetailTabBootstrapAlert">
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="First Name">
+                    <span id="ErrorMessageFirstName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="LastName" class="form-label">LastName</label>
+                    <input type="text" class="form-control" id="LastName" placeholder="Last Name">
+                    <span id="ErrorMessageLastName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="Email" class="form-label">E-mail address</label>
+                    <input type="text" class="form-control" id="Email" placeholder="E-mail Address" disabled>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="MobileNumber" class="form-label">Mobile number</label>
+                    <input type="text" class="form-control" id="MobileNumber" placeholder="Mobile Number">
+                    <span id="ErrorMessageMobileNumber" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="MobileNumber" class="form-label">Date of Birth</label>
+                    <div class="row">
+                        <div class="col-3 pe-1">
+                            <select class="form-select small-select-tag" id="DayDOB">
+                                <option value="">Day</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-5 pe-1 ps-1">
+                            <select class="form-select" id="MonthDOB">
+                                <option value="">Month</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-4 ps-1">
+                            <select class="form-select small-select-tag" id="YearDOB">
+                                <option value="">Year</option>
+                                @for (int i = (DateTime.Now.Year - 10); i > (DateTime.Now.Year - 117); i--)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <span id="ErrorMessageDateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="mb-3">
+                <label for="MobileNumber" class="form-label">My Preferred Language</label>
+                <select class="width-120 form-select" id="Language">
+                    <option value="1">English</option>
+                    <option value="2">German</option>
+                </select>
+            </div>
+            <button class="btn rounded-pill btn-reschedule" onclick="UpdateCustomerProfile()">Save</button>
+        </div>
+        <div class="tab-pane fade" id="my-addresses" role="tabpanel" aria-labelledby="my-addresses-tab">
+
+            <div id="divMyAddressTabBootstrapAlert">
+            </div>
+
+            <table class="table" id="tblCustomerAddressList">
+                <thead>
+                    <tr>
+                        <th>Addresses</th>
+                        <th class="width-120">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <a class="btn rounded-pill btn-reschedule" onclick="OpenAddCustomerAddressModel()">Add New Address</a>
+        </div>
+        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
+            <div id="divChangePasswordTabBootstrapAlert">
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="CustomerCurrentPassword" class="form-label">Old Password</label>
+                    <input type="password" class="form-control" id="CustomerCurrentPassword" placeholder="Current Password">
+                    <span id="ErrorMessageCustomerCurrentPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="CustomerNewPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="CustomerNewPassword" placeholder="Password">
+                    <span id="ErrorMessageCustomerNewPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="CustomerConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="CustomerConfirmPassword" placeholder="Confirm Password">
+                    <span id="ErrorMessageCustomerConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <button class="btn rounded-pill btn-reschedule" onclick="UpdateCustomerPassword()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Address Modal -->
+<div class="modal" id="CustomerAddressModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">
+                    <label id="addressModeltitel"></label>
+                    <input type="hidden" id="hiddenAddressId" />
+                </h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Street name</label>
+                        <input type="text" class="form-control" placeholder="Street name" id="UserStreetName" name="UserStreetName">
+                        <span id="ErrorMessageUserStreetName" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">House number</label>
+                        <input type="text" class="form-control" placeholder="House number" id="UserHouseNumber" name="UserHouseNumber">
+                        <span id="ErrorMessageUserHouseNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Postal code</label>
+                        <input type="text" class="form-control" placeholder="Postal code" id="UserPostalCode" name="UserPostalCode">
+                        <span id="ErrorMessageUserPostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">City</label>
+                        <select class="form-select m-0" id="UserCity" name="UserCity">
+                        </select>
+                        
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Phone number</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">+49</span>
+                            <input type="text" class="form-control" id="UserPhoneNumber" name="UserPhoneNumber" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <span id="ErrorMessageUserPhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="model-button btn-reschedule" onclick="SaveCustomerAddress()">
+                            <span id="addressModelSaveBtnText"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="ConfirmDeleteCustomerAddressModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">Delete Address</h3>
+                <input type="hidden" id="hiddenAddressIfDeleteModel" />
+                <div class="row">
+                    <div class="col-md-12">Are you sure you want to delete this address?</div>
+                    <div class="col-md-12 mt-4">
+                        <button class="btn rounded-pill btn-danger" onclick="DeleteCustomerAddress()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            LoadCustomerProfileDetail();
+
+            LoadCustomerAddresses();
+        });
+
+
+        function LoadCustomerProfileDetail() {
+            $.ajax({
+                url: '/Customer/GetCustomerDetail',
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+
+                    if (resp.status == "ok") {
+                        $("#FirstName").val(resp.result.firstName);
+                        $("#LastName").val(resp.result.lastName);
+                        $("#Email").val(resp.result.email);
+                        $("#MobileNumber").val(resp.result.mobile);
+
+                        if (resp.result.dateOfBirth != null) {
+                            var dob = new Date(resp.result.dateOfBirth);
+                            $("#DayDOB").val(dob.getDate());
+                            $("#MonthDOB").val((dob.getMonth() + 1).toString());
+                            $("#YearDOB").val(dob.getFullYear());
+                        }
+
+                        if (resp.result.languageId != null) {
+                            $("#Language").val(resp.result.languageId);
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function UpdateCustomerProfile() {
+            var regularExpressionPhoneNumber = new RegExp("^[0-9]{10}$");
+
+            if ($("#FirstName").val().toString().trim() == "") {
+                $("#ErrorMessageFirstName").html("Please Enter First Name");
+            }
+            else {
+                $("#ErrorMessageFirstName").html("");
+            }
+
+            if ($("#LastName").val().toString().trim() == "") {
+                $("#ErrorMessageLastName").html("Please Enter Last Name");
+            }
+            else {
+                $("#ErrorMessageLastName").html("");
+            }
+
+            if ($("#MobileNumber").val().toString().trim() == "") {
+                $("#ErrorMessageMobileNumber").html("Please Enter Last Name");
+            }
+            else if (!regularExpressionPhoneNumber.test($('#MobileNumber').val())) {
+                $('#ErrorMessageMobileNumber').html("Please Enter Valid Phone number.");
+            }
+            else {
+                $("#ErrorMessageMobileNumber").html("");
+            }
+
+            var dobDay = $("#DayDOB").val().toString().trim();
+            var dobMonth = $("#MonthDOB").val().toString().trim();
+            var dobYear = $("#YearDOB").val().toString().trim();
+
+            var dobErrorMessage = "";
+            
+            if (dobDay != "" || dobMonth != "" || dobYear != "") {
+                if (!isValidDate(dobYear, dobMonth, dobDay)) {
+                    $("#ErrorMessageDateOfBirth").html("Please enter Valid Birth Date");
+                }
+                else {
+                    $("#ErrorMessageDateOfBirth").html("");
+                }
+            }
+
+            if ($("#ErrorMessageFirstName").html() != "" || $("#ErrorMessageLastName").html() != "" || $("#ErrorMessageMobileNumber").html() != "" || $("#ErrorMessageDateOfBirth").html() != "") {
+                return;
+            }
+            
+            var profileDetail = {};
+
+            profileDetail.firstName = $("#FirstName").val().toString().trim();
+            profileDetail.lastName = $("#LastName").val().toString().trim();
+            profileDetail.Mobile = $("#MobileNumber").val().toString().trim();
+            profileDetail.languageId = $("#Language").val().toString().trim();
+
+            if ($("#ErrorMessageDateOfBirth").html() == "") {
+                profileDetail.dateOfBirth = new Date($("#YearDOB").val() + "-" + $("#MonthDOB").val() + "-" + $("#DayDOB").val());
+            }
+
+            $.ajax({
+                url: '/Customer/UpdateCustomerProfileDetail',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(profileDetail),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+
+                        LoadCustomerProfileDetail();
+                        BootstrapAlert("divMyDetailTabBootstrapAlert", "Profile Update successfully.", "success");
+                    }
+                    
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function LoadCustomerAddresses() {
+            $.ajax({
+                url: '/Customer/GetCustomerAddresses',
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+
+                    var htmlContent = "";
+
+                    resp.result.forEach(function (element) {
+                        htmlContent = htmlContent + "<tr><td><b>Address:</b> " + element.addressLine1 + " " + element.addressLine2 + ", " +
+                            element.postalCode + " " + element.city + "<br />" + "<b>Phone number:</b> " + element.mobile + "</td>" +
+                            "<td><a class='actionIcon editIcon' onclick='OpenEditCustomerAddressModal(" + element.addressId + ")' ><img src='../images/edit-icon.png' /></a> " +
+                            "<a class='actionIcon deleteIcon ms-1' onclick='OpenDeleteCustomerAddressModel(" + element.addressId + ")' ><img src='../images/delete-icon.png' /></a></td>";
+                    });
+
+                    $("#tblCustomerAddressList tbody").html(htmlContent);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function OpenAddCustomerAddressModel() {
+            $("#addressModeltitel").html("Add New Address");
+            $("#addressModelSaveBtnText").html("Add");
+            $("#hiddenAddressId").val("");
+
+            $("#UserStreetName").val("");
+            $("#UserHouseNumber").val("");
+            $("#UserPostalCode").val("");
+            $('#UserCity').empty();
+            $("#UserPhoneNumber").val("");
+
+            $('#CustomerAddressModel').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#CustomerAddressModel').modal('show');
+        }
+
+        function OpenEditCustomerAddressModal(addressId) {
+            $("#addressModeltitel").html("Edit Address");
+            $("#addressModelSaveBtnText").html("Edit");
+            $("#hiddenAddressId").val(addressId);
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/GetCustomerAddress',
+                type: 'post',
+                dataType: 'json',
+                data: { "addressId": addressId },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        $("#UserStreetName").val(resp.result.addressLine1);
+                        $("#UserHouseNumber").val(resp.result.addressLine2);
+                        $("#UserPostalCode").val(resp.result.postalCode);
+                        FillCityAddressModel(resp.result.postalCode);
+                        $("#UserCity").val(resp.result.city);
+                        $("#UserPhoneNumber").val(resp.result.mobile);
+                    }
+
+                    $('#CustomerAddressModel').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#CustomerAddressModel').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        //fill City DDL
+        $('#UserPostalCode').change(function () {
+            var RegExpressPostalCode = new RegExp("^[1-9][0-9]{5}$");
+
+            var postalCode = $("#UserPostalCode").val();
+
+            if (RegExpressPostalCode.test(postalCode)) {
+                FillCityAddressModel(postalCode);
+            }
+
+        });
+
+        function FillCityAddressModel(postalCode) {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/GetCitiesByPostalCode',
+                type: 'post',
+                dataType: 'json',
+                data: { "postalCode": postalCode },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#UserCity').empty();
+                    resp.forEach((city) => {
+                        $('#UserCity').append($("<option></option>").val(city.cityName).html(city.cityName));
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function SaveCustomerAddress() {
+
+            var RegExpressPostalCode = new RegExp("^[1-9][0-9]{5}$");
+
+            if ($("#UserStreetName").val() == "") {
+                $("#ErrorMessageUserStreetName").html("Please Enter Street Name");
+            }
+            else {
+                $("#ErrorMessageUserStreetName").html("");
+            }
+
+            if ($("#UserHouseNumber").val() == "") {
+                $("#ErrorMessageUserHouseNumber").html("Please Enter House Number");
+            }
+            else {
+                $("#ErrorMessageUserHouseNumber").html("");
+            }
+
+            if ($("#UserPostalCode").val() == "") {
+                $("#ErrorMessageUserPostalCode").html("Please Enter Postal Code");
+            }
+            else if (!RegExpressPostalCode.test($("#UserPostalCode").val())) {
+                $('#ErrorMessageUserPostalCode').html("Please Enter Valid Postal Code.");
+            }
+            else if ($('#UserCity option').length == 0) {
+                $('#ErrorMessageUserPostalCode').html("Please Enter different Postal Code.");
+            }
+            else {
+                $("#ErrorMessageUserPostalCode").html("");
+            }
+
+            if ($("#UserPhoneNumber").val() == "") {
+                $("#ErrorMessageUserPhoneNumber").html("Please Enter Phone number");
+            }
+            else {
+                $("#ErrorMessageUserPhoneNumber").html("");
+            }
+
+            if ($("#ErrorMessageUserStreetName").html() != "" || $("#ErrorMessageUserHouseNumber").html() != "" || $("#ErrorMessageUserPostalCode").html() != "" || $("#ErrorMessageUserPhoneNumber").html() != "") {
+                return;
+            }
+
+            var userAddress = {};
+
+            userAddress.addressId = $("#hiddenAddressId").val();
+            userAddress.streetName = $("#UserStreetName").val();
+            userAddress.houseNumber = $("#UserHouseNumber").val();
+            userAddress.postalCode = $("#UserPostalCode").val();
+            userAddress.city = $("#UserCity").val();
+            userAddress.phoneNumber = $("#UserPhoneNumber").val();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/SaveCustomerAddress',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(userAddress),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#CustomerAddressModel').modal('hide');
+
+                    LoadCustomerAddresses();
+
+                    if (userAddress.addressId == "") {
+                        BootstrapAlert("divMyAddressTabBootstrapAlert", "Addreess Add successfully.", "success");
+                    }
+                    else {
+                        BootstrapAlert("divMyAddressTabBootstrapAlert", "Addreess Edit successfully.", "success");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function OpenDeleteCustomerAddressModel(addressId) {
+            $("#hiddenAddressIfDeleteModel").val(addressId);
+
+            $('#ConfirmDeleteCustomerAddressModel').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#ConfirmDeleteCustomerAddressModel').modal('show');
+        }
+
+        function DeleteCustomerAddress() {
+
+            var addressId = $("#hiddenAddressIfDeleteModel").val();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/DeleteCustomerAddress',
+                type: 'post',
+                dataType: 'json',
+                data: { "addressId": addressId },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#ConfirmDeleteCustomerAddressModel').modal('hide');
+
+                    if (resp.status == "ok") {
+                        BootstrapAlert("divMyAddressTabBootstrapAlert", "Addreess Deleted successfully.", "success");
+                    }
+
+                    LoadCustomerAddresses();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function UpdateCustomerPassword() {
+            var RegExpressPassword = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@@$%^&*-]).{6,16}$");
+
+            if ($("#CustomerCurrentPassword").val().toString().trim() == "") {
+                $("#ErrorMessageCustomerCurrentPassword").html("Please Enter Current Password");
+            }
+            else {
+                $("#ErrorMessageCustomerCurrentPassword").html("");
+            }
+
+            if ($("#CustomerNewPassword").val().toString().trim() == "") {
+                $("#ErrorMessageCustomerNewPassword").html("Please Enter New Password");
+            }
+            else if (!RegExpressPassword.test($("#CustomerNewPassword").val())) {
+                $('#ErrorMessageCustomerNewPassword').html("You must enter At least one upper case, one lower case, one digit and Minimum 6 and Maximum 16 in length");
+            }
+            else {
+                $("#ErrorMessageCustomerNewPassword").html("");
+            }
+
+            if ($("#CustomerConfirmPassword").val().toString().trim() == "") {
+                $("#ErrorMessageCustomerConfirmPassword").html("Please Enter Confirm Password");
+            }
+            else if ($("#CustomerNewPassword").val().toString().trim() != $("#CustomerConfirmPassword").val().toString().trim()) {
+                $("#ErrorMessageCustomerConfirmPassword").html("New Password and Confirm Password do not match");
+            }
+            else {
+                $("#ErrorMessageCustomerConfirmPassword").html("");
+            }
+
+            if ($("#ErrorMessageCustomerCurrentPassword").html() != "" || $("#ErrorMessageCustomerNewPassword").html() != "" || $("#ErrorMessageCustomerConfirmPassword").html() != "" || $("#ErrorMessageUserPhoneNumber").html() != "") {
+                return;
+            }
+
+            var user = {};
+
+            user.password = $("#CustomerCurrentPassword").val().toString().trim();
+            user.newPassword = $("#CustomerNewPassword").val().toString().trim();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/UpdateCustomerPassword',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        BootstrapAlert("divChangePasswordTabBootstrapAlert", "Update password successfully.", "success");
+                        $("#CustomerCurrentPassword").val("");
+                        $("#CustomerNewPassword").val("");
+                        $("#CustomerConfirmPassword").val("");
+                    }
+                    else {
+                        BootstrapAlert("divChangePasswordTabBootstrapAlert", resp.errorMessage, "danger");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function isValidDate(year, month, day) {
+            var d = new Date(year + "-" + AppendZero(month) + "-" + AppendZero(day));
+            if (d.getFullYear().toString() == year && (d.getMonth() + 1).toString() == month && d.getDate().toString() == day) {
+                return true;
+            }
+            return false;
+        }
+        //Bootstrap alert
+        function BootstrapAlert(id, message, type) {
+            var wrapper = document.createElement('div')
+            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+            $('#' + id).html(wrapper);
+        }
+    </script>
+}

@@ -12,7 +12,18 @@ namespace Helperland.Repository
         {
             this._helperlandContext = helperlandContext;
         }
-
+        public List<City> GetCitiesByPostalCode(string postalCode)
+        {
+            List<City> cities = (from city in _helperlandContext.City
+                                 join zipcode in _helperlandContext.Zipcode on city.Id equals zipcode.CityId
+                                 where zipcode.ZipcodeValue == postalCode
+                                 select new City
+                                 {
+                                     Id = city.Id,
+                                     CityName = city.CityName
+                                 }).ToList();
+            return cities;
+        }
         public List<UserAddress> GetUserAddress(int userId)
         {
             List<UserAddress> userAddressList = _helperlandContext.UserAddress.Where(x => x.UserId == userId).ToList();

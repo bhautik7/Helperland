@@ -1,823 +1,483 @@
-﻿@using System.Security.Claims
+﻿@using Helperland.Enums
 @{
     ViewData["Title"] = "Service History";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var compeleted = (int)ServiceRequestStatusEnum.Completed;
+    var cancelled = (int)ServiceRequestStatusEnum.Cancelled;
 }
 
-<nav class="navbar fixed-top navbar-expand-xl navbar-light navbar-bg-color p-0">
-        <div class="container-fluid">
-            <a class="navbar-brand me-auto" href="#">
-                <img src="~/images//white-logo-transparent-background.png" alt="">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav d-xl-none">
-                    <li class="nav-item user-name">
-                        Welcome,<br>
-                        <span>Sandip</span>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">New Service Requests</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Upcoming Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Service Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Service History</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">My Ratings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Block Customer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Logout</a>
-                    </li>
-                    <hr class="hr-navbar">
-                </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item mt-rounded-btn">
-                        <a class="nav-link rounded-btn" aria-current="page" href="#">Book now</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" asp-controller="Home" asp-action="Price">Prices & services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Warranty</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" asp-controller="Home" asp-action="Contact">Contact</a>
-                    </li>
-                </ul>
-                <div class="social-links d-xl-none mt-3">
-                    <a href="#" class="ms-3">
-                        <img src="~/images/facebook-f-brands.svg" alt="" class="fb-icon">
-                    </a>
-                    <a href="#" class="ms-2">
-                        <img src="~/images/instagram-brands.svg" alt="" class="insta-icon">
-                    </a>
+<!-- Service-history List -->
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="title">Service History</h2>
+    <button class="export-btn" onclick="ExportExcel();">Export</button>
+</div>
+<div class="div-table">
+    <table class="table" id="tblServiceHistory">
+        <thead>
+            <tr>
+                <td>Service Id <img class="sort-img" alt=""> </td>
+                <td>Service Details <img class="sort-img" alt=""> </td>
+                <td>Service Provider <img class="sort-img" alt=""> </td>
+                <td>Payment <img class="sort-img" alt=""></td>
+                <td>Status</td>
+                <td>Rate SP</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<!-- Service Provider Rating Modal -->
+<div class="modal" id="ServiceProviderRatingModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="clearfix mb-3 align-items-center d-flex">
+                    <img src="~/images/cap.png" class="cap-img float-start"
+                         alt="cap image">
+                    <div class="name-rating">
+                        <label id="lblServiceProviderName"></label>
+                        <div id="divDisplayRatingServiceProviderInModel">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mb-3">Rate your service provider</h3>
+                <hr />
+
+                <input id="hiddenInputServiceRequestId" type="hidden"/>
+                <input id="hiddenInputRatingTo" type="hidden"/>
+
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-4 mb-1 d-flex align-items-center">
+                        On time arrival
+                    </div>
+                    <div class="col-sm-12 col-md-8 mb-1" id="divRatingOnTimeArrival">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-4 mb-1 d-flex align-items-center">
+                        Friendly
+                    </div>
+                    <div class="col-sm-12 col-md-8 mb-1" id="divRatingFriendly">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-4 mb-1 d-flex align-items-center">
+                        Quality of service
+                    </div>
+                    <div class="col-sm-12 col-md-8 mb-1" id="divRatingQualityOfService">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 mb-1">
+                        Feedback on service provider
+                    </div>
+                    <div class="col-sm-12 col-md-12 mb-1">
+                        <textarea id="feedback" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <button id="btnRatingSubmit" class="btn rounded-pill btn-reschedule" onclick="SubmitRating()">Submit</button>
+                    <span id="ratingMessage" class="text-danger"></span>
                 </div>
             </div>
-            <div class="backblack"></div>
-            <div class="notification-profile-menu">
-                <ul class="d-flex">
-                    <li class="nav-item dropdown notification-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/images/icon-notification.png" alt="">
-                            <span>2</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Notification1</a></li>
-                            <li><a class="dropdown-item" href="#">Notification1</a></li>
-                            <li><a class="dropdown-item" href="#">Show more</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown user-detail-dropdown d-none d-xl-block">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/images/admin-user.png" alt="">
-                        </a>
+        </div>
+    </div>
+</div>
+
+<!-- Service Detail Modal -->
+<div class="modal" id="ServiceDetailModelServiceHistoryPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3">Service Details</h3>
+                <span class="text service-date"><label id="lblServiceRequestDateTime"></label></span><br>
+                <span class="text"><b>Duration:</b> <label id="lblDuration"></label> Hrs</span>
+                <hr />
+                <span class="text"><b>Service Id:</b> <label id="lblServiceRequestId"></label></span><br>
+                <span class="text"><b>Extras:</b> <label id="lblExtraServices" class="d-inline"></label></span><br>
+                <span class="text"><b>Net Amount :</b> <label id="lblTotalAmount" class="primary fs-20 ms-3"></label></span>
+                <hr />
+                <span class="text"><b>Service Address:</b> <label id="lblServiceAddress"></label></span><br>
+                <span class="text"><b>Phone:</b> <label id="lblPhone"></label></span><br>
+                <span class="text"><b>Email:</b> <label id="lblEmail"></label></span>
+                <hr />
+                <span class="text"><b>Comments:</b> <label id="lblComments"></label></span><br>
+                <span class="text"><label id="lblHasPet"></label></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+        var table;
+
+        $(document).ready(function () {
+            $('#tblServiceHistory').on('draw.dt', function () { //every time ajax call, this code execute
+                $(".spRating").rating({
+                    min: 0,
+                    max: 5,
+                    step: 0.1,
+                    size: "xs",
+                    stars: "5",
+                    showClear: false,
+                    readonly: true,
+                    starCaptions: function (val) {
+                        return val;
+                    },
+                    starCaptionClasses: function () {
+                        return "fs-16";
+                    },
+                });
+            });
+
+            table = $('#tblServiceHistory').DataTable({
+                paging: true,
+                pagingType: "full_numbers",
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/Customer/GetServiceRequestHistoryList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data'
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                columnDefs: [
+                    { "orderable": false, "targets": 4 },
+                    { "orderable": false, "targets": 5 }
+                ],
+                columns: [
+                    {
+                        data: 'serviceRequestId',
+                        name: 'ServiceRequestId',
+                    },
+                    {
+                        name: 'ServiceDateTime',
+                        render: function (data, type, row) {
+                            return "<img src='../images/calendar2.png' class='me-1' alt='calenderIcon'><span> " +
+                                ServiceStartDate(row.serviceStartDate) + "</span ><br> " +
+                                "<img src='../images/layer-14.png' class='me-1' alt='clockIcon'>" +
+                                ServiceTime(row.serviceStartDate, 0) + " - " +
+                                ServiceTime(row.serviceStartDate, row.serviceHours);
+                        }
+                    },
+                    {
+                        name: 'ServiceProvider',
+                        render: function (data, type, row) {
+
+                            if (row.user == null) {
+                                return "";
+                            }
+                            else {
+                                var totalRating = 0;
+                                var spRating = 0;
+                                var count = 0;
+
+                                row.ratings.forEach(function (element) {
+                                    totalRating = totalRating + element.ratings;
+                                    count = count + 1;
+                                });
+
+
+                                if (count == 0) {
+                                    return "<div><img src='../images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                        "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " + "Not Rated";
+                                }
+
+                                spRating = (totalRating / count);
+
+                                var spRatingRounded = Math.round(spRating * 10) / 10;
+
+                                return "<div><img src='../images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                    "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " +
+                                    "<input id='sprating_" + row.user.userId + "_" + row.serviceRequestId + "' class='spRating' value='" + spRatingRounded + "' type='text' title='' hidden>";
+                            }
+                        }
+                    },
+                    {
+                        name: 'TotalCost',
+                        render: function (data, type, row) {
+                            return "<span class='money'>" + row.totalCost + "$</span>";
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                            if (row.status == @compeleted) {
+                                return "<span class='compeleted-btn'>Completed</span>";
+                            }
+                            else if (row.status == @cancelled) {
+                                return "<span class='cancelled-btn'>Cancelled</span>";
+                            }
+                            else {
+                                return "";
+                            }
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                            //var customerRated = false;
+                            //row.ratings.forEach(function (element) {
+                            //    if (row.serviceRequestId == element.serviceRequestId) {
+                            //        customerRated = true;
+                            //    }
+                            //});
+                            return "<button class='btn rounded-pill btn-reschedule p-1 fs-14' onclick='OpenServiceProviderRatingModel(" + row.serviceRequestId + ")' " + ((row.status == @cancelled) ? "disabled" : ""/*(customerRated == true ? "disabled" : "" )*/) + " >Rate SP</button>";
+                        }
+                    }
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]]
+            });
+
+            //click on row column
+            $('#tblServiceHistory tbody').on('click', 'td', function () {
+
+                if ($(this).index() == 5) { // prevent click on 4th column
+                    return;
+                }
+
+                var rowData = table.row(this).data();
+
+                $('#preloader').removeClass("d-none");
+
+                $.ajax({
+                    url: '/Customer/GetServiceRequest',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { "serviceRequestId": rowData.serviceRequestId },
+                    success: function (resp) {
+
+                        $('#preloader').addClass("d-none");
+
+                        $("#lblServiceRequestDateTime").html("<b>" + ServiceStartDate(resp.data.serviceStartDate) + "</b> " +
+                            "<b>" + ServiceTime(resp.data.serviceStartDate, 0) + "-" +
+                            ServiceTime(resp.data.serviceStartDate, resp.data.serviceHours) + "</b>");
+                        $("#lblDuration").text(resp.data.serviceHours);
+                        $("#lblServiceRequestId").text(resp.data.serviceRequestId);
+                        $("#lblExtraServices").text(resp.extraServiceRequest);
+                        $("#lblTotalAmount").html("<b>" + resp.data.totalCost + " $</b>");
+
+                        var serviceAddress = resp.data.serviceRequestAddress[0];
+
+                        $("#lblServiceAddress").text(serviceAddress.addressLine1 + serviceAddress.addressLine2 + ", " + serviceAddress.postalCode + serviceAddress.city)
+                        $("#lblPhone").text(serviceAddress.mobile);   // User Or ServiceAddress
+                        $("#lblEmail").text(resp.data.user.email);
+
+                        $("#lblComments").text(resp.data.comments);
+
+                        if (resp.data.hasPets == false) {
+                            $("#lblHasPet").html("<img src='../images/not-included.png'/> I don't have pets at home");
+                        }
+                        else {
+                            $("#lblHasPet").html("<img src='../images/included.png'/> I have pets at home");
+                        }
+
+                        $('#ServiceDetailModelServiceHistoryPage').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#ServiceDetailModelServiceHistoryPage').modal('show');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        });
+
+
+     
+
+        function OpenServiceProviderRatingModel(serviceRequestId) {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/GetServiceProvicerRatingFromServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $("#lblServiceProviderName").html(resp.result.serviceProvider.firstName + " " + resp.result.serviceProvider.lastName);
+
+                    if (resp.result.serviceProviderRating == 0) {
+                        $("#divDisplayRatingServiceProviderInModel").html("Not Rated");
+                    }
+                    else {
+                        $("#divDisplayRatingServiceProviderInModel").html("<input id='spratingInModel_" + resp.result.ratingId + "' class='spRatingInModel' value='" + resp.result.serviceProviderRating + "' type='text' title='' hidden>");
+
+                        $(".spRatingInModel").rating({
+                            min: 0,
+                            max: 5,
+                            step: 0.1,
+                            size: "xs",
+                            stars: "5",
+                            showClear: false,
+                            readonly: true,
+                            starCaptions: function (val) {
+                                return val;
+                            },
+                            starCaptionClasses: function () {
+                                return "fs-16";
+                            },
+                        });
+                    }
+
+                    $("#hiddenInputServiceRequestId").val(resp.result.serviceRequestId);
+                    $("#hiddenInputRatingTo").val(resp.result.serviceProvider.userId);
+
+                    if (resp.result.ratingId == 0) {
+                        $("#divRatingOnTimeArrival").html("<input id='RatingOnTimeArrival' class='rating-serviceProvider' value='" + 0 + "' type='text' title='' hidden>")
+                        $("#divRatingFriendly").html("<input id='RatingFriendly' class='rating-serviceProvider' value='" + 0 + "' type='text' title='' hidden>")
+                        $("#divRatingQualityOfService").html("<input id='RatingQualityOfService' class='rating-serviceProvider' value='" + 0 + "' type='text' title='' hidden>")
+
+                        $(".rating-serviceProvider").rating({
+                            min: 0,
+                            max: 5,
+                            step: 0.5,
+                            size: "sm",
+                            stars: "5",
+                            showClear: false,
+                            showCaption: false
+                        });
+
+                        $("#feedback").val("");
+                        $("#feedback").removeAttr("disabled");
+
+                        $("#btnRatingSubmit").removeClass("d-none");
+                        $("#ratingMessage").html("");
+                    }
+                    else {
+
+                        $("#divRatingOnTimeArrival").html("<input id='RatingOnTimeArrival' class='rating-serviceProvider-disabled' value='" + parseFloat(resp.result.onTimeArrival) + "' type='text' title='' hidden>")
+                        $("#divRatingFriendly").html("<input id='RatingFriendly' class='rating-serviceProvider-disabled' value='" + parseFloat(resp.result.friendly) + "' type='text' title='' hidden>")
+                        $("#divRatingQualityOfService").html("<input id='RatingQualityOfService' class='rating-serviceProvider-disabled' value='" + parseFloat(resp.result.qualityOfService) + "' type='text' title='' hidden>")
+
+                        $(".rating-serviceProvider-disabled").rating({
+                            min: 0,
+                            max: 5,
+                            step: 0.5,
+                            size: "sm",
+                            stars: "5",
+                            showClear: false,
+                            readonly: true,
+                            showCaption: false
+                        });
+
+                        $("#feedback").val(resp.result.comments);
+                        $("#feedback").attr("disabled", "disabled");
+
+                        $("#btnRatingSubmit").addClass("d-none");
+                        $("#ratingMessage").html("You have already rated on " + ServiceStartDate(resp.result.ratingDate) + " " + ServiceTime(resp.result.ratingDate, 0)) + ".";
+                    }
+
+                    $('#ServiceProviderRatingModel').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#ServiceProviderRatingModel').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function SubmitRating() {
+
+            var rating = {};
+
+            rating.serviceRequestId = $("#hiddenInputServiceRequestId").val();
+            rating.ratingTo = parseInt($("#hiddenInputRatingTo").val());
+            rating.OnTimeArrival = $("#RatingOnTimeArrival").val();
+            rating.Friendly = $("#RatingFriendly").val();
+            rating.QualityOfService = $("#RatingQualityOfService").val();
+
+            var totalRatingSp = (parseFloat(rating.OnTimeArrival) + parseFloat(rating.Friendly) + parseFloat(rating.QualityOfService)) / 3.0;
+
+            rating.ratings = Math.round(totalRatingSp * 10) / 10;
+
+            rating.comments = $("#feedback").val();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Customer/SubmitRatingFromCustomer',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(rating),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#ServiceProviderRatingModel').modal('hide');
+
+                    $('#tblServiceHistory').DataTable().ajax.reload();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+           function ExportExcel() {
+            var tblData = table.data();
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            csvContent += "Service Id, Service Details, Service Provider, Payment, Status \n";
+
+            for (let i = 0; i < tblData.length; i++) {
+                csvContent += tblData[i].serviceRequestId + "," +
+                    ServiceStartDate(tblData[i].serviceStartDate) + " " + ServiceTime(tblData[i].serviceStartDate, 0) + " - " +
+                    ServiceTime(tblData[i].serviceStartDate, tblData[i].serviceHours) + ",";
+
                   
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li class="user-name ps-3">
-                                Welcome,<br>
-                                <span>@User.Identity.Name</span>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-center" asp-controller="Account" asp-action="logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="fa fa-bars"></span>
-            </button>
-        </div>
-    </nav>
-     <!-- Welcome-text -->
-     <section class="welcome-text text-center" id="welcome-text">
-        <h1>Welcome, <span>@User.Identity.Name !</span></h1>
-    </section>
-    <section class="main-body" id="main-body">
-        <div class="maxWidth1180">
+                
+                if (tblData[i].user == null) {
+                    csvContent += ",";
+                }
+                else {
+                    csvContent += tblData[i].user.firstName + " " + tblData[i].user.lastName + ",";
+                }
 
-            <div class="d-flex">
-                <!-- side Bar -->
-                <div class="side-bar">
-                    <ul class="side-bar-menu h-100">
-                        <li class="side-menu-link"><a href="#">Dashboard</a></li>
-                        <li class="side-menu-link active"><a href="#">Service History</a></li>
-                        <li class="side-menu-link"><a href="#">Service Schedule</a></li>
-                        <li class="side-menu-link"><a href="#">Favourite Pros</a></li>
-                        <li class="side-menu-link"><a href="#">Invoices</a></li>
-                        <li class="side-menu-link"><a href="#">Notifications</a></li>
-                    </ul>
-                </div>
+                csvContent += tblData[i].totalCost + "$,";
 
-                <!-- Service-history List -->
-                <div class="main-content">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="title">Service History</h2>
-                        <button class="export-btn">Export</button>
-                    </div>
-                    <div class="div-table">
-                        <table class="table" id="service_history_table">
-                            <thead>
-                                <tr>
-                                    <td>Service Details <img class="sort-img" alt=""> </td>
-                                    <td>Service Provider <img class="sort-img" alt=""> </td>
-                                    <td>Payment <img class="sort-img" alt=""></td>
-                                    <td>Status <img class="sort-img" alt=""></td>
-                                    <td>Rate SP</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>09/04/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>15/03/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
+                if (tblData[i].status == @compeleted) {
+                    csvContent += "Completed\n";
+                }
+                else if (tblData[i].status == @cancelled) {
+                    csvContent += "Cancelled\n";
+                }
+                else {
+                    csvContent += "\n";
+                }
+            }
 
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>10/03/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>28/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "serviceRequestHistory.csv");
+            document.body.appendChild(link); // Required for FF
+            link.click();
+        }
 
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>15/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>11/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>31/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>19/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>05/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>01/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>09/04/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>15/03/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>10/03/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>28/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>15/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>11/02/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>31/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>19/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="compeleted-btn">Completed</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>05/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>01/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>                                
-
-                                <tr>
-                                    <td>
-                                        <img src="~/images/calendar.png" alt="">
-                                        <span>01/01/2018</span><br>
-                                        12:00 - 18:00
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img src="~/images/cap.png" class="capImg float-start"
-                                                alt="cap image">
-                                            <div class="name-rating">
-                                                <label>Lyum Watson</label>
-                                                <div>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star1.png" alt=""></span>
-                                                    <span><img src="~/images/star2.png" alt=""></span>
-                                                    <label class="rating-count">4</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="TotalTotalMoney">€63</span>
-                                    </td>
-                                    <td><span class="Cancelled-btn">Cancelled</span></td>
-                                    <td>
-                                        <button class="rate-btn">Rate SP</button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-
+    </script>
+}

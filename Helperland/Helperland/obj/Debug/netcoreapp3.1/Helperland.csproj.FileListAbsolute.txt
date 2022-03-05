@@ -71,3 +71,12 @@ F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminLayout
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayout.cshtml.g.cs
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\BookService.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\BookServiceCustomerAddressList.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Customer\DashBoard.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayoutCustomerSidebar.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayoutServiceProviderSideBar.cshtml.g.cs
+F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+F:\Helperland\Helperland\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Customer\MyAccount.cshtml.g.cs

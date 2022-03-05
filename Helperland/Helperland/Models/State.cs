@@ -14,5 +14,6 @@ namespace Helperland.Models
         public string StateName { get; set; }
 
         public virtual ICollection<City> City { get; set; }
+        
     }
 }
