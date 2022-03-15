@@ -47,6 +47,8 @@ namespace Helperland
             services.AddScoped<IServiceRequestExtraRepository, ServiceRequestExtraRepository>();
 
             services.AddScoped<ICustomerManagementRepository, CustomerManagementRepository>();
+            services.AddScoped<IServiceProviderManagementRepository, ServiceProviderManagementRepository>();
+            
 
             services.AddDataProtection();
 

@@ -17,7 +17,13 @@ html {
     padding: 10px 22px;
     background-color: rgb(5, 115, 119);
 }
-
+.btn-general {
+    color: white;
+    font-size: 16px;
+    border-radius: 22px;
+    padding: 10px 22px;
+    background-color: rgb(5, 115, 119);
+}
 .btn-cancel {
     color: white;
     font-size: 16px;

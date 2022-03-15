@@ -1,33 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Upcoming Services";
+    ViewData["Title"] = "New Service Requests";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<!-- Upcoming-Service List -->
-<div class="main-content">
-    <div class="div-table">
-        <table class="table card-view-small-screen" id="tblUpcomingServices">
-            <thead>
-                <tr>
-                    <td>Service ID <img class="sort-img" alt=""></td>
-                    <td>Service date <img class="sort-img" alt=""></td>
-                    <td>Customer details <img class="sort-img" alt=""></td>
-                    <td>Payment <img class="sort-img" alt=""></td>
-                    <td>Actions</td>
-                </tr>
-            </thead>
-        </table>
-    </div>
+<!-- New Service Requests List -->
+<div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="" id="chkWorkingWithPet" checked>
+    <label class="form-check-label" for="chkWorkingWithPet">
+        Include Pet at Home
+    </label>
+</div>
+<div class="div-table">
+    <table class="table card-view-small-screen" id="tblNewServiceRequests">
+        <thead>
+            <tr>
+                <td>Service Id <img class="sort-img" alt=""> </td>
+                <td>Service Date <img class="sort-img" alt=""> </td>
+                <td>Customer details <img class="sort-img" alt=""> </td>
+                <td>Payment <img class="sort-img" alt=""></td>
+                <td>Time conflict</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+    </table>
 </div>
 
 @section UserLayoutScripts{
-  
     <script type="text/javascript">
         var table;
 
         $(document).ready(function () {
 
-            table = $('#tblUpcomingServices').DataTable({
+            table = $('#tblNewServiceRequests').DataTable({
                 paging: true,
                 pagingType: "full_numbers",
                 processing: true,
@@ -37,7 +41,7 @@
                 searching: false,
                 info: true,
                 ajax: {
-                    url: "/ServiceProvider/GetUpcomingServiceRequestsList",
+                    url: "/ServiceProvider/GetNewServiceRequestsList",
                     type: "POST",
                     datatype: "json",
                     dataSrc: 'data',
@@ -50,8 +54,8 @@
                     sProcessing: "<div id='preloader'><div id='loader'></div></div>"
                 },
                 columnDefs: [
-                    //{ "orderable": false, "targets": 3 },
-                    { "orderable": false, "targets": 4 }
+                    { "orderable": false, "targets": 4 },
+                    { "orderable": false, "targets": 5 }
                 ],
                 columns: [
                     {
@@ -78,28 +82,20 @@
                         }
                     },
                     {
-                        name: 'totalcost',
+                        name: 'TotalCost',
                         render: function (data, type, row) {
                             return row.totalCost + "$";
                         }
                     },
                     {
+                        name: 'TimeConflict',
                         render: function (data, type, row) {
-                            
-                            var serviceDate = new Date(row.serviceStartDate);
-                            serviceDate.setHours(serviceDate.getHours() + row.serviceHours);
-                            
-                            var currentDate = new Date();
-
-                            var htmlContent = "";
-
-                            if (serviceDate < currentDate) {
-                                htmlContent = "<button class='btn rounded-pill button-primary fs-14 p-1 pe-2 ps-2 me-1 mb-1' onclick='CompeleteServiceRequest(" + row.serviceRequestId + ")' >Compelete</button>";
-                            }
-
-                            htmlContent = htmlContent + "<button class='cancel-btn fs-14 p-1 pe-2 ps-2' onclick='CancelServiceRequest(" + row.serviceRequestId + ")' >Cancel</button>";
-
-                            return htmlContent;
+                            return "";
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                            return "<button class='btn rounded-pill button-primary p-1 fs-14 pe-2 ps-2' onclick='AcceptServiceRequest(" + row.serviceRequestId + ", \"" + row.recordVersion + "\")' >Accept</button>";
                         }
                     }
                 ],
@@ -109,12 +105,12 @@
             });
 
             //click on row column
-            $('#tblUpcomingServices tbody').on('click', 'td', function () {
+            $('#tblNewServiceRequests tbody').on('click', 'td', function () {
 
-                if ($(this).index() == 4) { // prevent click on 4th column
+                if ($(this).index() == 4 || $(this).index() == 5) { // prevent click on 4th column
                     return;
                 }
-
+                
                 var rowData = table.row(this).data();
 
                 $('#preloader').removeClass("d-none");
@@ -133,6 +129,7 @@
                             ServiceTime(resp.data.serviceStartDate, resp.data.serviceHours) + "</b>");
                         $("#lblSpDuration").text(resp.data.serviceHours);
                         $("#lblSpServiceRequestId").text(resp.data.serviceRequestId);
+
 
                         $("#lblSpExtraServices").text(resp.extraServiceRequest);
                         $("#lblSpTotalAmount").html("<b>" + resp.data.totalCost + " $</b>");
@@ -156,19 +153,9 @@
 
                         var divBottomBtnHtmlContent = "<hr>";
 
-                        var serviceDate = new Date(resp.data.serviceStartDate);
-                        serviceDate.setHours(serviceDate.getHours() + resp.data.serviceHours);
+                        divBottomBtnHtmlContent = divBottomBtnHtmlContent + "<button class='btn rounded-pill button-secondary pe-3 ps-3 p-2 fs-14 pe-2 ps-2'" +
+                            " onclick='AcceptServiceRequest(" + resp.data.serviceRequestId + ", \"" + rowData.recordVersion + "\")' > <img src='../img/admin-panel/tick.png' class='me-1' /> Accept</button>";
 
-                        var currentDate = new Date();
-
-                        divBottomBtnHtmlContent = divBottomBtnHtmlContent + "<button class='cancel-btn fs-16 me-2 p-3 pt-2 pb-2' " +
-                            " onclick='CancelServiceRequest(" + resp.data.serviceRequestId + ")' > <img src='../images/close-icon-small.png' class='me-1' /> Cancel</button>";
-                        console.log(serviceDate < currentDate);
-                        if (serviceDate < currentDate) {
-                            divBottomBtnHtmlContent = divBottomBtnHtmlContent + "<button class='btn rounded-pill button-primary fs-16 p-3 pt-2 pb-2' " +
-                                " onclick='CompeleteServiceRequest(" + resp.data.serviceRequestId + ")' > <img src='../images/admin-panel/tick.png' class='me-1' /> Compelete</button>";
-                        }
-                          
                         $("#divBottomBtn").html(divBottomBtnHtmlContent);
 
                         $('#SpPanelServiceDetailModel').modal({
@@ -185,11 +172,11 @@
 
         });
 
-        //$('#chkWorkingWithPet').change(function () {
+        $('#chkWorkingWithPet').change(function () {
 
-        //    $('#tblUpcomingServices').DataTable().ajax.reload();
+            $('#tblNewServiceRequests').DataTable().ajax.reload();
 
-        //});
+        });
 
         function AcceptServiceRequest(serviceRequestId, recordVersion) {
 
@@ -210,57 +197,33 @@
 
                     $('#preloader').addClass("d-none");
 
-                    console.log(resp);
+                    if (resp.status == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Service Request Accepeted',
+                            text: 'You have successfully accept Service Request : ' + serviceRequestId,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Service Request Error',
+                            text: resp.errorMessage,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        })
+                    }
 
-                    //$('#tblNewServiceRequests').DataTable().ajax.reload();
+                    $('#tblNewServiceRequests').DataTable().ajax.reload();
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
 
-        }
-
-        function CompeleteServiceRequest(serviceRequestId) {
-            $('#preloader').removeClass("d-none");
-
-            $.ajax({
-                url: '/ServiceProvider/CompeleteServiceRequest',
-                type: 'post',
-                dataType: 'json',
-                data: { "serviceRequestId": serviceRequestId },
-                success: function (resp) {
-
-                    $('#preloader').addClass("d-none");
-
-                    $('#tblUpcomingServices').DataTable().ajax.reload();
-                    $('#SpPanelServiceDetailModel').modal('hide');
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-
-        function CancelServiceRequest(serviceRequestId) {
-            $('#preloader').removeClass("d-none");
-
-            $.ajax({
-                url: '/ServiceProvider/CancelServiceRequest',
-                type: 'post',
-                dataType: 'json',
-                data: { "serviceRequestId": serviceRequestId },
-                success: function (resp) {
-
-                    $('#preloader').addClass("d-none");
-                        
-                    $('#tblUpcomingServices').DataTable().ajax.reload();
-                    $('#SpPanelServiceDetailModel').modal('hide');
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
         }
     </script>
 }
+

@@ -8,8 +8,8 @@ namespace Helperland.Enums
     public enum ServiceRequestStatusEnum
     {
         New = 1,
-        Cancelled = 2,
-        Completed = 3,
-        Refunded = 4
+        Accepted = 2,
+        Cancelled = 3,
+        Completed = 4
     }
 }

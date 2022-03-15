@@ -1,0 +1,583 @@
+﻿
+@{
+    ViewData["Title"] = "My Account";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="my-account">
+    <ul class="nav nav-pills mb-3 nav-fill" id="ServiceProviderMySettingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="my-detail-tab" data-bs-toggle="pill" data-bs-target="#my-detail" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                <span class="tab-icon my-detail-tabIcon d-block d-sm-none"></span>
+                <span class="d-none d-sm-block">My Details</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="change-password-tab" data-bs-toggle="pill" data-bs-target="#change-password" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+                <span class="tab-icon my-change-password-tabIcon d-block d-sm-none"></span>
+                <span class="d-none d-sm-block">Change Password</span>
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="my-detail" role="tabpanel" aria-labelledby="my-detail-tab">
+            <div id="divMyDetailTabBootstrapAlert">
+            </div>
+            <div>
+                <img id="PrifilePicture" alt="userProfilePicture" class="my-detail-avatar-img float-end" />
+                <h3 class="my-setting-title pt-4">Basic details</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="First Name">
+                    <span id="ErrorMessageFirstName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="LastName" class="form-label">LastName</label>
+                    <input type="text" class="form-control" id="LastName" placeholder="Last Name">
+                    <span id="ErrorMessageLastName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="Email" class="form-label">E-mail address</label>
+                    <input type="text" class="form-control" id="Email" placeholder="E-mail Address" disabled>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="MobileNumber" class="form-label">Mobile number</label>
+                    <input type="text" class="form-control" id="MobileNumber" placeholder="Mobile Number">
+                    <span id="ErrorMessageMobileNumber" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label class="form-label">Date of Birth</label>
+                    <div class="row">
+                        <div class="col-3 pe-1">
+                            <select class="form-select small-select-tag" id="DayDOB">
+                                <option value="">Day</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-5 pe-1 ps-1">
+                            <select class="form-select" id="MonthDOB">
+                                <option value="">Month</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-4 ps-1">
+                            <select class="form-select small-select-tag" id="YearDOB">
+                                <option value="">Year</option>
+                                @for (int i = (DateTime.Now.Year - 10); i > (DateTime.Now.Year - 117); i--)
+                                {
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <span id="ErrorMessageDateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="Nationality" class="form-label">Nationality</label>
+                    <select class="form-select small-select-tag" id="Nationality">
+                        <option value="">Nationality</option>
+                        <option value="176685">Indian</option>
+                        <option value="176625">German</option>
+                        <option value="176630">American</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label class="form-label">Gender</label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Gender" id="radioMale" value="1">
+                        <label class="form-check-label" for="radioMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Gender" id="radioFemale" value="2">
+                        <label class="form-check-label" for="radioFemale">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Gender" id="radioRatherNotToSay" value="3">
+                        <label class="form-check-label" for="radioRatherNotToSay">Rather not to say</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <label for="Nationality" class="form-label">Select Avatar</label>
+                    <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-car-avatar" hidden />
+                            <label for="sp-car-avatar">
+                                <img src="~/images/sp-avtar/avatar-car.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-female-avatar" hidden />
+                            <label for="sp-female-avatar">
+                                <img src="~/images/sp-avtar/avatar-female.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-hat-avatar" hidden />
+                            <label for="sp-hat-avatar">
+                                <img src="~/images/sp-avtar/avatar-hat.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-iron-avatar" hidden />
+                            <label for="sp-iron-avatar">
+                                <img src="~/images/sp-avtar/avatar-iron.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-male-avatar" hidden />
+                            <label for="sp-male-avatar">
+                                <img src="~/images/sp-avtar/avatar-male.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                        <div class="avatar-box">
+                            <input type="radio" name="sp-avatar" id="sp-ship-avatar" hidden />
+                            <label for="sp-ship-avatar">
+                                <img src="~/images/sp-avtar/avatar-ship.png" class="select-avatar-img" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 class="my-setting-title pt-2">My Address</h3>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="StreetName" class="form-label">Street name</label>
+                    <input type="text" class="form-control" id="StreetName" placeholder="Street Name">
+                    <span id="ErrorMessageStreetName" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="HouseNumber" class="form-label">House number</label>
+                    <input type="text" class="form-control" id="HouseNumber" placeholder="House number">
+                    <span id="ErrorMessageHouseNumber" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="PostalCode" class="form-label">Postal code</label>
+                    <input type="text" class="form-control" id="PostalCode" placeholder="Postal code">
+                    <span id="ErrorMessagePostalCode" class="text-danger"></span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <label for="City" class="form-label">City</label>
+                    <select class="form-select small-select-tag" id="City">
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12 mb-2 mt-2">
+                    <label class="form-label">Interested to work with Pet</label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input address-radioBtn" type="radio" name="WorkWithPet" id="radioYes" value="true">
+                        <label class="form-check-label" for="radioYes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="WorkWithPet" id="radioNo" value="false">
+                        <label class="form-check-label address-radioBtn" for="radioNo">No</label>
+                    </div>
+                    <span id="ErrorMessageWorkWithPet" class="text-danger d-block"></span>
+                </div>
+            </div>
+           
+            <hr />
+            <button class="btn rounded-pill button-primary" onclick="UpdateServiceProviderProfile()">Save</button>
+        </div>
+        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
+            <div id="divChangePasswordTabBootstrapAlert">
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="ServiceProviderCurrentPassword" class="form-label">Old Password</label>
+                    <input type="password" class="form-control" id="ServiceProviderCurrentPassword" placeholder="Current Password">
+                    <span id="ErrorMessageServiceProviderCurrentPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="ServiceProviderNewPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="ServiceProviderNewPassword" placeholder="Password">
+                    <span id="ErrorMessageServiceProviderNewPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="ServiceProviderConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="ServiceProviderConfirmPassword" placeholder="Confirm Password">
+                    <span id="ErrorMessageServiceProviderConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <button class="btn rounded-pill button-primary" onclick="UpdateServiceProviderPassword()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            FillServiceProviderProfileDetail();
+            FillServiceProviderAddress();
+        });
+
+        function FillServiceProviderProfileDetail() {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/GetServiceProviderDetail',
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        $("#FirstName").val(resp.result.firstName);
+                        $("#LastName").val(resp.result.lastName);
+                        $("#Email").val(resp.result.email);
+                        $("#MobileNumber").val(resp.result.mobile);
+
+                        if (resp.result.dateOfBirth != null) {
+                            var dob = new Date(resp.result.dateOfBirth);
+                            $("#DayDOB").val(dob.getDate());
+                            $("#MonthDOB").val((dob.getMonth() + 1).toString());
+                            $("#YearDOB").val(dob.getFullYear());
+                        }
+
+                        if (resp.result.nationalityId != null) {
+                            $("#Nationality").val(resp.result.nationalityId);
+                        }
+                        
+                        if (resp.result.nationalityId != 0) {
+                            $("#Nationality").val(resp.result.nationalityId);
+                        }
+                        else {
+                            $("#Nationality option:first").attr('selected', 'selected');
+                        }
+
+                        if (resp.result.gender != null) {
+                            $("input[name=Gender][value=" + resp.result.gender + "]").attr('checked', 'checked');
+                        }
+
+                        $("#PrifilePicture").attr("src", resp.result.userProfilePicture);
+
+                        $('input[name=sp-avatar]').each(function () {
+                            var spAvatar = $(this).closest(".avatar-box").find('label').find('img').attr('src');
+                            if (spAvatar == resp.result.userProfilePicture) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+
+                        if (resp.result.worksWithPets != null) {
+                            $("input[name=WorkWithPet][value=" + resp.result.worksWithPets + "]").attr('checked', 'checked');
+                        }
+
+                        $("#PostalCode").val(resp.result.zipCode);
+
+                        FillCityDropDown(resp.result.zipCode);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function FillServiceProviderAddress() {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/GetServiceProviderAddress',
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        if (resp.result != null) {
+                            $("#StreetName").val(resp.result.addressLine1);
+                            $("#HouseNumber").val(resp.result.addressLine2);
+                            $("#City").val(resp.result.city);
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        $('input:radio[name=sp-avatar]').change(function () {
+            var spAvatar = $(this).closest(".avatar-box").find('label').find('img').attr('src');
+            $("#PrifilePicture").attr("src", spAvatar);
+        });
+
+        function FillCityDropDown(postalCode) {
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/GetCitiesByPostalCode',
+                type: 'post',
+                dataType: 'json',
+                data: { "postalCode": postalCode },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#City').empty();
+                    resp.forEach((city) => {
+                        $('#City').append($("<option></option>").val(city.cityName).html(city.cityName));
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        //fill City DDL on postal code change
+        $('#PostalCode').change(function () {
+            var RegExpressPostalCode = new RegExp("^[1-9][0-9]{5}$");
+
+            var postalCode = $("#PostalCode").val();
+
+            if (RegExpressPostalCode.test(postalCode)) {
+                FillCityDropDown(postalCode);
+            }
+
+        });
+
+        function UpdateServiceProviderProfile() {
+
+            var RegExpressPostalCode = new RegExp("^[1-9][0-9]{5}$");
+            var regularExpressionPhoneNumber = new RegExp("^[0-9]{10}$");
+
+            if ($("#FirstName").val().toString().trim() == "") {
+                $("#ErrorMessageFirstName").html("Please Enter First Name");
+            }
+            else {
+                $("#ErrorMessageFirstName").html("");
+            }
+
+            if ($("#LastName").val().toString().trim() == "") {
+                $("#ErrorMessageLastName").html("Please Enter Last Name");
+            }
+            else {
+                $("#ErrorMessageLastName").html("");
+            }
+
+            if ($('#MobileNumber').val() == "") {
+                $('#ErrorMessageMobileNumber').html("Please Enter Mobile number");
+            }
+            else if (!regularExpressionPhoneNumber.test($('#MobileNumber').val())) {
+                $('#ErrorMessageMobileNumber').html("Please Enter Valid Mobile number");
+            }
+            else {
+                $('#ErrorMessageMobileNumber').html("");
+            }
+            
+            var dobDay = $("#DayDOB").val().toString().trim();
+            var dobMonth = $("#MonthDOB").val().toString().trim();
+            var dobYear = $("#YearDOB").val().toString().trim();
+
+            var dobErrorMessage = "";
+
+            if (dobDay != "" || dobMonth != "" || dobYear != "") {
+                if (!isValidDate(dobYear, dobMonth, dobDay)) {
+                    $("#ErrorMessageDateOfBirth").html("Please enter Valid Birth Date");
+                }
+                else {
+                    $("#ErrorMessageDateOfBirth").html("");
+                }
+            }
+
+            if ($("#StreetName").val().toString().trim() == "") {
+                $("#ErrorMessageStreetName").html("Please Enter Street Name");
+            }
+            else {
+                $("#ErrorMessageStreetName").html("");
+            }
+
+            if ($("#HouseNumber").val().toString().trim() == "") {
+                $("#ErrorMessageHouseNumber").html("Please Enter House Name");
+            }
+            else {
+                $("#ErrorMessageHouseNumber").html("");
+            }
+
+            if ($("#PostalCode").val().toString().trim() == "") {
+                $("#ErrorMessagePostalCode").html("Please Enter PostalCode");
+            }
+            else if (!RegExpressPostalCode.test($('#PostalCode').val())) {
+                $('#ErrorMessagePostalCode').html("Please Enter Valid PostalCode");
+            }
+            else {
+                $("#ErrorMessagePostalCode").html("");
+            }
+
+            if ($('input[name=WorkWithPet]').is(':checked') == false) {
+                $('#ErrorMessageWorkWithPet').html("Please select work with pet option");
+            }
+            else {
+                $('#ErrorMessageWorkWithPet').html("");
+            }
+
+            if ($("#ErrorMessageFirstName").html() != "" || $("#ErrorMessageLastName").html() != "" || $('#ErrorMessageMobileNumber').html() != "" ||
+                $("#ErrorMessageDateOfBirth").html() != "" || $("#ErrorMessageStreetName").html() != "" || $("#ErrorMessageHouseNumber").html() != "" ||
+                $("#ErrorMessagePostalCode").html() != "" || $('#ErrorMessageWorkWithPet').html() != "") {
+                return;
+            }
+            
+            var serviceProvider = {};
+
+            serviceProvider.firstName = $("#FirstName").val().toString().trim();
+            serviceProvider.lastName = $("#LastName").val().toString().trim();
+            serviceProvider.email = $("#Email").val().toString().trim();
+            serviceProvider.Mobile = $("#MobileNumber").val().toString().trim();
+
+            if ($("#Nationality").val() != "") {
+                serviceProvider.nationalityId = $("#Nationality").val();
+            }
+
+            if ($('input[name=Gender]:checked').length > 0) {
+                serviceProvider.gender = $('input[name=Gender]:checked').val();
+            }
+            
+            if (dobDay != "" && dobMonth != "" && dobYear != "") {
+                serviceProvider.dateOfBirth = new Date($("#YearDOB").val() + "-" + $("#MonthDOB").val() + "-" + $("#DayDOB").val());
+            }
+
+            serviceProvider.zipCode = $("#PostalCode").val().toString().trim();
+
+            serviceProvider.userProfilePicture = $('#PrifilePicture').attr("src");
+
+            userAddress = {};
+
+            userAddress.streetName = $("#StreetName").val().toString().trim();
+            userAddress.houseNumber = $("#HouseNumber").val().toString().trim();
+            userAddress.postalCode = $("#PostalCode").val().toString().trim();
+            userAddress.city = $("#City").val();
+
+            serviceProvider.userAddress = userAddress;
+
+            if ($('input[name=WorkWithPet]:checked').length > 0) {
+                serviceProvider.worksWithPets = $('input[name=WorkWithPet]:checked').val();
+            }
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/UpdateServiceProviderProfileDetails',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(serviceProvider),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    FillServiceProviderProfileDetail();
+                    FillServiceProviderAddress();
+
+                    if (resp.status == "ok") {
+                        BootstrapAlert("divMyDetailTabBootstrapAlert", "Profile Updated successfully.", "success");
+                    }
+                    else {
+                        BootstrapAlert("divMyDetailTabBootstrapAlert", resp.errorMessage, "danger");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        }
+
+        function UpdateServiceProviderPassword() {
+
+            var RegExpressPassword = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@@$%^&*-]).{6,16}$");
+
+            if ($("#ServiceProviderCurrentPassword").val().toString().trim() == "") {
+                $("#ErrorMessageServiceProviderCurrentPassword").html("Please Enter Current Password");
+            }
+            else {
+                $("#ErrorMessageServiceProviderCurrentPassword").html("");
+            }
+
+            if ($("#ServiceProviderNewPassword").val().toString().trim() == "") {
+                $("#ErrorMessageServiceProviderNewPassword").html("Please Enter New Password");
+            }
+            else if (!RegExpressPassword.test($("#ServiceProviderNewPassword").val())) {
+                $('#ErrorMessageServiceProviderNewPassword').html("You must enter At least one upper case, one lower case, one digit and Minimum 6 and Maximum 16 in length");
+            }
+            else {
+                $("#ErrorMessageServiceProviderNewPassword").html("");
+            }
+
+            if ($("#ServiceProviderConfirmPassword").val().toString().trim() == "") {
+                $("#ErrorMessageServiceProviderConfirmPassword").html("Please Enter Confirm Password");
+            }
+            else if ($("#ServiceProviderNewPassword").val().toString().trim() != $("#ServiceProviderConfirmPassword").val().toString().trim()) {
+                $("#ErrorMessageServiceProviderConfirmPassword").html("New Password and Confirm Password do not match");
+            }
+            else {
+                $("#ErrorMessageServiceProviderConfirmPassword").html("");
+            }
+
+            if ($("#ErrorMessageServiceProviderCurrentPassword").html() != "" || $("#ErrorMessageServiceProviderNewPassword").html() != "" || $("#ErrorMessageServiceProviderConfirmPassword").html() != "") {
+                return;
+            }
+
+            var user = {};
+
+            user.password = $("#ServiceProviderCurrentPassword").val().toString().trim();
+            user.newPassword = $("#ServiceProviderNewPassword").val().toString().trim();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/UpdateServiceProviderPassword',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        BootstrapAlert("divChangePasswordTabBootstrapAlert", "Update password successfully.", "success");
+                        $("#ServiceProviderCurrentPassword").val("");
+                        $("#ServiceProviderNewPassword").val("");
+                        $("#ServiceProviderConfirmPassword").val("");
+                    }
+                    else {
+                        BootstrapAlert("divChangePasswordTabBootstrapAlert", resp.errorMessage, "danger");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+}

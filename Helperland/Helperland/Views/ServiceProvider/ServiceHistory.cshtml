@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "Service History";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="title">Payment Status</h2>
+    <button class="export-btn" onclick="ExportExcel();">Export</button>
+</div>
+
+<div class="div-table">
+    <table class="table card-view-small-screen" id="tblServiceHistory">
+        <thead>
+            <tr>
+                <td>Service Id <img class="sort-img" alt=""> </td>
+                <td>Service Date <img class="sort-img" alt=""> </td>
+                <td>Customer details <img class="sort-img" alt=""> </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+        var table;
+
+        $(document).ready(function () {
+
+            table = $('#tblServiceHistory').DataTable({
+                paging: true,
+                pagingType: "full_numbers",
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/ServiceProvider/GetServiceRequestHistoryList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data'
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                columns: [
+                    {
+                        data: 'serviceRequestId',
+                        name: 'ServiceRequestId',
+                    },
+                    {
+                        name: 'ServiceDateTime',
+                        render: function (data, type, row) {
+                            return "<img src='../images/calendar2.png' class='me-1' alt='calenderIcon'><span> " +
+                                ServiceStartDate(row.serviceStartDate) + "</span ><br> " +
+                                "<img src='../images/layer-14.png' class='me-1' alt='clockIcon'>" +
+                                ServiceTime(row.serviceStartDate, 0) + " - " +
+                                ServiceTime(row.serviceStartDate, row.serviceHours);
+                        }
+                    },
+                    {
+                        name: 'CustomerName',
+                        render: function (data, type, row) {
+                            return "<div class='align-items-center d-flex'><img src='../images/layer-15.png' class='me-2' /><div>" +
+                                row.user.firstName + " " + row.user.lastName + "<br>" +
+                                row.serviceRequestAddresses[0].addressLine1 + " " + row.serviceRequestAddresses[0].addressLine2 + "<br>" +
+                                row.serviceRequestAddresses[0].postalCode + " " + row.serviceRequestAddresses[0].city + "</div></div>";
+                        }
+                    }
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]]
+            });
+
+            //click on row column
+            $('#tblServiceHistory tbody').on('click', 'td', function () {
+
+                var rowData = table.row(this).data();
+
+                $('#preloader').removeClass("d-none");
+
+                $.ajax({
+                    url: '/ServiceProvider/GetServiceRequestWithCustomerDetails',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { "serviceRequestId": rowData.serviceRequestId },
+                    success: function (resp) {
+
+                        $('#preloader').addClass("d-none");
+
+                        $("#lblSpServiceRequestDateTime").html("<b>" + ServiceStartDate(resp.data.serviceStartDate) + "</b> " +
+                            "<b>" + ServiceTime(resp.data.serviceStartDate, 0) + "-" +
+                            ServiceTime(resp.data.serviceStartDate, resp.data.serviceHours) + "</b>");
+                        $("#lblSpDuration").text(resp.data.serviceHours);
+                        $("#lblSpServiceRequestId").text(resp.data.serviceRequestId);
+
+                        $("#lblSpExtraServices").text(resp.extraServiceRequest);
+                        $("#lblSpTotalAmount").html("<b>" + resp.data.totalCost + " $</b>");
+
+                        $("#lblSpCustomerName").text(resp.data.user.firstName + " " + resp.data.user.lastName);
+
+                        var serviceAddress = resp.data.serviceRequestAddresses[0];
+
+                        $("#lblSpServiceAddress").text(serviceAddress.addressLine1 + " " + serviceAddress.addressLine2 + ", " + serviceAddress.postalCode + " " + serviceAddress.city)
+                        $("#lblSpPhone").text(serviceAddress.mobile);   // User Or ServiceAddress
+                        $("#lblSpEmail").text(resp.data.user.email);
+
+                        $("#lblSpComments").text(resp.data.comments);
+
+                        if (resp.data.hasPets == false) {
+                            $("#lblSpHasPet").html("<img src='../images/not-included.png'/> I don't have pets at home");
+                        }
+                        else {
+                            $("#lblSpHasPet ").html("<img src='../images/included.png'/> I have pets at home");
+                        }
+
+                        $('#SpPanelServiceDetailModel').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#SpPanelServiceDetailModel').modal('show');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        });
+
+        function ExportExcel() {
+            var tblData = table.data();
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            csvContent += "Service Id, Service Details, Customer Detail\n";
+
+            for (let i = 0; i < tblData.length; i++) {
+                csvContent += tblData[i].serviceRequestId + "," +
+                    ServiceStartDate(tblData[i].serviceStartDate) + " " + ServiceTime(tblData[i].serviceStartDate, 0) + " - " +
+                    ServiceTime(tblData[i].serviceStartDate, tblData[i].serviceHours) + ",";
+
+                if (tblData[i].user == null) {
+                    csvContent += ",";
+                }
+                else {
+                    csvContent += tblData[i].user.firstName + " " + tblData[i].user.lastName + ",";
+                }
+
+                csvContent = csvContent + "\n";
+            }
+            
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "ServiceHistory.csv");
+            document.body.appendChild(link); // Required for FF
+            link.click();
+        }
+
+    </script>
+}
+

@@ -1,6 +1,6 @@
 ﻿<li class="nav-item"><a asp-controller="Customer" asp-action="Dashboard" class="nav-link">Dashboard</a></li>
 <li class="nav-item">
-    <a href="#" class="nav-link">New Service Requests</a>
+    <a asp-controller="ServiceProvider" asp-action="NewServiceRequests" class="nav-link">New Service Requests</a>
 </li>
 <li class="nav-item active">
     <a asp-controller="ServiceProvider" asp-action="UpcomingService" class="nav-link">Upcoming Services</a>
@@ -9,10 +9,10 @@
     <a href="#" class="nav-link">Service Schedule</a>
 </li>
 <li class="nav-item">
-    <a href="#" class="nav-link">Service History</a>
+    <a asp-controller="ServiceProvider" asp-action="ServiceHistory" class="nav-link">Service History</a>
 </li>
 <li class="nav-item">
-    <a href="#" class="nav-link">My Ratings</a>
+    <a asp-controller="ServiceProvider" asp-action="MyRatings" class="nav-link">My Ratings</a>
 </li>
 <li class="nav-item">
     <a href="#" class="nav-link">Block Customer</a>

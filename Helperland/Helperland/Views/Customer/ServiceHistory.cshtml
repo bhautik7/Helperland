@@ -227,12 +227,7 @@
                     },
                     {
                         render: function (data, type, row) {
-                            //var customerRated = false;
-                            //row.ratings.forEach(function (element) {
-                            //    if (row.serviceRequestId == element.serviceRequestId) {
-                            //        customerRated = true;
-                            //    }
-                            //});
+                            
                             return "<button class='btn rounded-pill btn-reschedule p-1 fs-14' onclick='OpenServiceProviderRatingModel(" + row.serviceRequestId + ")' " + ((row.status == @cancelled) ? "disabled" : ""/*(customerRated == true ? "disabled" : "" )*/) + " >Rate SP</button>";
                         }
                     }

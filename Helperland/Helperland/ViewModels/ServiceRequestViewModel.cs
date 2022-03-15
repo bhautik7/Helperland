@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
 namespace Helperland.ViewModels
 {
     public class ServiceRequestViewModel
@@ -42,13 +47,13 @@ namespace Helperland.ViewModels
         [JsonPropertyName("hasPets")]
         public bool HasPets { get; set; }
 
-        //[JsonPropertyName("streetName")]
-        //public string Distance { get; set; }
-
         [JsonPropertyName("userAddressId")]
         public string UserAddressId { get; set; }
 
         [JsonPropertyName("paymentDone")]
         public bool PaymentDone { get; set; }
+
+        [JsonPropertyName("recordVersion")]
+        public string RecordVersion { get; set; }
     }
 }

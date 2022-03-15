@@ -46,11 +46,11 @@
     </div>
     <nav class="navbar fixed-top navbar-expand-xl navbar-light navbar-bg-color p-0">
         <div class="container-fluid">
-            <a class="navbar-brand me-auto" href="#">
+            <a class="navbar-brand me-auto" asp-controller="Home" asp-action="Index">
                 <img src="~/images//white-logo-transparent-background.png" alt="">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             <ul class="navbar-nav d-xl-none">
+             @*<ul class="navbar-nav d-xl-none">
                     <li class="nav-item user-name">
                         Welcome,<br>
                         <span>Sandip</span>
@@ -80,7 +80,7 @@
                         <a class="nav-link">Logout</a>
                     </li>
                     <hr class="hr-navbar" />
-                </ul>
+                </ul>*@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item mt-rounded-btn">
                         <a class="nav-link rounded-btn" aria-current="page" href="#">Book now</a>
@@ -133,6 +133,33 @@
                                 Welcome,<br>
                                 <span>@User.Identity.Name</span>
                             </li>
+                             @if (user.UserTypeId==3)
+                             {
+                                 <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" asp-controller="Customer" asp-action="DashBoard">My DashBoard</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" asp-controller="Customer" asp-action="MyAccount">My Account</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" asp-controller="Account" asp-action="logout">Logout</a></li>
+                             }
+                             else if (user.UserTypeId==2)
+                             {
+                               
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" asp-controller="ServiceProvider" asp-action="MyAccount">My Account</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-center" asp-controller="Account" asp-action="logout">Logout</a></li>
+                             }
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

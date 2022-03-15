@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewData["Title"] = "My Ratings";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="mb-3">
+    <label>Rating</label>
+    <select id="ddlRating" class="form-select w-auto d-inline-block ms-3" aria-label="Default select example">
+        <option value="5" selected>All</option>
+        <option value="4">Excellent</option>
+        <option value="3">Very Good</option>
+        <option value="2">Good</option>
+        <option value="1">Poor</option>
+        <option value="0">Very Poor </option>
+    </select>
+</div>
+
+<div class="div-table">
+    <table class="table rating-table" id="tblRating">
+        <thead>
+            <tr>
+                <td>Rating</td>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#tblRating').DataTable({
+                paging: true,
+                pagingType: "full_numbers",
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/ServiceProvider/GetCustomerRating",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data',
+                    "data": function (d) {
+                        d.ratings = $('#ddlRating :selected').val();
+                    }
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                
+                columns: [
+                    {
+                        name: 'ServiceDateTime',
+                        render: function (data, type, row) {
+                            console.log(row)
+                            return "<div class='content-box'><div class='d-flex flex-wrap w-100'><div class='minWidth-25 mb-2'>" +
+                                row.ratingId + "<br /><b>" + row.ratingFromNavigation.firstName + " " + row.ratingFromNavigation.lastName +
+                                "</b></div><div class='minWidth-25 mb-2'>" +
+                                "<img src='../img/admin-panel/calendar2.png' class='me-1' alt='calenderIcon'><span> " +
+                                ServiceStartDate(row.serviceRequest.serviceStartDate) + "</span ><br> " +
+                                "<img src='../img/admin-panel/layer-14.png' class='me-1' alt='clockIcon'>" +
+                                ServiceTime(row.serviceRequest.serviceStartDate, 0) + " - " +
+                                ServiceTime(row.serviceRequest.serviceStartDate, row.serviceRequest.serviceHours)
+                                + "</div><div class='minWidth-50 mb-2'>" +
+                                "<b>Ratings</b><br /><input id='custRating_" + row.ratingId + "' class='spRating' value='" + row.ratings + "' type='text' title='' hidden>" +
+                                "</div></div><hr class='mt-0 mb-2' /><div>" +
+                                "<b>Customer Comments : </b> <br />" + row.comments + " </div></div >";
+                        }
+                    }
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]],
+                "fnDrawCallback": function () {
+                    //after loading data call thi function
+                    $(".spRating").rating({
+                        min: 0,
+                        max: 5,
+                        step: 0.1,
+                        size: "xs",
+                        stars: "5",
+                        showClear: false,
+                        readonly: true,
+                        starCaptions: function (val) {
+                            if (val > 0 && val <= 1) {
+                                return "Very Poor";
+                            }
+                            else if (val > 1 && val <= 2) {
+                                return "Poor";
+                            }
+                            else if (val > 2 && val <= 3) {
+                                return "Good";
+                            }
+                            else if (val > 3 && val <= 4) {
+                                return "Very Good";
+                            }
+                            else if (val > 4 && val <= 5) {
+                                return "Excellent";
+                            }
+                        },
+                        starCaptionClasses: function () {
+                            return "fs-16";
+                        },
+                    });
+
+                }
+            });
+
+        });
+
+        $('#ddlRating').on('change', function () {
+
+            $('#tblRating').DataTable().ajax.reload();
+
+        });
+    </script>
+}
+
+
+
