@@ -84,3 +84,4 @@ F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\New
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\MyRatings.cshtml.g.cs
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\ServiceHistory.cshtml.g.cs
 F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\MyAccount.cshtml.g.cs
+F:\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\ServiceProvider\BlockCustomer.cshtml.g.cs

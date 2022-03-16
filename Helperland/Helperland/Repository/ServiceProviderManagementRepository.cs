@@ -45,6 +45,28 @@ namespace Helperland.Repository
 
         #endregion User Table
 
+        #region FavoriteAndBlocked Table
+
+        public FavoriteAndBlocked GetFavoriteAndBlockedByUserIdAndTargetUserId(int userId, int targetUserId)
+        {
+            return _helperlandContext.FavoriteAndBlocked.Where(x => x.UserId == userId && x.TargetUserId == targetUserId).FirstOrDefault();
+        }
+
+        public FavoriteAndBlocked AddFavoriteAndBlocked(FavoriteAndBlocked favoriteAndBlocked)
+        {
+            _helperlandContext.Add(favoriteAndBlocked);
+            _helperlandContext.SaveChanges();
+            return favoriteAndBlocked;
+        }
+
+        public FavoriteAndBlocked UpdateFavoriteAndBlocked(FavoriteAndBlocked favoriteAndBlocked)
+        {
+            _helperlandContext.Update(favoriteAndBlocked);
+            _helperlandContext.SaveChanges();
+            return favoriteAndBlocked;
+        }
+
+        #endregion FavoriteAndBlocked Table
         public List<ServiceRequestAddress> ServiceRequestAddressByServiceRequestId(int ServiceRequestId)
         {
             return _helperlandContext.ServiceRequestAddress.Where(x => x.ServiceRequestId == ServiceRequestId).ToList();

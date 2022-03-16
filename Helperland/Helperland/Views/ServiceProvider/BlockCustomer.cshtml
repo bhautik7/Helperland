@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Block Customer";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="div-table">
+    <table class="table block-customer-table" id="tblBlockCustomer">
+        <thead>
+            <tr>
+                <td>Rating</td>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+@section UserLayoutScripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#tblBlockCustomer').DataTable({
+                paging: true,
+                pagingType: "full_numbers",
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/ServiceProvider/GetBlockCustomerList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data'
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                
+                columns: [
+                    {
+                        name: 'ServiceDateTime',
+                        render: function (data, type, row) {
+
+                            var htmlContent = "";
+
+                            htmlContent = "<div class='content-box'><img src = '../img/admin-panel/sp-avtar/avatar-hat.png' class='img-avtar' />" +
+                                "<label class='user-name'>" + row.firstName + " " + row.lastName + "</label>"
+
+                            if (row.favoriteAndBlockedTargetUsers.length > 0) {
+                                if (row.favoriteAndBlockedUsers[0].isBlocked == true) {
+                                    htmlContent = htmlContent + "<button class='button-blocUnblock button-unblock' onclick='UpdateBlockStatus(" +
+                                        row.favoriteAndBlockedUsers[0].targetUserId + ", false)' >Unblock</button></div >";
+                                }
+                                else {
+                                    htmlContent = htmlContent + "<button class='button-blocUnblock button-block' onclick='UpdateBlockStatus(" +
+                                        row.userId + ", true)' >Block</button></div >";
+                                }
+                            }
+                            else {
+                                htmlContent = htmlContent + "<button class='button-blocUnblock button-block' onclick='UpdateBlockStatus(" +
+                                    row.userId + ", true)' >Block</button></div >";
+                            }
+
+                            return htmlContent;
+                        }
+                    }
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]],
+            });
+
+        });
+
+        function UpdateBlockStatus(targetUserId, isBlocked) {
+
+            var favoriteAndBlockedCustomer = {};
+
+            favoriteAndBlockedCustomer.targetUserId = targetUserId;
+            favoriteAndBlockedCustomer.isBlocked = isBlocked;
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/ServiceProvider/UpdateCustomerBlockStatus',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(favoriteAndBlockedCustomer),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    $('#tblBlockCustomer').DataTable().ajax.reload();
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        }
+    </script>
+}
+

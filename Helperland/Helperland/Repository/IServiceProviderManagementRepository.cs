@@ -33,6 +33,11 @@ namespace Helperland.Repository
         UserAddress AddUserAddress(UserAddress userAddress);
         UserAddress UpdateUserAddress(UserAddress userAddress);
 
+        //FavoriteAndBlocked Table
+        FavoriteAndBlocked GetFavoriteAndBlockedByUserIdAndTargetUserId(int userId, int targetUserId);
+        FavoriteAndBlocked AddFavoriteAndBlocked(FavoriteAndBlocked favoriteAndBlocked);
+        FavoriteAndBlocked UpdateFavoriteAndBlocked(FavoriteAndBlocked favoriteAndBlocked);
+
         //City Table
         List<City> GetCitiesByPostalCode(string postalCode);
 

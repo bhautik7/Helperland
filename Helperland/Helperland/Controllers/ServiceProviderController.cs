@@ -409,6 +409,77 @@ namespace Helperland.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult GetBlockCustomerList()
+        {
+            String userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            try
+            {
+                var draw = Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault();
+                var length = Request.Form["length"].FirstOrDefault();
+                //var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                //var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                //var searchValue = Request.Form["search[value]"].FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                var includePetatHome = Request.Form["includePetatHome"].FirstOrDefault();
+
+
+                var customerList = _helperlandContext.User.Join(_helperlandContext.ServiceRequest.Where(x => x.ServiceProviderId == Convert.ToInt32(userId)),
+                                                                         u => u.UserId,
+                                                                         s => s.UserId,
+                                                                         (user, serviceRequest) => user).Distinct();
+
+               
+                recordsTotal = customerList.Count();
+                var data = customerList.Skip(skip).Take(pageSize).ToList();
+
+                foreach (User temp in data)
+                {
+                    temp.FavoriteAndBlockedUser = _helperlandContext.FavoriteAndBlocked.Where(x => x.UserId == Convert.ToInt32(userId) && x.TargetUserId == temp.UserId).ToList();
+                }
+
+                var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+                return Ok(jsonData);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCustomerBlockStatus([FromBody] FavoriteAndBlockedViewModel model)
+        {
+            String userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            FavoriteAndBlocked favoriteAndBlocked = _serviceProviderManagementRepository.GetFavoriteAndBlockedByUserIdAndTargetUserId(Convert.ToInt32(userId), model.TargetUserId);
+
+            if (favoriteAndBlocked == null)
+            {
+                favoriteAndBlocked = new FavoriteAndBlocked
+                {
+                    UserId = Convert.ToInt32(userId),
+                    TargetUserId = model.TargetUserId,
+                    IsFavorite = false,
+                    IsBlocked = model.IsBlocked
+                };
+
+                _serviceProviderManagementRepository.AddFavoriteAndBlocked(favoriteAndBlocked);
+            }
+            else
+            {
+                favoriteAndBlocked.IsBlocked = model.IsBlocked;
+
+                _serviceProviderManagementRepository.UpdateFavoriteAndBlocked(favoriteAndBlocked);
+            }
+
+            return Json(new SingeEntity<FavoriteAndBlockedViewModel> { Result = model, Status = "ok", ErrorMessage = null });
+        }
         public IActionResult MyAccount()
         {
             return View();
