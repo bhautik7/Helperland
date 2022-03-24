@@ -26,7 +26,7 @@
         <nav class="navbar">
             <a class="navbar-brand" href=""><img src="./images/nav-logo.png" alt=""></a>
             <ul class="nav-list">
-                <li><a href="#" class="nav-btn">Book a Cleaner</a></li>
+                <li><a asp-controller="Home" asp-action="BookService" class="nav-btn">Book a Cleaner</a></li>
                 <li><a asp-controller="Home" asp-action="Price">Prices</a></li>
                 <li><a href="#">Our Gaurantee</a></li>
                 <li><a href="#">Blog</a></li>
@@ -195,7 +195,7 @@
     </footer>
     
     
-    <script src="~/lib/jquery~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
      <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
    <script src="~/js/home.js" asp-append-version="true"></script>
    @RenderSection("Scripts", required: false)

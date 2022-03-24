@@ -143,7 +143,7 @@ namespace Helperland.Controllers
 
             if (serviceRequest.RecordVersion.ToString() != model.RecordVersion)
             {
-                return Json(new SingeEntity<ServiceRequest> { Result = serviceRequest, Status = "Error", ErrorMessage = "This service request is no more available. It has been assigned to another provider" });
+                return Json(new SingleEntity<ServiceRequest> { Result = serviceRequest, Status = "Error", ErrorMessage = "This service request is no more available. It has been assigned to another provider" });
             }
 
             DateTime newServiceRequestStartDateTime = serviceRequest.ServiceStartDate.AddMinutes(-60);
@@ -170,7 +170,7 @@ namespace Helperland.Controllers
 
             if (serviceRequestConflict == true)
             {
-                return Json(new SingeEntity<ServiceRequest> { Result = serviceRequest, Status = "Error", ErrorMessage = errorMessage });
+                return Json(new SingleEntity<ServiceRequest> { Result = serviceRequest, Status = "Error", ErrorMessage = errorMessage });
             }
 
             serviceRequest.ServiceProviderId = Convert.ToInt32(userId);
@@ -188,7 +188,7 @@ namespace Helperland.Controllers
 
             
 
-            return Json(new SingeEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
+            return Json(new SingleEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
         }
 
         [HttpPost]
@@ -205,7 +205,7 @@ namespace Helperland.Controllers
 
             serviceRequest = _serviceProviderManagementRepository.UpdateServiceRequest(serviceRequest);
 
-            return Json(new SingeEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
+            return Json(new SingleEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
         }
 
         [HttpPost]
@@ -222,7 +222,7 @@ namespace Helperland.Controllers
 
             serviceRequest = _serviceProviderManagementRepository.UpdateServiceRequest(serviceRequest);
 
-            return Json(new SingeEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
+            return Json(new SingleEntity<ServiceRequest> { Result = serviceRequest, Status = "ok" });
         }
 
         public IActionResult UpcomingService()
@@ -478,7 +478,7 @@ namespace Helperland.Controllers
                 _serviceProviderManagementRepository.UpdateFavoriteAndBlocked(favoriteAndBlocked);
             }
 
-            return Json(new SingeEntity<FavoriteAndBlockedViewModel> { Result = model, Status = "ok", ErrorMessage = null });
+            return Json(new SingleEntity<FavoriteAndBlockedViewModel> { Result = model, Status = "ok", ErrorMessage = null });
         }
         public IActionResult MyAccount()
         {
@@ -493,7 +493,7 @@ namespace Helperland.Controllers
 
             customer.Password = null;
 
-            return Json(new SingeEntity<User> { Result = customer, Status = "ok", ErrorMessage = null });
+            return Json(new SingleEntity<User> { Result = customer, Status = "ok", ErrorMessage = null });
         }
 
         [HttpPost]
@@ -502,7 +502,7 @@ namespace Helperland.Controllers
             String userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             UserAddress userAddress = _serviceProviderManagementRepository.GetUserAddressByUserId(Convert.ToInt32(userId));
 
-            return Json(new SingeEntity<UserAddress> { Result = userAddress, Status = "ok", ErrorMessage = null });
+            return Json(new SingleEntity<UserAddress> { Result = userAddress, Status = "ok", ErrorMessage = null });
         }
 
         [HttpPost]
@@ -565,7 +565,7 @@ namespace Helperland.Controllers
                 _serviceProviderManagementRepository.UpdateUserAddress(userAddress);
             }
 
-            return Json(new SingeEntity<UserViewModel> { Result = model, Status = "ok", ErrorMessage = null });
+            return Json(new SingleEntity<UserViewModel> { Result = model, Status = "ok", ErrorMessage = null });
         }
 
         [HttpPost]
@@ -577,14 +577,14 @@ namespace Helperland.Controllers
 
             if (model.Password != customer.Password)
             {
-                return Json(new SingeEntity<UserViewModel> { Result = model, Status = "Error", ErrorMessage = "Your current password is wrong!" });
+                return Json(new SingleEntity<UserViewModel> { Result = model, Status = "Error", ErrorMessage = "Your current password is wrong!" });
             }
 
             customer.Password = model.NewPassword.ToString().Trim();
 
             _serviceProviderManagementRepository.UpdateUser(customer);
 
-            return Json(new SingeEntity<UserViewModel> { Result = model, Status = "ok", ErrorMessage = null });
+            return Json(new SingleEntity<UserViewModel> { Result = model, Status = "ok", ErrorMessage = null });
         }
     }
 }

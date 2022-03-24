@@ -47,6 +47,9 @@ namespace Helperland.ViewModels
         [JsonPropertyName("hasPets")]
         public bool HasPets { get; set; }
 
+        [JsonPropertyName("refundedAmount")]
+        public decimal RefundedAmount { get; set; }
+
         [JsonPropertyName("userAddressId")]
         public string UserAddressId { get; set; }
 
@@ -55,5 +58,9 @@ namespace Helperland.ViewModels
 
         [JsonPropertyName("recordVersion")]
         public string RecordVersion { get; set; }
+
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
+
     }
 }

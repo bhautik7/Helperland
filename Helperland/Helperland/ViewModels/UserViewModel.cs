@@ -55,5 +55,9 @@ namespace Helperland.ViewModels
 
         [JsonPropertyName("userAddress")]
         public UserAddressViewModel UserAddress { get; set; }
+
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
     }
 }
+

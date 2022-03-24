@@ -77,8 +77,8 @@
                         render: function (data, type, row) {
                             return "<div class='align-items-center d-flex'><img src='../images/layer-15.png' class='me-2' /><div>" +
                                 row.user.firstName + " " + row.user.lastName + "<br>" +
-                                row.serviceRequestAddresses[0].addressLine1 + " " + row.serviceRequestAddresses[0].addressLine2 + "<br>" +
-                                row.serviceRequestAddresses[0].postalCode + " " + row.serviceRequestAddresses[0].city + "</div></div>";
+                                row.serviceRequestAddress[0].addressLine1 + " " + row.serviceRequestAddress[0].addressLine2 + "<br>" +
+                                row.serviceRequestAddress[0].postalCode + " " + row.serviceRequestAddress[0].city + "</div></div>";
                         }
                     },
                     {
@@ -95,7 +95,7 @@
                     },
                     {
                         render: function (data, type, row) {
-                            return "<button class='btn rounded-pill button-primary p-1 fs-14 pe-2 ps-2' onclick='AcceptServiceRequest(" + row.serviceRequestId + ", \"" + row.recordVersion + "\")' >Accept</button>";
+                            return "<button class='btn rounded-pill button-primary btn-general p-1 fs-14 pe-2 ps-2' onclick='AcceptServiceRequest(" + row.serviceRequestId + ", \"" + row.recordVersion + "\")' >Accept</button>";
                         }
                     }
                 ],
@@ -136,7 +136,7 @@
 
                         $("#lblSpCustomerName").text(resp.data.user.firstName + " " + resp.data.user.lastName);
 
-                        var serviceAddress = resp.data.serviceRequestAddresses[0];
+                        var serviceAddress = resp.data.serviceRequestAddress[0];
 
                         $("#lblSpServiceAddress").text(serviceAddress.addressLine1 + " " + serviceAddress.addressLine2 + ", " + serviceAddress.postalCode + " " + serviceAddress.city)
                         $("#lblSpPhone").text(serviceAddress.mobile);   // User Or ServiceAddress
@@ -153,8 +153,8 @@
 
                         var divBottomBtnHtmlContent = "<hr>";
 
-                        divBottomBtnHtmlContent = divBottomBtnHtmlContent + "<button class='btn rounded-pill button-secondary pe-3 ps-3 p-2 fs-14 pe-2 ps-2'" +
-                            " onclick='AcceptServiceRequest(" + resp.data.serviceRequestId + ", \"" + rowData.recordVersion + "\")' > <img src='../img/admin-panel/tick.png' class='me-1' /> Accept</button>";
+                        divBottomBtnHtmlContent = divBottomBtnHtmlContent + "<button class='btn rounded-pill btn-general pe-3 ps-3 p-2 fs-14 pe-2 ps-2'" +
+                            " onclick='AcceptServiceRequest(" + resp.data.serviceRequestId + ", \"" + rowData.recordVersion + "\")' > <img src='../images/tick.png' class='me-1' /> Accept</button>";
 
                         $("#divBottomBtn").html(divBottomBtnHtmlContent);
 

@@ -45,10 +45,11 @@ namespace Helperland
             services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
             services.AddScoped<IServiceRequestAddressRepository, ServiceRequestAddressRepository>();
             services.AddScoped<IServiceRequestExtraRepository, ServiceRequestExtraRepository>();
+            
 
             services.AddScoped<ICustomerManagementRepository, CustomerManagementRepository>();
             services.AddScoped<IServiceProviderManagementRepository, ServiceProviderManagementRepository>();
-            
+            services.AddScoped<IAdminControllerRepository,AdminControllerRepository>();
 
             services.AddDataProtection();
 

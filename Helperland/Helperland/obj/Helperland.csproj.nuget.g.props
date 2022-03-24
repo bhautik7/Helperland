@@ -14,8 +14,10 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
+    <Import Project="$(NuGetPackageRoot)currietechnologies.razor.sweetalert2\3.0.0\buildTransitive\CurrieTechnologies.Razor.SweetAlert2.props" Condition="Exists('$(NuGetPackageRoot)currietechnologies.razor.sweetalert2\3.0.0\buildTransitive\CurrieTechnologies.Razor.SweetAlert2.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\Bhautik sorathiya\.nuget\packages\jquery\1.7.0</PkgjQuery>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Bhautik sorathiya\.nuget\packages\microsoft.entityframeworkcore.tools\3.1.0</PkgMicrosoft_EntityFrameworkCore_Tools>
   </PropertyGroup>
 </Project>

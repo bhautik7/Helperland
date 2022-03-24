@@ -39,14 +39,14 @@
                              @if (_httpHttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" aria-current="page" href="#">
-                                                <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="Logout" >Logout</button>
+                                            <a class="nav-link" aria-current="page" asp-controller="Account" asp-action="Logout">
+                                                <button type="button" class="btn btn-outline-light"  >Logout</button>
                                             </a>
                                         </li>
                                        
                                        <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="#">
-                                            <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="BecomeAPro" >Become a Helper</button>
+                                        <a class="nav-link" aria-current="page" asp-controller="Account" asp-action="BecomeAPro">
+                                            <button type="button" class="btn btn-outline-light"  >Become a Helper</button>
                                         </a>
                                      </li>
                                     }
@@ -59,8 +59,8 @@
                                               </li>
                            
                                          <li class="nav-item">
-                                            <a class="nav-link" aria-current="page" href="#">
-                                                <button type="button" class="btn btn-outline-light" asp-controller="Account" asp-action="BecomeAPro" >Become a Helper</button>
+                                            <a class="nav-link" aria-current="page" asp-controller="Account" asp-action="BecomeAPro">
+                                                <button type="button" class="btn btn-outline-light"  >Become a Helper</button>
                                             </a>
                                         </li>
                                     }

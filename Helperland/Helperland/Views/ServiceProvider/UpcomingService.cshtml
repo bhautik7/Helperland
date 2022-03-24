@@ -73,8 +73,8 @@
                         render: function (data, type, row) {
                             return "<div class='align-items-center d-flex'><img src='../images/layer-15.png' class='me-2' /><div>" +
                                 row.user.firstName + " " + row.user.lastName + "<br>" +
-                                row.serviceRequestAddresses[0].addressLine1 + " " + row.serviceRequestAddresses[0].addressLine2 + "<br>" +
-                                row.serviceRequestAddresses[0].postalCode + " " + row.serviceRequestAddresses[0].city + "</div></div>";
+                                row.serviceRequestAddress[0].addressLine1 + " " + row.serviceRequestAddress[0].addressLine2 + "<br>" +
+                                row.serviceRequestAddress[0].postalCode + " " + row.serviceRequestAddress[0].city + "</div></div>";
                         }
                     },
                     {
@@ -94,10 +94,10 @@
                             var htmlContent = "";
 
                             if (serviceDate < currentDate) {
-                                htmlContent = "<button class='btn rounded-pill button-primary fs-14 p-1 pe-2 ps-2 me-1 mb-1' onclick='CompeleteServiceRequest(" + row.serviceRequestId + ")' >Compelete</button>";
+                                htmlContent = "<button class='btn rounded-pill btn-general fs-14 p-1 pe-2 ps-2 me-1 mb-1' onclick='CompeleteServiceRequest(" + row.serviceRequestId + ")' >Compelete</button>";
                             }
 
-                            htmlContent = htmlContent + "<button class='cancel-btn fs-14 p-1 pe-2 ps-2' onclick='CancelServiceRequest(" + row.serviceRequestId + ")' >Cancel</button>";
+                            htmlContent = htmlContent + "<button class='btn btn-danger rounded-pill fs-14 p-1 pe-2 ps-2' onclick='CancelServiceRequest(" + row.serviceRequestId + ")' >Cancel</button>";
 
                             return htmlContent;
                         }
@@ -139,7 +139,7 @@
 
                         $("#lblSpCustomerName").text(resp.data.user.firstName + " " + resp.data.user.lastName);
 
-                        var serviceAddress = resp.data.serviceRequestAddresses[0];
+                        var serviceAddress = resp.data.serviceRequestAddress[0];
 
                         $("#lblSpServiceAddress").text(serviceAddress.addressLine1 + " " + serviceAddress.addressLine2 + ", " + serviceAddress.postalCode + " " + serviceAddress.city)
                         $("#lblSpPhone").text(serviceAddress.mobile);   // User Or ServiceAddress

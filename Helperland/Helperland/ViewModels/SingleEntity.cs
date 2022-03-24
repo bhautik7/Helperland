@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Helperland.ViewModels
 {
-    public class SingeEntity<T> where T : class
+    public class SingleEntity<T> where T : class
     {
         public T Result { get; set; }
         public string Status { get; set; }

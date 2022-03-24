@@ -100,7 +100,7 @@
                         <span id="txtCancelServiceRequestErrorMessage" class="text-danger"></span>
                     </div>
                     <div class="col-md-12 mt-4">
-                        <button class="btn rounded-pill w-100 btn-cancel" onclick="CancelServiceRequestModel()">Cancel Now</button>
+                        <button class="btn rounded-pill w-100 btn-danger" onclick="CancelServiceRequestModel()">Cancel Now</button>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                         name: 'ServiceProvider',
                         render: function (data, type, row) {
                             
-                            if (row.user == null) {
+                            if (row.serviceProvider == null) {
                                 return "";
                             }
                             else {
@@ -184,14 +184,14 @@
                                 var spRating = 0;
                                 var count = 0;
                                 
-                                row.ratings.forEach(function (element) {
-                                    totalRating = totalRating + element.ratings;
+                                row.rating.forEach(function (element) {
+                                    totalRating = totalRating + element.rating;
                                     count = count + 1;
                                 });
 
 
                                 if (count == 0) {
-                                    return "<div><img src='~/images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                    return "<div><img src='" + row.serviceProvider.userProfilePicture + "' class='cap-img float-start' alt='cap image'> " +
                                         "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " + "Not Rated";
                                 }
 
@@ -199,7 +199,7 @@
 
                                 var spRatingRounded = Math.round(spRating * 10) / 10;
 
-                                return "<div><img src='~/images/cap.png' class='cap-img float-start' alt='cap image'> " +
+                                return "<div><img src='" + row.serviceProvider.userProfilePicture + "' class='cap-img float-start' alt='cap image'> " +
                                     "<div class='name-rating'> <label>" + row.user.firstName + " " + row.user.lastName + "</label> <div> " +
                                     "<input id='sprating_" + row.user.userId + "_" + row.serviceRequestId + "' class='spRating' value='" + spRatingRounded + "' type='text' title='' hidden>";
                             }

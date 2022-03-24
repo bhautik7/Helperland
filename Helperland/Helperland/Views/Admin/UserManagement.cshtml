@@ -3,335 +3,321 @@
     ViewData["Title"] = "User Management";
 }
 
+<div class="d-flex justify-content-between flex-wrap">
+    <h2 class="page-title mt-auto mb-auto">User Management</h2>
+    <button class="add-btn">
+        <img src="~/images/add.png" alt="">
+        Add New User
+    </button>
+</div>
+<div class="user-search-box">
+    <select class="form-control input-element width-205" id="UserName" aria-label="User name">
+    </select>
 
+    @*<input class="form-control input-element width-205" id="UserName" placeholder="User Name" />*@
 
-  <div class="data-table">
-            <table id="user-management">
-                <thead>
-                    <tr>
-                        <th>User Name <img class="sort-img" alt=""></th>
-                        <th>User Type</th>
-                        <th>Role</th>
-                        <th>Postal Code <img class="sort-img" alt=""></th>
-                        <th>City</th>
-                        <th>Radius <img class="sort-img" alt=""></th>
-                        <th>User Status <img class="sort-img" alt=""></th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Lyum watson</td>
-                        <td>Call Center</td>
-                        <td>Inquiry Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Service provider</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td>10 km</td>
-                        <td><label class=" lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                   
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Inquiry Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Customer</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Content Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Customer</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn dangerLabel">Inactive</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                   
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Service provider</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td>20 km</td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Finance Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+    <select class="form-select input-element width-215" aria-label="User role" id="UserType">
+        <option selected value="">User role</option>
+        <option value="1">Admin</option>
+        <option value="2">Service Provider</option>
+        <option value="3">Customer</option>
+    </select>
+
+    <div class="input-group input-element width-215">
+        <span class="input-group-text" id="basic-addon1">+49</span>
+        <input type="text" class="form-control" id="PhoneNumber" placeholder="Phone number" aria-label="Username"
+               aria-describedby="basic-addon1">
+    </div>
+
+    <input type="text" class="form-control input-element width-140" id="Zipcode" placeholder="Zipcode">
+
+    <input type="text" id="txtFromDate" placeholder="From Date" onfocus="(this.type='date')" class="calender-icon form-control input-element width-135">
+
+    <input type="text" id="txtToDate" placeholder="To Date" class="calender-icon form-control input-element width-135" onfocus="(this.type='date')">
+
+    <button class="btn btn-Search width-84" onclick="SearchUser()">Search</button>
+
+    <button class="btn width-84 btn-clear" onclick="ResetSearchData()">Clear</button>
+
+</div>
+
+<div class="mb-3 mt-3 text-end">
+    <button class="width-84 export-btn" onclick="ExportUsersDetail()">Export</button>
+</div>
+
+<div class="data-table">
+    <table id="tblUserManagement">
+        <thead>
+            <tr>
+                <th>User Id <img class="sort-img" alt=""></th>
+                <th>User Name <img class="sort-img" alt=""></th>
+                <th>Date of Registration <img class="sort-img" alt=""></th>
+                <th>User Type <img class="sort-img" alt=""></th>
+                <th>Phone <img class="sort-img" alt=""></th>
+                <th>Postal Code <img class="sort-img" alt=""></th>
+                <th>Status <img class="sort-img" alt=""></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        var table;
+        $(document).ready(function () {
+
+            $("#UserName").select2({
+                placeholder: "Select a User name",
+                //theme: "bootstrap4",
+                allowClear: true,
+                 ajax: {
+                    url: "/Admin/SearchUser",
+                    contentType: "application/json; charset=utf-8",
+                    data: function (params) {
+                        var query =
+                        {
+                            term: params.term,
+                        };
+                        return query;
+                    },
+                    processResults: function (result) {
+                        return {
+                            results: result
+                        };
+                    }
+                }
+            });
+            table=$('#tblUserManagement').DataTable({
+                paging: true,
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/Admin/GetUserList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data',
+                    "data": function (d) {
+                        d.searchUserName = $("#UserName").val();
+                        d.searchUserType = $("#UserType").val();
+                        d.searchPhoneNumber = $("#PhoneNumber").val();
+                        d.searchZipcode = $("#Zipcode").val();
+                        d.searchRegistrationStartDate = $("#txtFromDate").val();
+                        d.searchRegistrationEndDate = $("#txtToDate").val();
+                    }
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 7 }
+                ],
+                columns: [
+                    {
+                        data: 'userId',
+                        name: 'UserId',
+                    },
+                    {
+                        name: 'UserName',
+                        render: function (data, type, row) {
+                            return row.firstName + " " + row.lastName;
+                        }
+                    },
+                    {
+                        name: 'CreatedDate',
+                        render: function (data, type, row) {
+                            return "<img src='../images/calendar2.png' alt='calender' class='me-1' /> " + DateFormatDDMMYYYY(row.createdDate);
+                        }
+                    },
+                    {
+                        name: 'UserType',
+                        render: function (data, type, row) {
+                            var htmlContent = "";
+                            switch (row.userTypeId) {
+                                case 1: htmlContent = htmlContent + "Admin";
+                                    break;
+                                case 2: htmlContent = htmlContent + "Service Provider";
+                                    break;
+                                case 3: htmlContent = htmlContent + "Customer";
+                                    break;
+                            }
+                            return htmlContent;
+                        }
+                    },
+                    {
+                        data: 'mobile',
+                        name: 'Mobile',
+                    },
+                    {
+                        data: 'zipCode',
+                        name: 'Zipcode',
+                    },
+                    {
+                        name: 'Status',
+                        render: function (data, type, row) {
+                            var htmlContent = "";
+                            if (row.isActive == true) {
+                                htmlContent = htmlContent + "<label class='lbl-btn lbl-success'>Active</label>";
+                            }
+                            else {
+                                htmlContent = htmlContent + "<label class='lbl-btn lbl-danger'>Inactive</label>";
+                            }
+                            return htmlContent;
+                        }
+                    },
+                    {
+                        name: 'Action',
+                        render: function (data, type, row) {
+                            var htmlContent = "";
+                            htmlContent = htmlContent + "<div class='dropdown'><button class='btn dropdown-toggle' type='button' id='dropdownMenuButton1'" +
+                                "data-bs-toggle='dropdown' aria-expanded='false'><img src='../images/group-38.png' alt='dot' class='position-relative'>" +
+                                "</button><ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
+                            if (row.isActive == true) {
+                                htmlContent = htmlContent + "<li><a class='dropdown-item' onclick='UpdateUserStatus(" + row.userId + ", false)'>Deactivate</a></li>";
+                            }
+                            else {
+                                htmlContent = htmlContent + "<li><a class='dropdown-item' onclick='UpdateUserStatus(" + row.userId + ", true)'>Activate</a></li>";
+                            }
+                            if (row.isApproved == false && row.userTypeId == 2) {
+                                htmlContent = htmlContent + "<li><a class='dropdown-item' onclick='ApprovedServiceProvider(" + row.userId + ")'>Approve</a></li>";
+                            }
+                            htmlContent = htmlContent + "</ul></div >";
+                            return htmlContent;
+                        }
+                    }
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]]
+            });
+            $("#txtFromDate").change(function () {
+                $("#txtToDate").attr("min", $("#txtFromDate").val());
+            });
+            $("#txtToDate").change(function () {
+                $("#txtFromDate").attr("max", $("#txtToDate").val());
+            });
+        });
+        function SearchUser() {
+            $('#tblUserManagement').DataTable().ajax.reload();
+        }
+        function ResetSearchData() {
+            $("#UserName").val("");
+            $("#UserType").val("");
+            $("#PhoneNumber").val("");
+            $("#Zipcode").val("");
+            $("#txtFromDate").val("");
+            $("#txtToDate").val("");
+            $('#tblUserManagement').DataTable().ajax.reload();
+        }
+        function UpdateUserStatus(userId, isActive) {
+            var user = {};
+            user.userId = userId;
+            user.isActive = isActive;
+            $('#preloader').removeClass("d-none");
+            $.ajax({
+                url: '/Admin/UpdateUserActiveStatus',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function (resp) {
+                    $('#preloader').addClass("d-none");
+                    if (resp.status == "ok") {
+                        $('#tblUserManagement').DataTable().ajax.reload();
+                        if (isActive == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update User Active Status',
+                                text: 'You have successfully Activate User : ' + userId,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update User Active Status',
+                                text: 'You have successfully Deactivate User : ' + userId,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            })
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        function ApprovedServiceProvider(userId) {
+            $('#preloader').removeClass("d-none");
+            $.ajax({
+                url: '/Admin/ApproveServiceProvider',
+                type: 'post',
+                dataType: 'json',
+                data: { "userId": userId },
+                success: function (resp) {
+                    $('#preloader').addClass("d-none");
+                    if (resp.status = "ok") {
+                        $('#tblUserManagement').DataTable().ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Approved Success',
+                            text: 'You have successfully Approved Service provider : ' + userId,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        })
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+          function ExportUsersDetail() {
+            var tblData = table.data();
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            csvContent += "User name, Date of Registration, User Type, Phone, Postal Code, Status\n";
+
+            for (let i = 0; i < tblData.length; i++) {
                 
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Customer</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Customer</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+                csvContent += tblData[i].firstName + " " + tblData[i].lastName + ",";
+                csvContent += DateFormatDDMMYYYY(tblData[i].createdDate) + ",";
 
-                    
-                    <tr>
-                        <td>Lyum watson</td>
-                        <td>Call Center</td>
-                        <td>Inquiry Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Service provider</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td>10 km</td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Inquiry Manager</td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John Smith</td>
-                        <td>Customer</td>
-                        <td></td>
-                        <td>123456</td>
-                        <td>Berlin</td>
-                        <td></td>
-                        <td><label class="lbl-btn successLabel">Active</label></td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/group-38.png" alt="" class="position-relative">
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                    <li><a class="dropdown-item" href="#">Service History</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                if (tblData[i].userTypeId == 1) {
+                    csvContent += "Admin,";
+                }
+                else if (tblData[i].userTypeId == 2) {
+                    csvContent += "Service Provider,";
+                }
+                else {
+                    csvContent += "Customer,";
+                }
 
+                csvContent += tblData[i].mobile + ",";
+                csvContent += tblData[i].zipCode + ",";
+
+                if (tblData[i].status == true) {
+                    csvContent += "Active,";
+                }
+                else {
+                    csvContent += "Inactive,";
+                }
+                csvContent += "\n";
+            }
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "UsersDetails.csv");
+            document.body.appendChild(link); // Required for FF
+            link.click();
+        }
+    </script>
+}

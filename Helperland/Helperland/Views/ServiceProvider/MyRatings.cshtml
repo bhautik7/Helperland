@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "My Ratings";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
@@ -63,9 +62,9 @@
                             return "<div class='content-box'><div class='d-flex flex-wrap w-100'><div class='minWidth-25 mb-2'>" +
                                 row.ratingId + "<br /><b>" + row.ratingFromNavigation.firstName + " " + row.ratingFromNavigation.lastName +
                                 "</b></div><div class='minWidth-25 mb-2'>" +
-                                "<img src='../img/admin-panel/calendar2.png' class='me-1' alt='calenderIcon'><span> " +
+                                "<img src='../images/calendar2.png' class='me-1' alt='calenderIcon'><span> " +
                                 ServiceStartDate(row.serviceRequest.serviceStartDate) + "</span ><br> " +
-                                "<img src='../img/admin-panel/layer-14.png' class='me-1' alt='clockIcon'>" +
+                                "<img src='../images/layer-14.png' class='me-1' alt='clockIcon'>" +
                                 ServiceTime(row.serviceRequest.serviceStartDate, 0) + " - " +
                                 ServiceTime(row.serviceRequest.serviceStartDate, row.serviceRequest.serviceHours)
                                 + "</div><div class='minWidth-50 mb-2'>" +

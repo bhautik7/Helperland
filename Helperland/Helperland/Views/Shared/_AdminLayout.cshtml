@@ -1,36 +1,47 @@
-﻿@using System.Security.Claims
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title | Helperland</title>
-    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="~/css/user_management.css" />
-    
-   
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="~/js/admin_main.js"></script>
-     <!-- datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    <!-- jquery 3.6.0 -->
+    <title>@ViewBag.Title - HelperLand</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
    
+    <!-- Bootstrap css -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+    @*<link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />*@
+
+    <!-- sweetalert2 -->
+    <link href="~/lib/limonte-sweetalert2/sweetalert2.css" rel="stylesheet" />
+
+    <!-- select2 -->
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <!-- select2-bootstrap4-theme -->
+    <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet">
+
+    <!--Star Rating Css-->
+    <link href="~/lib/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.css" rel="stylesheet" />
+
+    <!-- Website Css -->
+    <link href="~/css/admin_management.css" rel="stylesheet" />
     
+    <!-- JQuery -->
+    <script src="~/lib/jquery/jquery.js"></script>
 </head>
 <body>
-     <!-- navbar -->
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-xl navbar-light fixed-top">
         <div class="container-fluid">
             <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown" aria-expanded="false"
-                aria-label="Toggle navigation">
+                    data-bs-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand p-0" href="#">helperland</a>
@@ -42,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item me-2">
-                    <a class="nav-link"  asp-controller="Account" asp-action="Logout">
+                    <a class="nav-link" asp-action="Logout" asp-controller="Account">
                         <img src="~/images/logout.png" alt="">
                     </a>
                 </li>
@@ -50,132 +61,111 @@
         </div>
     </nav>
 
-    <!-- sidebar start -->
     <nav class="sidebar navbar navbar-expand-xl p-0">
-        <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+        <div class="collapse navbar-collapse" id="sideBarAdminPanel">
             <ul class="navbar-nav">
+                @*<li class="nav-item">
+                        <a class="nav-link" href="#">Service Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Role Management</a>
+                    </li>
+                    <li class='nav-link sub-menu'>
+                        <a href='#' class="">Coupon Code Management<span class='arrow-icon'></span></a>
+                        <ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Service Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Role Management</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Escalation Management</a>
+                    </li>*@
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Service Management</a>
+                    <a class="nav-link" asp-controller="Admin" asp-action="ServiceRequests">Service Requests</a>
                 </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" href="#">Service Providers</a>
+                    </li>*@
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Role Management</a>
+                    <a class="nav-link" asp-controller="Admin" asp-action="UserManagement">User Management</a>
                 </li>
-                <li class='nav-link sub-menu'>
-                    <a href='#' class="">Coupon Code Management<span class='arrow-icon'></span></a>
-                    <ul>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Service Management</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Role Management</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Escalation Management</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Service Requests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Service Providers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">User Management</a>
-                </li>
-                <li class='nav-link sub-menu'>
-                    <a href='#' class="">Finance Module<span class='arrow-icon'></span></a>
-                    <ul>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">All Transactions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Generate Payment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Customer Invoices</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Zip Code Management</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Rating Management</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inquiry Management</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Newsletter Management</a>
-                </li>
-                <li class='nav-link sub-menu'>
-                    <a href='#' class="">Content Management<span class='arrow-icon'></span></a>
-                    <ul>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">FAQs</a>
-                        </li>
-                    </ul>
-                </li>
+                @*<li class='nav-link sub-menu'>
+                        <a href='#' class="">Finance Module<span class='arrow-icon'></span></a>
+                        <ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">All Transactions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Generate Payment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Customer Invoices</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Zip Code Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rating Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inquiry Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Newsletter Management</a>
+                    </li>
+                    <li class='nav-link sub-menu'>
+                        <a href='#' class="">Content Management<span class='arrow-icon'></span></a>
+                        <ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">FAQs</a>
+                            </li>
+                        </ul>
+                    </li>*@
             </ul>
         </div>
     </nav>
-    <!-- sidebar end -->
-    <div>
-        <div class="user-details">
-        <div class="d-flex justify-content-between flex-wrap">
-            <h2 class="page-title mt-auto mb-auto">User Management</h2>
-            <button class="addBtn">
-                <img src="~/images/add.png" alt="">
-                Add New User
-            </button>
-        </div>
-        <div class="user-search-box">
-            <select class="form-select input-element userWidth" aria-label="User name">
-                <option selected>User name</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
 
-            <select class="form-select input-element reqWidth" aria-label="User role">
-                <option selected>User role</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-
-            <div class="input-group input-element reqWidth">
-                <span class="input-group-text" id="basic-addon1">+49</span>
-                <input type="text" class="form-control" placeholder="Phone number" aria-label="Username"
-                    aria-describedby="basic-addon1">
-            </div>
-
-            <input type="text" class="form-control input-element zipWidth" id="" placeholder="Zipcode">
-
-            <button class="btn search-btn width-84">Search</button>
-
-            <button class="btn width-84 clear-btn">Clear</button>
-
-        </div>
+    <div class="main-content">
 
         @RenderBody()
+
     </div>
+
     <div class="footer pt-0">
         ©2018 Helperland. All rights reserved.
     </div>
 
-    <!-- JS -->
-    <script src="./JS/admin_main.js"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <!-- JS Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Client side validation scripts-->
+    <partial name="_ValidationScriptsPartial" />
+
     
+    <script src="~/js/admin_main.js"></script>
+    <script src="~/js/UserScript.js"></script>
+    <!-- Bootstrap Js-->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/ae6d6e0254.js" crossorigin="anonymous"></script>
+    <!-- DataTable -->
+    @*<script src="~/lib/datatables/js/jquery.dataTables.js"></script>*@
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <!-- sweetalert2 -->
+    <script src="~/lib/limonte-sweetalert2/sweetalert2.js"></script>
+    <!-- select2 -->
+    @*<script src="~/lib/select2/js/select2.js"></script>*@
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <!-- Rating -->
+    <script src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+    <script src="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

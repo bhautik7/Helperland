@@ -1,0 +1,323 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+/*My account page -- Service Provider Start*/
+
+.my-account .my-setting-title {
+    color: #646464;
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dcdcdc;
+    font-weight: 700;
+    margin: 0 0 15px;
+}
+
+.my-account .my-detail-avatar-img {
+    height: 70px;
+    width: 70px;
+    background: #fff;
+}
+
+.my-account .form-check-inline {
+    margin-right: 5px;
+}
+
+.my-account .select-avatar-img {
+    height: 85px;
+    margin: 5px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+}
+
+.my-account input[name="sp-avatar"]:checked ~ label .select-avatar-img {
+    border: 3px solid #1D7A8c;
+}
+
+/*My account page -- Service Provider end*/
+
+
+/* Service Provider - New Service Request Page Start */
+
+.main-content #tblUpcomingServices tr td:nth-child(1),
+.main-content #tblUpcomingServices tr td:nth-child(4),
+.main-content #tblUpcomingServices tr td:nth-child(5) {
+    text-align: center;
+}
+
+/* Service Provider - New Service Request Page End */
+
+/* Service Provider - Upcoming Service Page Start */
+.main-content #tblNewServiceRequests tr td:nth-child(1),
+.main-content #tblNewServiceRequests tr td:nth-child(4) {
+    text-align: center;
+}
+
+.main-content #tblUpcomingServices tr td:nth-child(3) img {
+    margin-bottom: 5px;
+}
+
+
+#tblServiceHistory tbody tr td:nth-child(1) {
+    min-width: 110px !important;
+}
+
+#tblServiceHistory tbody tr td:nth-child(2) {
+    min-width: 140px !important;
+}
+
+#tblServiceHistory tbody tr td:nth-child(3) {
+    min-width: 195px !important;
+}
+
+/* Service Provider - Upcoming Service Page End */
+
+/*Service provider - ServiceHistory Start*/
+
+.main-content #tblServiceHistory tr td:nth-child(1) {
+    text-align: center;
+}
+
+/*Service provider - ServiceHistory End*/
+
+/*Rating Page -- Service provide  Start*/
+
+.rating-table {
+    border-spacing: 0px 15px !important;
+    border: 0px !important
+}
+
+    .rating-table thead {
+        display: none;
+    }
+
+    .rating-table tbody tr {
+        border: 1px solid #e1e1e1 !important
+    }
+
+        .rating-table tbody tr td {
+            padding: 0px;
+            border: 0px !important;
+        }
+
+        .rating-table tbody tr .content-box {
+            padding: 12px;
+            border: 1px solid #ececec;
+        }
+
+        .rating-table tbody tr .minWidth-25 {
+            min-width: 25%;
+        }
+
+        .rating-table tbody tr .minWidth-50 {
+            min-width: 50%;
+        }
+
+    .rating-table .dataTables_empty {
+        border: 1px solid #e4e2e2 !important;
+        padding: 5px;
+        border-radius: 3px;
+    }
+/*Rating Page -- Service provide  end*/
+/*Block Customer - Service Provier Start*/
+.block-customer-table {
+    border: 0px !important
+}
+
+    .block-customer-table thead {
+        display: none;
+    }
+
+    .block-customer-table tbody tr {
+        border: 1px solid #e1e1e1 !important;
+        display: inline-block;
+        min-width: 30%;
+        margin: 0px 15px 20px;
+    }
+
+        .block-customer-table tbody tr td {
+            display: flex;
+            padding: 0px;
+            border: 0px !important;
+        }
+
+        .block-customer-table tbody tr .content-box {
+            padding: 30px 5px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .block-customer-table tbody tr .content-box .img-avtar {
+                height: 100px;
+                margin: 30px auto 20px;
+            }
+
+            .block-customer-table tbody tr .content-box .user-name {
+                color: #4f4f4f;
+                font-size: 18px;
+                line-height: 22px;
+                font-weight: 700;
+                margin: auto;
+                margin-bottom: 15px;
+            }
+
+            .block-customer-table tbody tr .content-box .button-blocUnblock {
+                width: 80px;
+                font-size: 14px;
+                padding: 5px;
+                border: none !important;
+                color: #fff !important;
+                margin: auto;
+                border-radius: 30px;
+            }
+
+            .block-customer-table tbody tr .content-box .button-block {
+                background: #ff6b6b;
+            }
+
+                .block-customer-table tbody tr .content-box .button-block:hover {
+                    background: #cc5656 !important;
+                }
+
+            .block-customer-table tbody tr .content-box .button-unblock {
+                background: #1d7a8c !important
+            }
+
+                .block-customer-table tbody tr .content-box .button-unblock:hover {
+                    background-color: #146371 !important;
+                }
+
+/*Block Customer - Service Provier End*/
+
+
+/*customer part start*/
+/* Customer - Dashboard Page Start */
+
+
+.main-content #tbl-service-history tr td:nth-child(3) {
+    text-align: center;
+}
+
+#tblCurrentServiceRequest tr td:nth-child(1),
+#tblCurrentServiceRequest tr td:nth-child(4),
+#tblCurrentServiceRequest tr td:nth-child(5) {
+    text-align: center;
+}
+
+#tblCurrentServiceRequest tr td:nth-child(3) {
+    min-width: 195px;
+}
+
+#tblCurrentServiceRequest tr td:nth-child(5) {
+    min-width: 125px;
+}
+
+/* Customer - Dashboard Page End */
+
+/*My Account Page Start*/
+
+.my-account {
+    width: 100%;
+}
+
+    .my-account .nav-link {
+        font-weight: 700;
+        background-color: #fff;
+        color: #646464;
+        border-bottom: 4px solid #e1e1e1;
+        border-radius: 0px !important;
+    }
+
+    .my-account .nav-pills .nav-link.active,
+    .my-account .nav-pills .nav-link:hover {
+        background-color: #fff;
+        color: #1d7a8c;
+        border-bottom: 4px solid #1d7a8c !important;
+        border-radius: 0px !important;
+    }
+
+    .my-account .small-select-tag {
+        padding: 10px 23px 10px 6px !important;
+        background-position: right 6px center !important;
+    }
+
+
+    .my-account .tab-icon {
+        margin: auto;
+        height: 26px;
+        width: 24px;
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-position: 0 0;
+    }
+
+    .my-account .my-detail-tabIcon {
+        background-image: url(../images/my-account-details.png);
+    }
+
+    .my-account .my-addresses-tabIcon {
+        background-image: url(../images/my-account-address.png);
+    }
+
+    .my-account .my-change-password-tabIcon {
+        background-image: url(../images/my-account-password.png);
+    }
+
+    .my-account .nav-link.active .my-detail-tabIcon {
+        background-image: url(../images/my-account-details.png);
+        background-position: 0 -26px;
+    }
+
+    .my-account .nav-link.active .my-addresses-tabIcon {
+        background-image: url(../images/my-account-address.png);
+        background-position: 0 -26px;
+    }
+
+    .my-account .nav-link.active .my-change-password-tabIcon {
+        background-image: url(../images/my-account-password.png);
+        background-position: 0 -26px;
+    }
+
+#my-addresses table thead {
+    color: #646464;
+    background: #f3f3f3;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+#my-addresses table th,
+#my-addresses table td {
+    padding-left: 15px;
+}
+
+#my-addresses tbody {
+    border-top: 0px !important;
+}
+
+#my-addresses .actionIcon {
+    color: transparent;
+    border-radius: 25px;
+}
+
+    #my-addresses .actionIcon.editIcon {
+        padding: 10px 8px 10px 10px;
+    }
+
+    #my-addresses .actionIcon.deleteIcon {
+        padding: 10px 9px;
+    }
+
+    #my-addresses .actionIcon:hover {
+        background-color: #f3f3f3;
+    }
+
+/*My Account Page End*/
+
+/*customer part end*/

@@ -1,0 +1,741 @@
+﻿@{
+    ViewData["Title"] = "Service Requests";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex">
+    <h2 class="page-title mt-auto mb-auto">Service Requests</h2>
+</div>
+<div class="user-search-box">
+
+    <input type="text" class="form-control input-element width-110" id="ServiceRequestId" placeholder="Service Id">
+
+    <select id="CustomerName" class="form-control input-element width-205" aria-label="User name">
+    </select>
+
+    <select id="ServiceProviderName" class="form-control input-element width-205" aria-label="User role">
+    </select>
+    @*<select class="form-select input-element width-127" aria-label="User name">
+            <option value="" disabled selected hidden>Customer</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <select class="form-select input-element width-152" aria-label="User role">
+            <option value="" disabled selected hidden>Service Provider</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>*@
+
+    <select class="form-select input-element width-120" id="Status" aria-label="User role">
+        <option value="" selected>Status</option>
+        <option value="1">New</option>
+        <option value="2">Pending</option>
+        <option value="3">Cancelled</option>
+        <option value="4">Completed</option>
+    </select>
+
+    <input type="text" id="txtFromDate" placeholder="From Date" onfocus="(this.type='date')" class="calender-icon form-control input-element width-135">
+    <!-- <input type="date" class="form-control input-element width-135" id=""> -->
+
+    <input type="text" id="txtToDate" placeholder="To Date" class="calender-icon form-control input-element width-135" onfocus="(this.type='date')">
+    <!-- <input type="date" class="form-control input-element width-135" id=""> -->
+
+    <button class="btn btn-Search width-84" onclick="SearchUser()">Search</button>
+
+    <button class="btn width-84 btn-clear" type="reset" onclick="ResetSearchData()">Clear</button>
+
+</div>
+
+<div class="data-table">
+    <table id="tblServiceRequests">
+        <thead>
+            <tr>
+                <th>Service ID<img class="sort-img" alt=""></th>
+                <th>Service Date<img class="sort-img" alt=""></th>
+                <th>Customer details<img class="sort-img" alt=""></th>
+                <th>Service provider<img class="sort-img" alt=""></th>
+                <th>Status<img class="sort-img" alt=""></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<!-- Address Modal -->
+<div class="modal" id="EditServiceRequestModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">
+                    Edit Service Request
+                    <input type="hidden" id="HiddenServiceRequestId" />
+                </h3>
+                <div id="ErrorMessageEditServiceRequestModel"></div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" id="ServiceDate" placeholder="Service Date" class="calender-icon form-control input-element">
+                        <span id="ErrorMessageServiceDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Time</label>
+                        <select class="form-select m-0" id="ServiceTime" name="ServiceTime">
+                            @for (double i = 8; i <= 18; i = i + 0.5)
+                            {
+                                string[] number = i.ToString().Split(".");
+                                <option value="@i"> @number[0]:@(number.Length == 2? "30" : "00") </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-1">
+                        <label class="fw-bold">Service Address</label>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Street name</label>
+                        <input type="text" class="form-control" placeholder="Street name" id="StreetName" name="StreetName">
+                        <span id="ErrorMessageStreetName" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">House number</label>
+                        <input type="text" class="form-control" placeholder="House number" id="HouseNumber" name="HouseNumber">
+                        <span id="ErrorMessageHouseNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Postal code</label>
+                        <input type="text" class="form-control" placeholder="Postal code" id="PostalCode" name="PostalCode">
+                        <span id="ErrorMessagePostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">City</label>
+                        <select class="form-select m-0" id="City" name="City">
+                        </select>
+                        @*<span id="ErrorMessageUserCity" class="text-danger"></span>*@
+                    </div>
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label class="form-label">Why do you want to reschedule service request?</label>
+                        <textarea class="form-control" id="Reason" placeholder="Why do you want to reschedule service request?" rows="3"></textarea>
+                        <span id="ErrorMessageReason" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="button-lightBlue w-100" onclick="UpdateServiceRequest()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Refund Amount Modal -->
+<div class="modal" id="RefundAmountModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="btn-close model-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="mb-3 mt-1">
+                    Refund Amount
+                </h3>
+                <div id="ErrorMessageEditServiceRequestModel"></div>
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>Paid Amount</div>
+                                <div>
+                                    <label id="lblPaidAmount"></label> $
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>Refunded Amount</div>
+                                <div>
+                                    <label id="lblRefundedAmount"></label> $
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <div>In Balance Amount</div>
+                        <div>
+                            <label id="lblBalanceAmount"></label> $
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Amount</label>
+                        <div class="input-group">
+                            <input type="number" id="txtAmountToRefund" class="form-control" />
+                            <select class="form-select bg-grey" id="ddlRefundType">
+                                <option value="Percentage" selected>Percentage</option>
+                                <option value="Fixed">Fixed</option>
+                            </select>
+                        </div>
+                        <span id="ErrorMessageAmountToRefund" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 mb-3">
+                        <label class="form-label">Calculate</label>
+                        <div class="input-group">
+                            <label class="input-group-text bg-grey w-50 d-flex align-items-center justify-content-center" for="inputGroupSelect02">Calculate</label>
+                            <input type="text" id="txtCalculatedAmount" class="form-control bg-grey" disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label class="form-label">Why do you want to Refund Amount?</label>
+                        <textarea class="form-control" id="RefundAmountReason" placeholder="Why do you want to Refund Amount?" rows="3"></textarea>
+                        <span id="ErrorMessageRefundAmountReason" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button class="button-lightBlue w-100" onclick="RefundAmountServiceRequest()">
+                            Refund
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+
+             $("#CustomerName").select2({
+                placeholder: "Select a Customer name",
+                //theme: "bootstrap4",
+                allowClear: true,
+                //multiple: true,
+                ajax: {
+                    url: "/Admin/SearchUser?userType=customer",
+                    contentType: "application/json; charset=utf-8",
+                    data: function (params) {
+                        var query =
+                        {
+                            term: params.term,
+                        };
+                        return query;
+                    },
+                    processResults: function (result) {
+                        return {
+                            results: result
+                        };
+                    }
+                }
+            });
+
+            $("#ServiceProviderName").select2({
+                placeholder: "Select a Service Provider name",
+                //theme: "bootstrap4",
+                allowClear: true,
+                //multiple: true,
+                ajax: {
+                    url: "/Admin/SearchUser?userType=serviceProvider",
+                    contentType: "application/json; charset=utf-8",
+                    data: function (params) {
+                        var query =
+                        {
+                            term: params.term,
+                        };
+                        return query;
+                    },
+                    processResults: function (result) {
+                        return {
+                            results: result
+                        };
+                    }
+                }
+            });
+
+            $('#tblServiceRequests').on('draw.dt', function () { //every time ajax call, this code execute
+                $(".spRating").rating({
+                    min: 0,
+                    max: 5,
+                    step: 0.1,
+                    size: "xs",
+                    stars: "5",
+                    showClear: false,
+                    readonly: true,
+                    starCaptions: function (val) {
+                        return val;
+                    },
+                    starCaptionClasses: function () {
+                        return "rating-count";
+                    },
+                });
+            });
+            $('#tblServiceRequests').DataTable({
+                paging: true,
+                processing: true,
+                serverSide: true,
+                filter: true,
+                ordering: true,
+                searching: false,
+                info: true,
+                ajax: {
+                    url: "/Admin/GetServiceRequestList",
+                    type: "POST",
+                    datatype: "json",
+                    dataSrc: 'data',
+                    "data": function (d) {
+                        d.searchServiceRequestId = $("#ServiceRequestId").val();
+                        d.searchCustomerName = $("#CustomerName").val();
+                        d.searchServiceProviderName = $("#ServiceProviderName").val();
+                        d.searchStatus = $("#Status").val();
+                        d.searchServiceStartDate = $("#txtFromDate").val();
+                        d.searchServiceEndDate = $("#txtToDate").val();
+                    }
+                },
+                oLanguage: {
+                    sInfo: "Total Records: _TOTAL_",
+                    sProcessing: "<div id='preloader'><div id='loader'></div></div>"
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 5 }
+                ],
+                columns: [
+                    {
+                        data: 'serviceRequestId',
+                        name: 'ServiceRequestId',
+                    },
+                    {
+                        name: 'ServiceStartDate',
+                        render: function (data, type, row) {
+                            return "<img src='../images/calendar2.png' alt='calender' class='me-1'><span> " +
+                                DateFormatDDMMYYYY(row.serviceStartDate) + "</span><br/>" +
+                                "<img src='../images/layer-14.png' alt='clock' class='me-1'> " +
+                                ServiceTime(row.serviceStartDate, 0) + " - " + ServiceTime(row.serviceStartDate, row.serviceHours);
+                        }
+                    },
+                    {
+                        name: 'Customer',
+                        render: function (data, type, row) {
+                            return "<div class='align-items-center d-flex'><img src='../images/layer-15.png' class='me-2'><div>" +
+                                row.user.firstName + " " + row.user.lastName + "<br>" + row.serviceRequestAddress[0].addressLine1 + " " +
+                                row.serviceRequestAddress[0].addressLine2 + "<br>" + row.serviceRequestAddress[0].postalCode + " " +
+                                row.serviceRequestAddress[0].city + "</div></div>";
+                        }
+                    },
+                    {
+                        name: 'ServiceProvider',
+                        render: function (data, type, row) {
+                            
+                            if (row.serviceProvider == null) {
+                                return "";
+                            }
+                            else {
+                                var totalRating = 0;
+                                var spRating = 0;
+                                var count = 0;
+                                row.serviceProvider.ratingRatingToNavigation.forEach(function (element) {
+                                    totalRating = totalRating + element.ratings;
+                                    count = count + 1;
+                                });
+                                if (count == 0) {
+                                    return "<div><img src='" + row.serviceProvider.userProfilePicture + "' class='cap-img float-start' alt='cap image'> " +
+                                        "<div class='name-rating'> <label>" + row.serviceProvider.firstName + " " + row.serviceProvider.lastName + "</label> <div> " + "Not Rated";
+                                }
+                                spRating = (totalRating / count);
+                                var spRatingRounded = Math.round(spRating * 10) / 10;
+                                return "<div><img src='" + row.serviceProvider.userProfilePicture + "' class='cap-img float-start' alt='cap image'> " +
+                                    "<div class='name-rating'> <label>" + row.serviceProvider.firstName + " " + row.serviceProvider.lastName + "</label> <div> " +
+                                    "<input id='sprating_" + row.serviceProvider.userId + "_" + row.serviceRequestId + "' class='spRating' value='" + spRatingRounded + "' type='text' title='' hidden>";
+                            }
+                        }
+                    },
+                    {
+                        name: 'Status',
+                        render: function (data, type, row) {
+                            var htmlContent = "";
+                            switch (row.status) {
+                                case 1: htmlContent = htmlContent + "<label class='lbl-btn lbl-yellow'>New</label>";
+                                    break;
+                                case 2: htmlContent = htmlContent + "<label class='lbl-btn lbl-lightBlue'>Pending</label>";
+                                    break;
+                                case 3: htmlContent = htmlContent + "<label class='lbl-btn lbl-danger'>Cancelled</label>";
+                                    break;
+                                case 4: htmlContent = htmlContent + "<label class='lbl-btn lbl-success'>Completed</label>";
+                                    break;
+                            }
+                            return htmlContent;
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                           var htmlContent = "";
+
+                            htmlContent = "<div class='dropdown'><button class='btn dropdown-toggle' type='button' id='dropdownMenuButton1' " +
+                                " data-bs-toggle='dropdown' aria-expanded='false'><img src='../images/group-38.png' alt='dots' " +
+                                " class='position-relative'></button><ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
+
+                            if (row.status == '1' || row.status == '2') {
+                                htmlContent = htmlContent + "<li><a class='dropdown-item' onclick='EditServiceRequest(" + row.serviceRequestId + ")' >Edit & Reschedule</a></li>" +
+                                    "<li><a class='dropdown-item' onclick='CancelServiceRequest(" + row.serviceRequestId + ")' >Cancel</a></li>";
+                            }
+                            else if (row.status == '4') {
+                                htmlContent = htmlContent + "<li><a class='dropdown-item' onclick='OpenRefundAmountModel(" + row.serviceRequestId + ")' >Refund</a></li>";
+                            }
+
+                            htmlContent = htmlContent + "<li><a class='dropdown-item' >History Log</a></li>";
+
+                            return htmlContent;
+                        }
+                    },
+                ],
+                dom: '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                order: [[0, "desc"]]
+            });
+            $("#txtFromDate").change(function () {
+                $("#txtToDate").attr("min", $("#txtFromDate").val());
+            });
+            $("#txtToDate").change(function () {
+                $("#txtFromDate").attr("max", $("#txtToDate").val());
+            });
+        });
+        function DateFormateYYYYMMDD(inputDate) {
+            var d = new Date(inputDate);
+            return d.getFullYear() + "-" + AppendZero((d.getMonth() + 1).toString()) + "-" + AppendZero(d.getDate().toString());
+        }
+
+
+        function SearchUser() {
+            $('#tblServiceRequests').DataTable().ajax.reload();
+        }
+        function ResetSearchData() {
+            $("#ServiceRequestId").val("");
+            $("#CustomerName").val("");
+            $("#ServiceProviderName").val("");
+            $("#Status").val("");
+            $("#txtFromDate").val("");
+            $("#txtToDate").val("");
+            $('#tblServiceRequests').DataTable().ajax.reload();
+        }
+        function EditServiceRequest(serviceRequestId) {
+            $("#ErrorMessageServiceDate").html("");
+            $("#ErrorMessageStreetName").html("");
+            $("#ErrorMessageHouseNumber").html("");
+            $("#ErrorMessagePostalCode").html("");
+            $("#ErrorMessageReason").html("");
+            $("#Reason").val("");
+            $('#preloader').removeClass("d-none");
+            $.ajax({
+                url: '/Admin/GetServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+                    $('#preloader').addClass("d-none");
+                    $("#HiddenServiceRequestId").val(resp.result.serviceRequestId);
+                    
+                    $("#ServiceDate").val(DateFormateYYYYMMDD(resp.result.serviceStartDate));
+                    var currentDate = new Date();
+                    $("#ServiceDate").attr("min", DateFormateYYYYMMDD(currentDate));
+                    var d = new Date(resp.result.serviceStartDate);
+                    var time = d.getHours() + (d.getMinutes() / 60);
+                    $("#StreetName").val(resp.result.serviceRequestAddress[0].addressLine1);
+                    $("#HouseNumber").val(resp.result.serviceRequestAddress[0].addressLine2);
+                    $("#PostalCode").val(resp.result.serviceRequestAddress[0].postalCode);
+                    FillCityInModel(resp.result.serviceRequestAddress[0].postalCode, resp.result.serviceRequestAddress[0].city)
+                    $("#ServiceTime").val(time);
+                    $('#EditServiceRequestModel').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#EditServiceRequestModel').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+            function CancelServiceRequest(serviceRequestId) {
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Admin/CancelServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status = "ok") {
+                        $('#tblServiceRequests').DataTable().ajax.reload();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+        function UpdateServiceRequest() {
+            var RegExpressPostalCode = new RegExp("^[1-9][0-9]{5}$");
+            if ($("#ServiceDate").val() == "") {
+                $("#ErrorMessageServiceDate").html("Please Select Service Date");
+            }
+            else {
+                $("#ErrorMessageServiceDate").html("");
+            }
+            if ($("#StreetName").val() == "") {
+                $("#ErrorMessageStreetName").html("Please Enter Street Number");
+            }
+            else {
+                $("#ErrorMessageStreetName").html("");
+            }
+            if ($("#HouseNumber").val() == "") {
+                $("#ErrorMessageHouseNumber").html("Please Enter House number");
+            }
+            else {
+                $("#ErrorMessageHouseNumber").html("");
+            }
+            if ($("#PostalCode").val() == "") {
+                $("#ErrorMessagePostalCode").html("Please Enter Postal Code");
+            }
+            else if (!RegExpressPostalCode.test($("#PostalCode").val())) {
+                $('#ErrorMessagePostalCode').html("Please Enter Valid Postal Code.");
+            }
+            else if ($('#City option').length == 0) {
+                $('#ErrorMessagePostalCode').html("Please Enter different Postal Code.");
+            }
+            else {
+                $("#ErrorMessagePostalCode").html("");
+            }
+            if ($("#Reason").val() == "") {
+                $("#ErrorMessageReason").html("Please Enter Reason for Reschedule Service");
+            }
+            else {
+                $("#ErrorMessageReason").html("");
+            }
+            if ($("#ErrorMessageServiceDate").html() != "" || $("#ErrorMessageStreetName").html() != "" ||
+                $("#ErrorMessageHouseNumber").html() != "" || $("#ErrorMessagePostalCode").html() != "" ||
+                $("#ErrorMessageReason").html() != "") {
+                return;
+            }
+            
+            var serviceRequest = {};
+            serviceRequest.serviceRequestId = $("#HiddenServiceRequestId").val();
+            serviceRequest.serviceStartDate = $("#ServiceDate").val();
+            serviceRequest.serviceStartTime = $("#ServiceTime option:selected").text();
+            serviceRequest.streetName = $("#StreetName").val();
+            serviceRequest.houseNumber = $("#HouseNumber").val();
+            serviceRequest.postalCode = $("#PostalCode").val();
+            serviceRequest.city = $("#City").val();
+            serviceRequest.reason = $("#Reason").val();
+            $('#preloader').removeClass("d-none");
+            $.ajax({
+                url: '/Admin/UpdateServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(serviceRequest),
+                success: function (resp) {
+                    $('#preloader').addClass("d-none");
+                    if (resp.status == "ok") {
+                        $('#EditServiceRequestModel').modal('hide');
+                        $('#tblServiceRequests').DataTable().ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Service Request Edit',
+                            text: 'You have successfully edit Service Request : ' + $("#HiddenServiceRequestId").val(),
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        })
+                    }
+                    else if (resp.status == "Error") {
+                        BootstrapAlert("ErrorMessageEditServiceRequestModel", resp.errorMessage, "danger");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        
+        function FillCityInModel(postalCode, selectedCity) {
+            $('#preloader').removeClass("d-none");
+            $.ajax({
+                url: '/Admin/GetCitiesByPostalCode',
+                type: 'post',
+                dataType: 'json',
+                data: { "postalCode": postalCode },
+                success: function (resp) {
+                    $('#preloader').addClass("d-none");
+                    $('#City').empty();
+                    resp.forEach((city) => {
+                        $('#City').append($("<option></option>").val(city.cityName).html(city.cityName));
+                    });
+                    if (selectedCity != "") {
+                        $('#City').val(selectedCity);
+                    }
+                    else {
+                        $("#City").val($("#City option:first").val());
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function OpenRefundAmountModel(serviceRequestId) {
+            
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Admin/GetServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                data: { "serviceRequestId": serviceRequestId },
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+                    
+                    $("#HiddenServiceRequestId").val(serviceRequestId);
+
+                    $("#lblPaidAmount").text(resp.result.totalCost);
+
+                    if (resp.result.refundedAmount == null) {
+                        $("#lblRefundedAmount").text("0");
+                        $("#lblBalanceAmount").text(resp.result.totalCost);
+                    }
+                    else {
+                        $("#lblRefundedAmount").text(resp.result.refundedAmount);
+
+                        var totalCost = parseFloat(resp.result.totalCost);
+                        var refundedAmount = parseFloat(resp.result.refundedAmount)
+                        
+                        var balanceAmount = totalCost - refundedAmount;
+
+                        $("#lblBalanceAmount").text(balanceAmount.toFixed(2));
+                    }
+
+                    $('#RefundAmountModel').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#RefundAmountModel').modal('show');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        $('#txtAmountToRefund').change(function () {
+            CalculateAmount();
+        });
+
+        $('#ddlRefundType').change(function () {
+            CalculateAmount();
+        });
+
+      function CalculateAmount() {
+            
+            if ($('#txtAmountToRefund').val() == "") {
+                $("#ErrorMessageAmountToRefund").text("Please enter amount to refund");
+                return;
+            }
+            
+            var amountToRefund = parseFloat($('#txtAmountToRefund').val());
+            var paidAmount = parseFloat($('#lblPaidAmount').text());
+            var refundedAmount = parseFloat($('#lblRefundedAmount').text());
+            var finalAmount = 0;
+
+            if ($('#ddlRefundType option:selected').val() == "Percentage") {
+                finalAmount = (amountToRefund * paidAmount) / 100;
+            }
+            else {
+                finalAmount = amountToRefund;
+            }
+
+            if ((finalAmount + refundedAmount) > paidAmount) {
+                $("#ErrorMessageAmountToRefund").text("Refund amount must be less than Paid amount");
+                return;
+            }
+            else {
+                $("#ErrorMessageAmountToRefund").text("");
+            }
+
+            $("#txtCalculatedAmount").val(finalAmount.toFixed(2));
+        }
+
+          function RefundAmountServiceRequest() {
+            
+            if ($('#txtAmountToRefund').val() == "") {
+                $("#ErrorMessageAmountToRefund").text("Please enter amount to refund");
+            }
+            else {
+                $("#ErrorMessageAmountToRefund").text("");
+            }
+
+            if ($("#RefundAmountReason").val() == "") {
+                $("#ErrorMessageRefundAmountReason").text("Please enter Refund Amount Reason");
+            }
+            else {
+                $("#ErrorMessageRefundAmountReason").text("");
+            }
+
+            if ($("#ErrorMessageAmountToRefund").text() != "" || $("#ErrorMessageAmountToRefund").text() != "" || $("#ErrorMessageRefundAmountReason").text() != "") {
+                return;
+            }
+
+            var refundedAmount = parseFloat($('#lblRefundedAmount').text());
+            var calculatedAmount = parseFloat($("#txtCalculatedAmount").val());
+            var serviceRequest = {};
+
+            serviceRequest.serviceRequestId = $("#HiddenServiceRequestId").val();
+            serviceRequest.refundedAmount = refundedAmount + calculatedAmount;
+            serviceRequest.reason = $("#RefundAmountReason").val();
+
+            $('#preloader').removeClass("d-none");
+
+            $.ajax({
+                url: '/Admin/RefundAmountServiceRequest',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(serviceRequest),
+                success: function (resp) {
+
+                    $('#preloader').addClass("d-none");
+
+                    if (resp.status == "ok") {
+                        $('#RefundAmountModel').modal('hide');
+
+                        $("#txtAmountToRefund").val("");
+                        $("#txtCalculatedAmount").val("");
+                        $("#RefundAmountReason").val("");
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Service Request Refunded',
+                            text: 'You have successfully Refunded Service Request : ' + $("#HiddenServiceRequestId").val(),
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        })
+                    }
+                    else if (resp.status == "Error") {
+                        BootstrapAlert("ErrorMessageEditServiceRequestModel", resp.errorMessage, "danger");
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+}
